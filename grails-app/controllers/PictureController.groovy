@@ -1,6 +1,14 @@
 class PictureController {
 	def scaffold = true 
 	
+	def list = {
+	        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+	        if(params.folderid == null) {
+	        	redirect(controller:'folder')
+	        }
+	        [pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=?", new Long(params.folderid)), pictureInstanceTotal: Picture.count() ]
+	}
+	          
 	def beforeInterceptor = [action:this.&checkUser,except:
 	['index','list','show']]
 	def checkUser() {

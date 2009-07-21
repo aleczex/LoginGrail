@@ -62,9 +62,8 @@
 <title>Galeria</title>
 <link rel="stylesheet" type="text/css" href="../freecss/style.css"/>
 </head>
-
 <body>
-       <div class="body">
+       <!--<div class="body">
             <h1>Picture List</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -108,18 +107,17 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-      <div class="center">
-         <g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
-               <h3>${params.folderid}</h3>
-                <g:set var="folder" value="${pictureInstance.folder}" />
-                <h2>${folder.id}</h2> 
-             <g:if test="${folder.id == params.folderid}">
-                 <img width="200" src="/LoginGrail/images/${fieldValue(bean:pictureInstance, field:'filename')}" alt="${fieldValue(bean:pictureInstance, field:'caption')}" />
-             </g:if>
-         </g:each>
-      </div>
-      <div class="clear"></div>
+        </div>-->
+<div class="center">
+<h3>${Folder.get(params.folderid).name}</h3>
+<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
+	<img width="320" class="image"
+		src="/LoginGrail/images/${fieldValue(bean:pictureInstance, field:'filename')}"
+		alt="${fieldValue(bean:pictureInstance, field:'caption')}" />
+	<p>${fieldValue(bean:pictureInstance, field:'caption')}</p>
+</g:each></div>
+
+<div class="clear"></div>
   </div>
   <div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
   </div>
