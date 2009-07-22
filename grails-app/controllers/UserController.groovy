@@ -9,8 +9,8 @@ class UserController {
 		def user = User.findWhere(email:params['email'],
 		password:params['password'])
 		session.user = user
-		if (user)
-		redirect(controller:'news',action:'create')
+		if (!user)
+		redirect(controller:flash.controller,action:flash.action)
 		else
 		redirect(controller:'user',action:'login')
 	}
@@ -19,6 +19,7 @@ class UserController {
 		session.user = null
 		redirect(controller:'user',action:'login')
 	}
+	
 	List newsy
 	def news = {
 		newsy = News.findAll()

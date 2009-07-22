@@ -21,7 +21,7 @@
 	<td><img width="320" class="image"
 		src="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"
 		alt="${fieldValue(bean:pictureInstance, field:'caption')}" />
-	<p>${fieldValue(bean:pictureInstance, field:'caption')}</p></td>
+	<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded})</p></td>
 	</tr>
 </g:each></div>
 </tbody>

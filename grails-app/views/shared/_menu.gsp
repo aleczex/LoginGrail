@@ -6,4 +6,3 @@
 	   <span class="menuButton"><g:link class="list" controller="user" action="doLogin">Login</g:link></span>
     </g:else>
 
-
