@@ -2,13 +2,19 @@ class PictureController {
 	def scaffold = true 
 	
 	def list = {
-	        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-	        if(params.folderid == null) {
-	        	redirect(controller:'folder')
-	        }
-	        [pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=?", new Long(params.folderid)), pictureInstanceTotal: Picture.count() ]
+		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+		
+		def folderInstance = Folder.get( params.id )
+		
+		if(!folderInstance) {
+			flash.message = "Folder not found with id ${params.id}"
+			redirect(controller:'folder')
+		}
+		else {
+			[folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=?", folderInstance.id), pictureInstanceTotal: Picture.count() ]
+		}
 	}
-	          
+	
 	def beforeInterceptor = [action:this.&checkUser,except:
 	['index','list','show']]
 	def checkUser() {
@@ -19,6 +25,7 @@ class PictureController {
 	}
 	def save = {
 		def f = request.getFile('myFile')
+		def basePath = grailsAttributes.getApplicationContext().getResource("/images/upload/").getFile().toString()
 
 		if(!f.empty) {
 			if(params.caption.empty) {
@@ -28,10 +35,10 @@ class PictureController {
 			}
 			def p = new Picture(params)
 			p.filename = "fake"
-            p.save(flush:true)
+			p.save(flush:true)
 			p.filename = session.user.email + "_"+ p.id + ".jpg"
-            p.save()
-            f.transferTo( new File('D:\\workspace\\LoginGrails\\web-app\\images\\'+p.filename) )
+			p.save()
+			f.transferTo( new File(basePath+'/'+p.filename) )
 			redirect(action:'list')
 		} else {
 			flash.message = 'file cannot be empty'
@@ -41,12 +48,27 @@ class PictureController {
 	}
 	
 	def delete = {
+		def basePath = grailsAttributes.getApplicationContext().getResource("/images/upload/").getFile().toString()
 		def p = Picture.get(params.id)	
-		def f = new File('D:\\workspace\\LoginGrails\\web-app\\images\\' + p.filename)
+		def f = new File(basePath +'/'+ p.filename)
 		if(f) {
 			f.delete()
 			p.delete()
 			redirect(action:'list')
 		}
+	}
+	
+    def create = {
+			def folderInstance = Folder.get( params.id )
+	        def pictureInstance = new Picture()
+	        pictureInstance.properties = params
+			if(!folderInstance) {
+				flash.message = "Folder not found with id ${params.id}"
+				redirect(action:'list')
+			}
+			else {
+		        return [folderInstance: folderInstance, 'pictureInstance':pictureInstance]
+			}
+			
 	}
 }

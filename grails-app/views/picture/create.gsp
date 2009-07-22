@@ -51,14 +51,16 @@
                                     <g:datePicker name="dateAdded" value="${pictureInstance?.dateAdded}" precision="minute" ></g:datePicker>
                                 </td>
                             </tr> 
-                        
+                            
+                                                    
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td valign="top" class="name" class="value ${hasErrors(bean:pictureInstance,field:'folder','errors')}>
                                     <label for="folder">Folder:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'folder','errors')}">
-                                    <g:select optionKey="id" from="${Folder.list()}" name="folder.id" value="${pictureInstance?.folder?.id}" ></g:select>
-                                </td>
+                                <td valign="top" class="name">
+                                	<label for="folder">${folderInstance.name}</label>
+								</td>                                
+								<input type="hidden" id="folder.id" name="folder.id" value="${folderInstance.id}"/>                                    
                             </tr> 
                         
                         
