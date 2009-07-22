@@ -71,29 +71,7 @@
 This is yet another free release from www.freecss.info.  If you downloaded it from a site other than www.freecss.info or www.webmaster-files.com please email me at info@freecss.info.     
  </div>
       <div class="rightcolumn">
-        <h3>Nowa wiadomosc</h3>
-          <p> Na razie jeszcze nic nowego tutaj nie ma :)</p>
-        <div class="body">
-            <div class="list">
-                <table>
-                    <thead>
-                        <tr>
-                            <g:sortableColumn property="dateCreated" title="Date Created" />
-                            <g:sortableColumn property="description" title="Description" />
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${newsInstanceList}" status="i" var="newsInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td>${fieldValue(bean:newsInstance, field:'dateCreated')}</td>
-                            <td>${fieldValue(bean:newsInstance, field:'description')}</td>
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
+	      <iframe class="clear" width="300" height="200" name="auto" src="news/list" scrolling="no" frameborder="0"/>
       </div>
       <div class="clear"></div>
   </div>
