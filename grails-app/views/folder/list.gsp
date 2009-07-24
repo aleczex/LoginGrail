@@ -1,36 +1,30 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Galeria</title>
-<link rel="stylesheet" type="text/css" href="../freecss/style.css"/>
-</head>
-
-<body>
-        <div class="nav">
-            <g:render template="/shared/menu" />
-            <g:if test="${session.user != null}">
-                <span class="menuButton"><g:link class="create" action="create">New Folder</g:link></span>
-            </g:if>
-        </div>
-      <div class="center">
-        <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-        </g:if>
-        <table>
-        	<tbody>
-	        <g:each in="${folderInstanceList}" status="i" var="folderInstance">
-	        <tr>
-    	        <g:if test="${session.user != null}">
-    	        	<td><g:link action="show" id="${folderInstance.id}">Edit</g:link></td>
-    	        </g:if>
-    	        <td><g:link controller="picture" action="list" id="${folderInstance.id}"><h3>${fieldValue(bean:folderInstance, field:'name')}</h3></g:link></td>
-			</tr>    	        
-	        </g:each>
-	        <tbody>
-	    </table>
-      </div>
-      <div class="clear"></div>
-  </div>
-  <div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
-  </div>
-</div>
-</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Foldery</title>
+		<link rel="stylesheet" type="text/css" href="../freecss/style.css"/>
+	</head>
+	<body>
+		<div class="nav">
+			<g:render template="/shared/menu" />
+			<g:if test="${session.user != null}">
+				<span class="menuButton"><g:link class="create" action="create">Nowy folder</g:link></span>
+			</g:if>
+		</div>
+		<div class="center">
+			<g:if test="${flash.message}">
+				<div class="message">${flash.message}</div>
+			</g:if>
+        
+			<g:each in="${folderInstanceList}" status="i" var="folderInstance">
+				<g:if test="${session.user != null}">
+					<g:link action="show" id="${folderInstance.id}">Edytuj</g:link>
+				</g:if>
+				<g:link controller="picture" action="list" id="${folderInstance.id}"><h3>${fieldValue(bean:folderInstance, field:'name')}</h3></g:link>
+			</g:each>
+		</div>
+		<div class="clear"/>
+		<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
+	</body>
 </html>
