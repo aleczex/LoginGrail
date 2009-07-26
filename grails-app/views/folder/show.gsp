@@ -1,17 +1,19 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="layout" content="main" />
-        <title>Show Folder</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Pokaz folder</title>
+        <link rel="stylesheet" type="text/css" href="../../freecss/style.css"/>
     </head>
     <body>
-        <div class="nav">
+    <div id="main">
+        <div id="wrapper">
             <g:render template="/shared/menu" />
-            <span class="menuButton"><g:link class="list" action="list">Folder List</g:link></span>
+            <li><g:link class="list" action="list">Lista folderow</g:link></li>
             <g:if test="${session.user != null}">
-                <span class="menuButton"><g:link class="create" action="create">New Folder</g:link></span>
+                <li><g:link class="create" action="create">New Folder</g:link></li>
             </g:if>
-        </div>
+            <g:render template="/shared/menuend" />
         <div class="body">
             <h1>Show Folder</h1>
             <g:if test="${flash.message}">

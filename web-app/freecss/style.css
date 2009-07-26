@@ -29,10 +29,10 @@ width:100%;
 .logo{
 padding-top:20px;
 font-family:Verdana, Arial, Helvetica, sans-serif;
-width:300px;
-font-size:30pt;
+width:250px;
+font-size:25pt;
 color:#CBC2AE;
-padding-left:50px;
+padding-left:10px;
 float:left;
 }
 a.logo:link{
@@ -82,7 +82,7 @@ float:right;
 height:36px;
 text-align:center;
 float:right;
-width:400px;
+width:500px;
 }
 .style1 {color: #794f1d}
 .style2 {color: #bfb59d}
@@ -214,6 +214,18 @@ font-size: 12px;
 text-align: center;
 }
 
+#shortnews
+{
+width: 100%;
+background:#FAF7F0 url(images/bgtop_02.gif) top repeat-x;
+margin: 0px 0px 0px 0px;
+text-align: center;
+padding-top:10px;
+padding-bottom:50px;
+padding-right:0px;
+padding-left:0px;
+}
+	
 ul#navvylist
 {
 text-align: left;

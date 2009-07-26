@@ -10,9 +10,9 @@ class UserController {
 		password:params['password'])
 		session.user = user
 		if (!user)
-		redirect(action:'login')
+		redirect(controller:'user', action:'login')
 		else
-		redirect(action:'list')
+		redirect(controller:'user', action:'login')
 	}
 	
 	def doLogout = {
