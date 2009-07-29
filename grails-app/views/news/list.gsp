@@ -20,21 +20,15 @@
 		                    <div class="message">${flash.message}</div>
 		               </g:if>
 		                <table>
-		                    <thead>
-		                        <tr>
-		                   	        <g:sortableColumn property="id" title="Id" />
-		                   	        <g:sortableColumn property="dateCreated" title="Date Created" />
-		                   	        <g:sortableColumn property="description" title="Description" />
-		                   	        <th>User</th>
-		                        </tr>
-		                    </thead>
 		                    <tbody>
 		                    <g:each in="${newsInstanceList}" status="i" var="newsInstance">
 		                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-		                            <td><g:link action="show" id="${newsInstance.id}">${fieldValue(bean:newsInstance, field:'id')}</g:link></td>
+									<g:if test="${session.user != null}">
+										<td><g:link action="show" id="${newsInstance.id}">Edytuj</g:link></td>
+									</g:if>
 		                            <td>${fieldValue(bean:newsInstance, field:'dateCreated')}</td>
 		                            <td>${fieldValue(bean:newsInstance, field:'description')}</td>
-		                            <td>${fieldValue(bean:newsInstance, field:'user')}</td>
+		                            <td>${fieldValue(bean:newsInstance, field:'user.nick')}</td>
 		                        </tr>
 		                    </g:each>
 		                    </tbody>

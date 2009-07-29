@@ -9,25 +9,24 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-            <li><g:link class="list" action="list">Lista folderow</g:link></li>
             <g:if test="${session.user != null}">
-                <li><g:link class="create" action="create">New User</g:link></li>
+                <li><g:link class="create" action="create">Nowy uzytkownik</g:link></li>
             </g:if>
             <g:render template="/shared/menuend" />
             <div class="body">
 			<g:form action="doLogin" method="post">
 				<div class="dialog">
-				<p>Enter your login details below:</p>
+				<p>Wpisz nazwe uzytkownika (Twoj adres email) i haslo:</p>
 				<table class="userForm">
 					<tr class='prop'>
 						<td valign='top' style='text-align: left;' width='20%'><label
-							for='email'>Email:</label></td>
+							for='email'>Adres email:</label></td>
 						<td valign='top' style='text-align: left;' width='80%'><input
 							id="email" type='text' name='email' value='${user?.email}' /></td>
 					</tr>
 					<tr class='prop'>
 						<td valign='top' style='text-align: left;' width='20%'><label
-							for='password'>Password:</label></td>
+							for='password'>Haslo:</label></td>
 						<td valign='top' style='text-align: left;' width='80%'><input
 							id="password" type='password' name='password'
 							value='${user?.password}' /></td>
@@ -37,6 +36,6 @@
 				<div class="buttons"><span class="formButton"> <input
 					type="submit" value="Login"></input> </span></div>
 			</g:form> 
-</div>
-</body>
+		</div>
+	</body>
 </html>

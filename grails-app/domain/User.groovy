@@ -1,5 +1,6 @@
 class User {
 	Long id
+	String nick
 	String email
 	String password
 	SortedSet newsy
@@ -9,6 +10,7 @@ class User {
 	String toString() { "$email"
 	}
 	def static constraints = {
+		nick(blank:false)
 		email(email:true)
 		password(blank:false, password:true)
 	}

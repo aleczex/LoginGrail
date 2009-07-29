@@ -44,16 +44,15 @@
                                     <input type="text" id="description" name="description" value="${fieldValue(bean:newsInstance,field:'description')}"/>
                                 </td>
                             </tr> 
-                        
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td valign="top" class="name" class="value ${hasErrors(bean:newsInstance,field:'user','errors')}>
                                     <label for="user">User:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:newsInstance,field:'user','errors')}">
-                                    <g:select optionKey="id" from="${User.list()}" name="user.id" value="${newsInstance?.user?.id}" ></g:select>
-                                </td>
-                            </tr> 
-                        
+                                <td valign="top" class="name">
+                                	<label for="user">${session.user.nick}</label>
+								</td>                                
+								<input type="hidden" id="user.id" name="user.id" value="${session.user.id}"/>                                    
+                            </tr>                         
                         </tbody>
                     </table>
                 </div>

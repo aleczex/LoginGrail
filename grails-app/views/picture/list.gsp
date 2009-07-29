@@ -26,7 +26,7 @@
 							<img width="320" class="image"
 								src="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"
 								alt="${fieldValue(bean:pictureInstance, field:'caption')}" />
-							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded})</p>
+							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded} [${pictureInstance.user.nick}])</p>
 						</g:each>
 	            		<div class="clear"/>
 	                </div>

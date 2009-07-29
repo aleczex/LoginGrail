@@ -26,7 +26,15 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="nick">Nick:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:userInstance,field:'nick','errors')}">
+                                    <input type="text" id="nick" name="nick" value="${fieldValue(bean:userInstance,field:'nick')}"/>
+                                </td>
+                            </tr> 
+                                                    
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="email">Email:</label>

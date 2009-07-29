@@ -4,14 +4,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Edit User</title>
+        <title>Edycja uzytkownika</title>
     </head>
     <body>
         <div class="nav">
             <g:render template="/shared/menu" />
-            <span class="menuButton"><g:link class="list" action="list">User List</g:link></span>
+            <span class="menuButton"><g:link class="list" action="list">Lista uzytkownikow</g:link></span>
             <g:if test="${session.user != null}">
-                <span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
+                <span class="menuButton"><g:link class="create" action="create">Nowy uzytkownik</g:link></span>
             </g:if>
         </div>
         <div class="body">
@@ -26,10 +26,18 @@
             </g:hasErrors>
             <g:form method="post" >
                 <input type="hidden" name="id" value="${userInstance?.id}" />
-                <input type="hidden" name="version" value="${userInstance?.version}" />
                 <div class="dialog">
                     <table>
                         <tbody>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="nick">Nick:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:userInstance,field:'nick','errors')}">
+                                    <input type="text" id="nick" name="nick" value="${fieldValue(bean:userInstance,field:'nick')}"/>
+                                </td>
+                            </tr> 
                         
                             <tr class="prop">
                                 <td valign="top" class="name">

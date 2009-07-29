@@ -8,7 +8,7 @@
         <div id="shortnews">
             <g:each in="${newsInstanceList}" var="newsInstance">
                 <p>Dodano: ${fieldValue(bean:newsInstance, field:'dateCreated')}
-                    [${fieldValue(bean:newsInstance, field:'user')}]<br/>
+                    [${fieldValue(bean:newsInstance, field:'user.nick')}]<br/>
                     <h4>${fieldValue(bean:newsInstance, field:'description')}</h4></p>
             </g:each>
         </div>

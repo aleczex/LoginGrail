@@ -1,6 +1,16 @@
 class PictureController {
 	def scaffold = true 
-	
+
+	def beforeInterceptor = [action:this.&checkUser,except:
+		['index','list']]
+
+	def checkUser() {
+		if(!session.user) {
+			redirect(controller:'user',action:'login')
+			return false
+		}
+	}
+
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		
@@ -15,14 +25,6 @@ class PictureController {
 		}
 	}
 	
-	def beforeInterceptor = [action:this.&checkUser,except:
-	['index','list','show']]
-	def checkUser() {
-		if(!session.user) {
-			redirect(controller:'user',action:'login')
-			return false
-		}
-	}
 	def save = {
 		def f = request.getFile('myFile')
 		def basePath = grailsAttributes.getApplicationContext().getResource("/images/upload/").getFile().toString()

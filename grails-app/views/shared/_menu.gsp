@@ -3,7 +3,7 @@
                 <div id="top">
                     <div id="user">
                         <g:if test="${session.user != null}">
-                            Witaj ${session.user}.
+                            Witaj ${session.user.nick}.
                         </g:if>
                         Ostatnia aktualizacja: 10-07-2009
                     </div>
@@ -17,6 +17,6 @@
                                     <li><g:link class="list" controller="user" action="doLogout">Wyloguj</g:link></li>
                                 </g:if> 
                                 <g:else>
-                                    <li><g:link class="list" controller="user" action="doLogin">Zaloguj</g:link></li>
+                                    <li><g:link class="list" controller="user" action="login">Zaloguj</g:link></li>
                                 </g:else>
                             

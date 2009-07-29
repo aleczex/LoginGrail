@@ -1,10 +1,22 @@
 class UserController {
-	def login = {
-	}
+
 	def defaultAction = "edit"
 	
 	def scaffold = true
 	
+	def login = {
+	}
+	
+	def beforeInterceptor = [action:this.&checkUser,except:
+		['login', 'doLogin']]
+	
+	def checkUser() {
+		if(!session.user) {
+			redirect(controller:'user',action:'login')
+			return false
+		}
+	}
+
 	def doLogin = {
 		def user = User.findWhere(email:params['email'],
 		password:params['password'])
@@ -12,16 +24,11 @@ class UserController {
 		if (!user)
 		redirect(controller:'user', action:'login')
 		else
-		redirect(controller:'user', action:'login')
+		redirect(uri:'/')
 	}
 	
 	def doLogout = {
 		session.user = null
-		redirect(controller:'user',action:'login')
-	}
-	
-	List newsy
-	def news = {
-		newsy = News.findAll()
+		redirect(uri:'/')
 	}
 }
