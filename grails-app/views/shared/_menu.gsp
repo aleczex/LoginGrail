@@ -5,7 +5,7 @@
                         <g:if test="${session.user != null}">
                             Witaj ${session.user.nick}.
                         </g:if>
-                        Ostatnia aktualizacja: 10-07-2009
+                        Ostatnia aktualizacja: 30-07-2009
                     </div>
                     <div id="nav">
                         <div id="navcontainer">
