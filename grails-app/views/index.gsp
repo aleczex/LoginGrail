@@ -15,8 +15,8 @@
             <g:render template="/shared/menuend" />
 			<div id="bannerbg">
 				<div id="banner">
-					<h1>Krotki opis co to ma byc</h1>
-					<div class="leftcontent">Budujemy Zurawinke 2 odbicie lustrzane</div>
+					<h1>Nowosci na stronie</h1>
+					<div class="leftcontent">Dodane powiekszanie zdjec. <br/>Newsy wyswietlane od najnowszego do najstarszego.</div>
 					<div class="rightcontent"><img src="freecss/logo.jpg" alt="woodland" width="200" class="image" /></div>
 					<div class="clear"></div>
 				</div>
@@ -37,7 +37,7 @@
 This is yet another free release from www.freecss.info.  If you downloaded it from a site other than www.freecss.info or www.webmaster-files.com please email me at info@freecss.info.     
 				</div>
 				<div class="rightcolumn">
-                    <h2>Nowosci na stronie</h2>
+                    <h2>Co nowego?</h2>
                         <iframe id="shortnews" height="200" name="auto" src="news/shortlist" scrolling="no" frameborder="0">
                         </iframe>
 				</div>
