@@ -3,7 +3,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Galeria</title>
+		<script type="text/javascript" src="../../highslide/highslide.js"></script>
+		<script type="text/javascript" src="../../highslide/highslide.config.js" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="../../freecss/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../highslide/highslide.css"/>
 	</head>
 	<body>
 	    <div id="main">
@@ -23,9 +26,11 @@
 							<g:if test="${session.user != null}">
 								<g:link action="show" id="${pictureInstance.id}">Edytuj</g:link>
 							</g:if>
-							<img width="320" class="image"
-								src="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"
-								alt="${fieldValue(bean:pictureInstance, field:'caption')}" />
+							<a href="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}" class="highslide" onclick="return hs.expand(this)"
+									title="${fieldValue(bean:pictureInstance, field:'caption')}" style="float:right; margin: 0 0 10px 15px">
+								<img class="image" src="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"  alt=""
+									style="width: 320px;" />
+							</a>
 							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded} [${pictureInstance.user.nick}])</p>
 						</g:each>
 	            		<div class="clear"/>
@@ -36,6 +41,3 @@
 	    </div>
 	</body>
 </html>
-
-
-
