@@ -10,7 +10,7 @@ hs.lang = {
 	focusTitle: 'Kliknij, aby przenieść na wierzch',
 	fullExpandTitle: 'Rozszerz do pełnego rozmiaru',
 	creditsText: 'Korzysta z <i>Highslide JS</i>',
-	creditsTitle: 'Przejdźdo strony domowej Highslide JS',
+	creditsTitle: 'Przejdź do strony domowej Highslide JS',
 	previousText: 'Wstecz',
 	nextText: 'Dalej',
 	moveText: 'Przesuń„
