@@ -13,6 +13,6 @@ class NewsController {
 	
 	def shortlist = {
 		params.max = 3
-		return [ newsInstanceList: News.list( params ), newsInstanceTotal: News.count() ]
+		return [ newsInstanceList: News.findAll( "from News as n order by n.dateCreated desc",[max:3]), newsInstanceTotal: News.count() ]
 	}
 }
