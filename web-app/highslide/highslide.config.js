@@ -26,5 +26,5 @@ hs.lang = {
 	moveTitle: 'Przesuń',
 	fullExpandText: 'Pełny rozmiar',
 	number: 'Image %1 of %2',
-	restoreTitle: 'Kliknij, aby zamknąć obrazek; kliknij i przeciąg, aby przesunąć. Użyj klawiszy strzałek, aby przesunąć dalej lub wstecz.'
+	restoreTitle: 'Kliknij, aby zamknąć obrazek; kliknij i przeciągnij, aby przesunąć. Użyj klawiszy strzałek, aby przesunąć dalej lub wstecz.'
 }

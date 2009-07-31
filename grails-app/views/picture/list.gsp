@@ -9,35 +9,33 @@
 		<link rel="stylesheet" type="text/css" href="../../highslide/highslide.css"/>
 	</head>
 	<body>
-	    <div id="main">
-	        <div id="wrapper">
-	        	<g:render template="/shared/menu" />
+		<div id="main">
+			<div id="wrapper">
+				<g:render template="/shared/menu" />
 				<g:if test="${session.user != null}">
-	            	<li><g:link class="create" action="create" id="${folderInstance.id}">Nowy obrazek</g:link></li>
+					<li><g:link class="create" action="create" id="${folderInstance.id}">Nowy obrazek</g:link></li>
 				</g:if>
-	            <g:render template="/shared/menuend" />
-	
-	            <div id="bannerbg">
-	                <div id="banner">
-						<h1>${folderInstance.name}</h1>
-                        <div class="contentmain">
-<div class="leftcolumn">
-						<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
+				<g:render template="/shared/menuend" />
+				<div id="imagelist">
+				    <div id="folder">
+						<a href="javascript:back()"><h1>${folderInstance.name}</h1></a>
+					</div>
+					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
+						<div id="imageframe">
 							<g:if test="${session.user != null}">
 								<g:link action="show" id="${pictureInstance.id}">Edytuj</g:link>
 							</g:if>
 							<a href="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}" class="highslide" onclick="return hs.expand(this)"
-									title="${fieldValue(bean:pictureInstance, field:'caption')}" style="float:right; margin: 0 0 10px 15px">
-								<img class="image" src="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"  alt=""
-									style="width: 320px;" />
+									title="${fieldValue(bean:pictureInstance, field:'caption')}" >
+								<img src="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"  alt=""
+									width="320" />
 							</a>
 							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded} [${pictureInstance.user.nick}])</p>
-						</g:each>
-	            		<div class="clear"/>
-	                </div>
-	                <div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
-	            </div>
-	        </div>
-	    </div>
+						</div>
+					</g:each>
+    		    </div>
+				<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
+			</div>
+		</div>			
 	</body>
 </html>

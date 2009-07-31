@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Ania i Alek buduja Zurawinke 2</title>
+		<title>Ania i Alek budują Żurawinkę 2</title>
 		<link rel="stylesheet" type="text/css" href="freecss/style.css"/>
 	</head>
 	<body>
@@ -10,20 +10,20 @@
 		<div id="wrapper">
             <g:render template="/shared/menu" />
             <g:if test="${session.user != null}">
-                <li><g:link class="list" controller="user" action="list">Lista uzytkownikow</g:link></li>
+                <li><g:link class="list" controller="user" action="list">Lista użytkowników</g:link></li>
             </g:if> 
             <g:render template="/shared/menuend" />
 			<div id="bannerbg">
 				<div id="banner">
-					<h1>Nowosci na stronie</h1>
-					<div class="leftcontent">Dodane powiekszanie zdjec. <br/>Newsy wyswietlane od najnowszego do najstarszego.</div>
-					<div class="rightcontent"><img src="freecss/logo.jpg" alt="woodland" width="200" class="image" /></div>
+					<h1>Nowości na stronie</h1>
+					<div class="leftcontent">Dodane powiększanie zdjęć. <br/>Newsy wyświetlane są teraz od najnowszego do najstarszego.<br/>Polskie literki w menu.<br/>Wreszcie style poprawione :-)</div>
+					<div class="rightcontent"><img src="freecss/logo.jpg" alt="obrazek" width="200" class="image" /></div>
 					<div class="clear"></div>
 				</div>
 			</div>
 			<div class="contentmain">
 				<div class="leftcolumn">
-					<h2>Na skroty </h2>
+					<h2>Na skróty:</h2>
 					<div id="navvy">
 						<ul id="navvylist">
 							<li><a href="#">Home</a></li>
@@ -38,10 +38,9 @@ This is yet another free release from www.freecss.info.  If you downloaded it fr
 				</div>
 				<div class="rightcolumn">
                     <h2>Co nowego?</h2>
-                        <iframe id="shortnews" height="200" name="auto" src="news/shortlist" scrolling="no" frameborder="0">
-                        </iframe>
+                    <iframe id="shortnews" src="news/shortlist" scrolling="no" frameborder="0"></iframe>
 				</div>
-                    <div class="clear"></div>
+				<div class="clear"></div>
 			</div>
 			<div id="footer"><a href="http://www.freecss.info">Free CSS Templates</a></div>
 		</div>

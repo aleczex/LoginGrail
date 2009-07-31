@@ -13,22 +13,20 @@
 				<li><g:link class="create" action="create">Nowy folder</g:link></li>
 			</g:if>
             <g:render template="/shared/menuend" />
-			<div id="bannerbg">
-			    <div id="banner">
-					<g:if test="${flash.message}">
-						<div class="message">${flash.message}</div>
+			<div id="folder">
+				<g:if test="${flash.message}">
+					<div class="message">${flash.message}</div>
+				</g:if>
+        
+				<g:each in="${folderInstanceList}" status="i" var="folderInstance">
+					<g:if test="${session.user != null}">
+						<g:link action="show" id="${folderInstance.id}">Edytuj</g:link>
 					</g:if>
-	        
-					<g:each in="${folderInstanceList}" status="i" var="folderInstance">
-						<g:if test="${session.user != null}">
-							<g:link action="show" id="${folderInstance.id}">Edytuj</g:link>
-						</g:if>
-						<g:link controller="picture" action="list" id="${folderInstance.id}"><h1>${fieldValue(bean:folderInstance, field:'name')}</h1></g:link>
-					</g:each>
-				</div>
-				<div class="clear"/>
-				<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
-            </div>
+					<g:link controller="picture" action="list" id="${folderInstance.id}"><h1>${fieldValue(bean:folderInstance, field:'name')}</h1></g:link>
+				</g:each>
+			</div>
+			<div class="clear"/>
+			<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
         </div>
 	</body>
 </html>

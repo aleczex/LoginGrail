@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="../freecss/style.css" />
     </head>
-    <body>
+    <body class="dd">
         <div id="shortnews">
             <g:each in="${newsInstanceList}" var="newsInstance">
                 <p><h4>${fieldValue(bean:newsInstance, field:'description')}</h4>
@@ -12,6 +12,6 @@
                     [${fieldValue(bean:newsInstance, field:'user.nick')}]<br/>
                     </p>
             </g:each>
-        </div>
+		</div>
     </body>
 </html>
