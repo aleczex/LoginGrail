@@ -199,16 +199,16 @@ margin-bottom:10px;
 }
 
 h4{
-font-size:17px;
+font-size:12px;
 font-family:Verdana, Arial, Helvetica, sans-serif;
-font-weight: normal;
+font-weight: bold;
+text-align: left;
 padding-bottom:4px;
 margin:0px;
 padding-left:40px;
 color:#000000;
 margin-bottom:10px;
 }
-
 
 .leftcontent{
 width:40%;
@@ -255,9 +255,11 @@ text-align: center;
 
 #shortnews
 {
+font-size: 10px;
 width: 100%;
-background:#FAF7F0 url(banner.jpg) top repeat;
-text-align: center;
+height: 250px;
+background:#FAF7F0 url(bgtop_02.gif) top repeat;
+text-align: left;
 float: top
 }
 	
