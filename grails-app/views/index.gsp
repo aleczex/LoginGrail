@@ -38,7 +38,9 @@ This is yet another free release from www.freecss.info.  If you downloaded it fr
 				</div>
 				<div class="rightcolumn">
                     <h2>Co nowego?</h2>
-                    <iframe id="shortnews" src="news/shortlist" scrolling="no" frameborder="0"></iframe>
+                    <object height="250" data="news/shortlist" type="text/html" width="100%">
+                        <a href="news/shortlist">ten dokument</a>
+                    </object>
 				</div>
 				<div class="clear"></div>
 			</div>
