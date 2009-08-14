@@ -5,8 +5,11 @@
 		<title>Galeria</title>
 		<script type="text/javascript" src="../../highslide/highslide.js"></script>
 		<script type="text/javascript" src="../../highslide/highslide.config.js" charset="utf-8"></script>
-		<link rel="stylesheet" type="text/css" href="../../freecss/style.css"/>
 		<link rel="stylesheet" type="text/css" href="../../highslide/highslide.css"/>
+		<!--[if lt IE 7]>
+    		<link rel="stylesheet" type="text/css" href="../../highslide/highslide-ie6.css" />
+		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="../../freecss/style.css"/>
 	</head>
 	<body>
 		<div id="main">
@@ -26,7 +29,7 @@
 								<g:link action="show" id="${pictureInstance.id}">Edytuj</g:link>
 							</g:if>
 							<a href="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}" class="highslide" onclick="return hs.expand(this)"
-									title="${fieldValue(bean:pictureInstance, field:'caption')}" >
+									title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
 								<img src="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"  alt=""
 									width="320" />
 							</a>
