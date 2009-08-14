@@ -1,5 +1,5 @@
 hs.graphicsDir = '../../highslide/graphics/';
-hs.outlineType = 'drop-shadow';
+hs.outlineType = null;
 hs.captionEval = 'this.a.title';
 
 // Polish language strings
@@ -13,7 +13,7 @@ hs.lang = {
 	creditsTitle: 'Przejdź do strony domowej Highslide JS',
 	previousText: 'Wstecz',
 	nextText: 'Dalej',
-	moveText: 'Przesuń„
+	moveText: 'Przesuń',
 	closeText: 'Zamknij',
 	closeTitle: 'Zamknij (esc)', 
 	resizeTitle: 'Zmień rozmiar',
@@ -28,3 +28,4 @@ hs.lang = {
 	number: 'Image %1 of %2',
 	restoreTitle: 'Kliknij, aby zamknąć obrazek; kliknij i przeciągnij, aby przesunąć. Użyj klawiszy strzałek, aby przesunąć dalej lub wstecz.'
 }
+
