@@ -260,7 +260,6 @@ width: 100%;
 height: 250px;
 background:#FAF7F0 url(bgtop_02.gif) top repeat;
 text-align: left;
-float: top
 }
 	
 ul#navvylist
@@ -336,21 +335,28 @@ a:active {
 	color: #794F1D;
 }
 
+
 .highslide-wrapper, .highslide-outline {
-	background: #FFFFFF;
+    background: #794F1D;
 }
 .highslide img {
-	border: 1px solid #D0D0D0;
+    border: 2px solid #D0D0D0;
 }
 .highslide:hover img {
-	border-color: #A0A0A0;
+    border-color: #A0A0A0;
 }
 .highslide-image {
-	border: 2px solid #FFFFFF;
+    border: 10px solid #794F1D;
+}
+.highslide-caption {
+    padding: 0px;
+    padding-right: 2px;
+    padding-bottom: 10px;
+    padding-left: 10px;
 }
 .highslide-loading {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	background-image: url(graphics/loader.white.gif);
+    color: black;
+    border: 1px solid black;
+    background-color: white;
+    background-image: url(../../highslide/graphics/loader.white.gif);
 }
