@@ -28,9 +28,9 @@
 							<g:if test="${session.user != null}">
 								<g:link action="show" id="${pictureInstance.id}">Edytuj</g:link>
 							</g:if>
-							<a href="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}" class="highslide" onclick="return hs.expand(this)"
+							<a href="/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}" class="highslide" onclick="return hs.expand(this)"
 									title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
-								<img src="/LoginGrail/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"  alt=""
+								<img src="/images/upload/${fieldValue(bean:pictureInstance, field:'filename')}"  alt=""
 									width="320" />
 							</a>
 							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded} [${pictureInstance.user.nick}])</p>
