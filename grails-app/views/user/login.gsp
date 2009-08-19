@@ -9,13 +9,13 @@
         <div id="wrapper">
             <g:render template="/shared/menu" />
             <g:if test="${session.user != null}">
-                <li><g:link class="create" action="create">Nowy uzytkownik</g:link></li>
+                <li><g:link class="create" action="create">Nowy użytkownik</g:link></li>
             </g:if>
             <g:render template="/shared/menuend" />
             <div class="body">
 			<g:form action="doLogin" method="post">
 				<div class="dialog">
-				<p>Wpisz nazwe uzytkownika (Twoj adres email) i haslo:</p>
+				<p>Wpisz nazwę użytkownika (Twój adres email) i hasło:</p>
 				<table class="userForm">
 					<tr class='prop'>
 						<td valign='top' style='text-align: left;' width='20%'><label

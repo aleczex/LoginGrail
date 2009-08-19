@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="smtpAuthenticator" class="br.com.interatus.mail.SmtpAuthenticator">
+		<constructor-arg value="your@username.com" />
+		<constructor-arg value="your.passwd" />
+	</bean>
+	<bean id="mailPropertiesBean" class="br.com.interatus.mail.MailPropertiesBean">
+		<property name="from" value="your@username.com" />
+	</bean>
+	<bean id="mailSession" class="javax.mail.Session" factory-method="getInstance">
+		<constructor-arg>
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<!--
+					If SSL needed… <prop key="mail.smtp.socketFactory.port">465</prop>
+					<prop key="mail.smtp.socketFactory.class">
+					javax.net.ssl.SSLSocketFactory </prop> <prop
+					key="mail.smtp.socketFactory.fallback"> false </prop>
+				-->
+			</props>
+		</constructor-arg>
+		<constructor-arg ref="smtpAuthenticator" />
+	</bean>
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="your.smtp.server.com" />
+		<property name="session" ref="mailSession" />
+	</bean>
+</beans>
