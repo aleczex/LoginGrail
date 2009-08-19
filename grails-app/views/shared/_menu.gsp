@@ -8,7 +8,7 @@
 		<div id="nav">
 			<div id="navcontainer">
 				<ul id="navlist">
-					<li><g:link controller="/" absolute="true">Start</g:link></li>
+					<li><a href="${grailsApplication.config.grails.serverURL}">Start</a></li>
 					<li><g:link controller="folder">Galeria</g:link></li>
 					<li><g:link controller="news">Dziennik budowy</g:link></li>
                             
