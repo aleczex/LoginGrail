@@ -2,6 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
         <meta name="layout" content="main" />
+        <g:javascript src="highslide/highslide.js" />
+        <g:javascript src="highslide/highslide.config.js" charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="${resource(dir:'js/highslide',file:'highslide.css')}" />
+        <!--[if lt IE 7]>
+	        <link rel="stylesheet" type="text/css" href="${resource(dir:'js/highslide',file:'highslide-ie6.css')}" />
+		<![endif]-->          
 		<title>Galeria</title>
 	</head>
 	<body>
