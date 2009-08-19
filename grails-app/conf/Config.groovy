@@ -39,7 +39,7 @@ environments {
 //        grails.serverURL = "http://localhost:8080/${appName}"
     }
     development {
-        grails.serverURL = "http://localhost:8080"
+        grails.serverURL = "http://localhost:8080/${appName}"
     }
     test {
         grails.serverURL = "http://localhost:8080/${appName}"
