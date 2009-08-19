@@ -2,6 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
         <meta name="layout" content="main" />
+        <g:javascript src="highslide/highslide.js" />
+        <g:javascript src="highslide/highslide.config.js" charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="${resource(dir:'js/highslide',file:'highslide.css')}" />
+        <!--[if lt IE 7]>
+            <link rel="stylesheet" type="text/css" href="${resource(dir:'js/highslide',file:'highslide-ie6.css')}" />
+        <![endif]-->  
 	</head>
 	<body>
 	<div id="main">
@@ -15,12 +21,17 @@
 				<div id="banner">
 					<h1>Nowości na stronie</h1>
 					<div class="leftcontent">Dodane powiększanie zdjęć. <br/>Newsy wyświetlane są teraz od najnowszego do najstarszego.<br/>Polskie literki w menu.<br/>Wreszcie style poprawione :-)</div>
-					<div class="rightcontent"><img src="freecss/logo.jpg" alt="obrazek" width="200" class="image" /></div>
+					<div class="rightcontent">
+                        <a href="${resource(dir:'images', file:'logo.jpg')}" class="image" onclick="return hs.expand(this)"
+                            title="Nasza Żurawinka 2 lustrzane odbicie - wizualizacja z Archon'u" style="margin: 0 0 10px 15px">
+                            <img src="${resource(dir:'images', file:'logo.jpg')}" alt="" width="200" onclick="return hs.expand(this)"/>
+                        </a>
+                    </div>
 					<div class="clear"></div>
 				</div>
 			</div>
 			<div class="contentmain">
-				<div class="leftcolumn">
+				<div class="leftcolumn"> 
 					<h2>Na skróty:</h2>
 					<div id="navvy">
 						<ul id="navvylist">

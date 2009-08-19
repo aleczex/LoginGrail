@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-	<bean id="smtpAuthenticator" class="br.com.interatus.mail.SmtpAuthenticator">
+	<bean id="smtpAuthenticator" class="com.alex.SmtpAuthenticator">
 		<constructor-arg value="your@username.com" />
 		<constructor-arg value="your.passwd" />
 	</bean>
-	<bean id="mailPropertiesBean" class="br.com.interatus.mail.MailPropertiesBean">
+	<bean id="mailPropertiesBean" class="com.alex.MailPropertiesBean">
 		<property name="from" value="your@username.com" />
 	</bean>
 	<bean id="mailSession" class="javax.mail.Session" factory-method="getInstance">

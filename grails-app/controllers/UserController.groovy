@@ -51,14 +51,14 @@ class UserController {
 		}
 
 	private sendNotificationEmail(String order) {
-		
-		File tplFile = grailsAttributes.getApplicationContext().getResource( File.separator + "WEB-INF" + File.separator + "orderNotification.gtpl").getFile(); 
+	
+		File tplFile = grailsAttributes.getApplicationContext().getResource( File.separator + "WEB-INF" + File.separator + "templates" + File.separator + "mail.gsp").getFile(); 
 		def binding = ["order": order] 
 		def engine = new SimpleTemplateEngine() 
 		def template = engine.createTemplate(tplFile).make(binding) 
 		def body = template.toString()
 		def email = [
-			to: [order.clientEmail], // "to" expects a List
+			to: ['aleksander.pena@gmail.com'], // "to" expects a List
 			subject: "Your Order #${order.number}",
 			text: 	body
 		]
