@@ -27,6 +27,7 @@
 							<g:if test="${session.user != null}">
 								<g:link action="show" id="${pictureInstance.id}">Edytuj</g:link>
 							</g:if>
+							<g:link action="create" controller="comment" id="${pictureInstance.id}">Dodaj komentarz</g:link>
 							<g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
 							<g:set var="res" value="${resource(dir:'/images/upload')}" />
 							<a href="${res}/${path}" class="highslide" onclick="return hs.expand(this)"
@@ -34,6 +35,15 @@
 								<img src="${res}/${path}" alt="" width="320" />
 							</a>
 							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded} [${pictureInstance.user.nick}])</p>
+							<g:findAll in="${commentInstanceList}" expr="it.picture == pictureInstance">
+     							<p>Komentarz: ${it.description}</p>
+     							<g:if test="${it.user != null}">
+     								<p>Autor: ${it.user.nick}</p>
+     							</g:if>
+     							<g:else>
+     								<p>Autor: ~anonim</p>
+     							</g:else>
+							</g:findAll>
 						</div>
 					</g:each>
     		    </div>

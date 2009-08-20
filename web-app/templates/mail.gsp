@@ -10,17 +10,6 @@ Order Number:
 		<td><strong>Produto</strong></td>
 		<td><strong>Quantidade</strong></td>
 	</tr>
-	<% order.orderItems.each { %>
-	<tr>
-		<td>${it.name}</td>
-		<td>${it.quantity}</td>
-		<td>${it.price}</td>
-		<td>${it.price * it.quantity}</td>
-	</tr>
-	<% } %>
 </table>
-<p><strong>Sub-total:</strong> ${order.subTotal}<br />
-<strong>Shipping:</strong> ${order.shippingCost}<br />
-<strong>Total:</strong> ${order.subTotal + order.shippingCost}</p>
 </div>
 </body>

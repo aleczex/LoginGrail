@@ -36,21 +36,22 @@ class UserController {
 		redirect(uri:'/')
 	}
 	
-	def processOrder = {
-			if(session.cart){
-				session.cart.client = session.client
-				def order = mainService.processOrder(session.cart, params)
-				if(order){
-					flash.message = 'Order processed succesfully.'
-					if(sendNotificationEmail(order)) flash.mailSent = true
-					else flash.mailSent = false
-				}
-				chain(action:orderProcessed, model:[order:order])
-			}
-			else sessionExpired()
-		}
+//	def processOrder = {
+//			if(session.cart){
+//				session.cart.client = session.client
+//				def order = mainService.processOrder(session.cart, params)
+//				if(order){
+//					flash.message = 'Order processed succesfully.'
+//					if(sendNotificationEmail(order)) flash.mailSent = true
+//					else flash.mailSent = false
+//				}
+//				chain(action:orderProcessed, model:[order:order])
+//			}
+//			else sessionExpired()
+//		}
 
-	private sendNotificationEmail(String order) {
+	
+	private sendNotificationEmail(Order order) {
 	
 		File tplFile = grailsAttributes.getApplicationContext().getResource( File.separator + "WEB-INF" + File.separator + "templates" + File.separator + "mail.gsp").getFile(); 
 		def binding = ["order": order] 
@@ -70,5 +71,11 @@ class UserController {
 			return false 
 		} 
 		return true 
-	} 
+	}
+}
+
+class Order {
+	def number
+	def clientName
+	def ordered
 }

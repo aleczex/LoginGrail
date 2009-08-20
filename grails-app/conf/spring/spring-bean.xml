@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-<beans>
+<!--<beans>
 	<bean id="smtpAuthenticator" class="com.alex.SmtpAuthenticator">
-		<constructor-arg value="your@username.com" />
-		<constructor-arg value="your.passwd" />
+		<constructor-arg value="apena@wp.pl" />
+		<constructor-arg value="passwd" />
 	</bean>
 	<bean id="mailPropertiesBean" class="com.alex.MailPropertiesBean">
-		<property name="from" value="your@username.com" />
+		<property name="from" value="apena@wp.pl" />
 	</bean>
 	<bean id="mailSession" class="javax.mail.Session" factory-method="getInstance">
 		<constructor-arg>
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
-				<!--
+				
 					If SSL needed… <prop key="mail.smtp.socketFactory.port">465</prop>
 					<prop key="mail.smtp.socketFactory.class">
 					javax.net.ssl.SSLSocketFactory </prop> <prop
 					key="mail.smtp.socketFactory.fallback"> false </prop>
-				-->
+				
 			</props>
 		</constructor-arg>
 		<constructor-arg ref="smtpAuthenticator" />
@@ -26,4 +26,4 @@
 		<property name="host" value="your.smtp.server.com" />
 		<property name="session" ref="mailSession" />
 	</bean>
-</beans>
+</beans>-->

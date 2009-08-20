@@ -1,5 +1,5 @@
-package com.alex;
-/** * Helper bean for setting From address and easy config with Spring. */
+/*package com.alex;
+// * * Helper bean for setting From address and easy config with Spring. /
 public class MailPropertiesBean {
 	private String from;
 
@@ -12,3 +12,4 @@ public class MailPropertiesBean {
 	}
 
 }
+*/

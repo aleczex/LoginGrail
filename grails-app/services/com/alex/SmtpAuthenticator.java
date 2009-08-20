@@ -1,4 +1,4 @@
-package com.alex;
+/*package com.alex;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
@@ -15,4 +15,4 @@ public class SmtpAuthenticator extends Authenticator {
 	public PasswordAuthentication getPasswordAuthentication() {
 		return new PasswordAuthentication(username, password);
 	}
-}
+}*/

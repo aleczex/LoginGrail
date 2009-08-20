@@ -1,4 +1,4 @@
-import org.apache.log4j.Logger;
+/*import org.apache.log4j.Logger;
 import org.springframework.mail.MailException 
 import org.springframework.mail.MailSender 
 import org.springframework.mail.javamail.MimeMessageHelper
@@ -6,9 +6,9 @@ import javax.mail.internet.MimeMessage
 import javax.mail.internet.InternetAddress;
 import com.alex.MailPropertiesBean;
 
-/**
- * Service for sending emails.
- */
+
+ // Service for sending emails.
+ 
 class EmailerService {
 	boolean transactional = false
 	MailSender mailSender
@@ -42,3 +42,4 @@ class EmailerService {
 	
 }
 
+*/
