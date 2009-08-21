@@ -1,7 +1,7 @@
 <div id="header">
 	<div id="user">
 		<g:if test="${session.user != null}">Witaj ${session.user.nick}.</g:if>
-			Ostatnia aktualizacja: 18-08-2009
+			Ostatnia aktualizacja: 21-08-2009
 	</div>
 	<div class="logo"><a href="#" class="logo"><span>Nasz</span>Domek</a></div>
 	<div id="top">

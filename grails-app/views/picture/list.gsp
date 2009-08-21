@@ -20,14 +20,15 @@
 				<g:render template="/shared/menuend" />
 				<div id="imagelist">
 				    <div id="folder">
-						<a href="javascript:back()"><h1>${folderInstance.name}</h1></a>
+				    	<g:link controller="folder" action="list"><h1>${folderInstance.name}</h1></g:link>
 					</div>
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
 						<div id="imageframe">
 							<g:if test="${session.user != null}">
 								<g:link action="show" id="${pictureInstance.id}">Edytuj</g:link>
 							</g:if>
-							<g:link action="create" controller="comment" id="${pictureInstance.id}">Dodaj komentarz</g:link>
+							
+							
 							<g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
 							<g:set var="res" value="${resource(dir:'/images/upload')}" />
 							<a href="${res}/${path}" class="highslide" onclick="return hs.expand(this)"
@@ -35,16 +36,16 @@
 								<img src="${res}/${path}" alt="" width="320" />
 							</a>
 							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded} [${pictureInstance.user.nick}])</p>
+						</div>
+						<div id="commentframe">
+							<g:link action="create" controller="comment" params="[id: pictureInstance.id, folderid: folderInstance.id]">Skomentuj</g:link>
 							<g:findAll in="${commentInstanceList}" expr="it.picture == pictureInstance">
-     							<p>Komentarz: ${it.description}</p>
-     							<g:if test="${it.user != null}">
-     								<p>Autor: ${it.user.nick}</p>
-     							</g:if>
-     							<g:else>
-     								<p>Autor: ~anonim</p>
-     							</g:else>
+     							<p>${it.description} 
+     							<g:if test="${it.user != null}">/${it.user.nick}</g:if>
+     							<g:else>/~anonim</g:else></p>
 							</g:findAll>
 						</div>
+						<div class="clear"></div>
 					</g:each>
     		    </div>
 				<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>

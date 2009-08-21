@@ -4,12 +4,13 @@
         <title>Create Picture</title>         
     </head>
     <body>
-        <div class="nav">
-            <g:render template="/shared/menu" />
-            <span class="menuButton"><g:link class="list" action="list">Picture List</g:link></span>
-        </div>
+	    <div id="main">
+	        <div id="wrapper">
+	            <g:render template="/shared/menu" />
+	            <li><g:link class="list" action="list">Lista obrazków</g:link></li>
+	            <g:render template="/shared/menuend" />
         <div class="body">
-            <h1>Create Picture</h1>
+            <h1>Dodaj obrazek</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -30,7 +31,6 @@
                                     <input type="file" id="myFile" name="myFile" />
                                 </td>
                             </tr>
-                            
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="caption">Caption:</label>
@@ -39,7 +39,6 @@
                                     <input type="text" id="caption" name="caption" value="${fieldValue(bean:pictureInstance,field:'caption')}"/>
                                 </td>
                             </tr> 
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="dateAdded">Date Added:</label>
@@ -48,8 +47,6 @@
                                     <g:datePicker name="dateAdded" value="${pictureInstance?.dateAdded}" precision="minute" ></g:datePicker>
                                 </td>
                             </tr> 
-                            
-                                                    
                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:pictureInstance,field:'folder','errors')}>
                                     <label for="folder">Folder:</label>
@@ -59,7 +56,6 @@
 								</td>                                
 								<input type="hidden" id="folder.id" name="folder.id" value="${folderInstance.id}"/>                                    
                             </tr> 
-                        
                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:pictureInstance,field:'user','errors')}>
                                     <label for="user">User:</label>

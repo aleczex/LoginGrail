@@ -100,7 +100,7 @@ class FolderController {
         def folderInstance = new Folder(params)
         if(!folderInstance.hasErrors() && folderInstance.save()) {
             flash.message = "Folder ${folderInstance.id} created"
-            redirect(action:show,id:folderInstance.id)
+            redirect(action:list)
         }
         else {
             render(view:'create',model:[folderInstance:folderInstance])

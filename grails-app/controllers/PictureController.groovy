@@ -42,7 +42,7 @@ class PictureController {
 			p.filename = session.user.email + "_"+ p.id + ".jpg"
 			p.save()
 			f.transferTo( new File(basePath+'/'+p.filename) )
-			redirect(action:'list')
+			redirect(controller: 'picture', action:'list', id:params.folder.id)
 		} else {
 			flash.message = 'file cannot be empty'
 			render(view:'create')

@@ -4,12 +4,15 @@
         <title>Dodaj komentarz</title>         
     </head>
     <body>
-        <div class="nav">
+    <div id="main">
+        <div id="wrapper">
             <g:render template="/shared/menu" />
-            <span class="menuButton"><g:link class="list" action="list">Comment List</g:link></span>
-        </div>    
+			<g:if test="${session.user != null}">
+	            <li><g:link class="list" action="list">Lista komentarzy</g:link></li>
+			</g:if> 
+	        <g:render template="/shared/menuend" />
         <div class="body">
-            <h1>Create Comment</h1>
+            <h1>Dodaj komentarz</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -22,16 +25,31 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
                             <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="dateCreated">Date Created:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'dateCreated','errors')}">
-                                    <g:datePicker name="dateCreated" value="${commentInstance?.dateCreated}" precision="minute" ></g:datePicker>
-                                </td>
+								<g:if test="${session.user != null}">
+	                                <td valign="top" class="name">
+	                                    <label for="dateCreated">Date Created:</label>
+	                                </td>
+	                                <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'dateCreated','errors')}">
+	                                    <g:datePicker type="hidden" name="dateCreated" value="${commentInstance?.dateCreated}" precision="minute" ></g:datePicker>
+	                                </td>
+                                </g:if>
+                                <g:else>
+									<g:set var="now" value="${new Date()}" />
+	                                <td valign="top" class="name">
+	                                    <label for="dateCreated">Date Created:</label>
+	                                </td>
+	                                <td valign="top">
+										<g:formatDate format="dd-MM-yyyy HH:mm" date="${now}"/>
+	                                </td>
+									<input type="hidden" name="dateCreated" value="struct" />
+									<input type="hidden" name="dateCreated_day" id="dateCreated_day" value='<g:formatDate format="dd" date="${now}"/>' />
+									<input type="hidden" name="dateCreated_month" id="dateCreated_month" value='<g:formatDate format="MM" date="${now}"/>' />
+									<input type="hidden" name="dateCreated_year" id="dateCreated_year" value='<g:formatDate format="yyyy" date="${now}"/>' />
+									<input type="hidden" name="dateCreated_hour" id="dateCreated_hour" value='<g:formatDate format="HH" date="${now}"/>' />
+									<input type="hidden" name="dateCreated_minute" id="dateCreated_minute" value='<g:formatDate format="mm" date="${now}"/>' />
+								</g:else>                                
                             </tr> 
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="description">Description:</label>
@@ -40,7 +58,6 @@
                                     <input type="text" id="description" name="description" value="${fieldValue(bean:commentInstance,field:'description')}"/>
                                 </td>
                             </tr> 
-                            
                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:commentInstance,field:'picture','errors')}>
                                     <label for="folder">Picture:</label>
@@ -50,8 +67,6 @@
 								</td>                                
 								<input type="hidden" id="picture.id" name="picture.id" value="${pictureInstance.id}"/>                                    
                             </tr> 
-                            
-                        
                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:pictureInstance,field:'user','errors')}>
                                     <label for="user">User:</label>
@@ -66,8 +81,8 @@
 	                                <td valign="top" class="name">
 	                                	<label for="user">~anonim</label>
 									</td>                                
-									<input type="hidden" id="0" name="0" value="null"/>									
 								</g:else>                                    
+								<input type="hidden" id="folderid" name="folderid" value="${params.folderid}"/>                                    
                             </tr>                         
                         </tbody>
                     </table>

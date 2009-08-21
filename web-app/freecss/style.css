@@ -160,8 +160,16 @@ border:5px solid #F6F0E2;
 
 #imageframe{
 border:0px solid #F6F0E2;
-text-align:center;
+text-align: center;
 padding-bottom:5%;
+float: left
+}
+
+#commentframe{
+border:1px solid #F6F0E2;
+text-align: right;
+padding-bottom:5%;
+padding-right:5%;
 }
 
 h1{

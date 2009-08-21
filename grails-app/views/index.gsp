@@ -20,7 +20,7 @@
 			<div id="bannerbg">
 				<div id="banner">
 					<h1>Nowości na stronie</h1>
-					<div class="leftcontent">Dodane powiększanie zdjęć. <br/>Newsy wyświetlane są teraz od najnowszego do najstarszego.<br/>Polskie literki w menu.<br/>Wreszcie style poprawione :-)</div>
+					<div class="leftcontent">Można dodawać komentarze do zdjęć.<br/>Dodane powiększanie zdjęć. <br/>Newsy wyświetlane są teraz od najnowszego do najstarszego.<br/>Polskie literki w menu.<br/>Wreszcie style poprawione :-)</div>
 					<div class="rightcontent">
                         <a href="${resource(dir:'images', file:'logo.jpg')}" class="image" onclick="return hs.expand(this)"
                             title="Nasza Żurawinka 2 lustrzane odbicie - wizualizacja z Archon'u" style="margin: 0 0 10px 15px">

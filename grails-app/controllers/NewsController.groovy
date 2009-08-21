@@ -15,4 +15,16 @@ class NewsController {
 		params.max = 2
 		return [ newsInstanceList: News.findAll( "from News as n order by n.dateCreated desc",[max:2]), newsInstanceTotal: News.count() ]
 	}
+	
+	
+    def save = {
+	        def newsInstance = new News(params)
+	        if(!newsInstance.hasErrors() && newsInstance.save()) {
+	            flash.message = "News ${newsInstance.id} created"
+	            redirect(action:list)
+	        }
+	        else {
+	            render(view:'create',model:[newsInstance:newsInstance])
+	        }
+	    }
 }
