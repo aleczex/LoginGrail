@@ -8,9 +8,15 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-            <li><g:link class="list" action="list">Lista newsow</g:link></li>
+                <g:if test="${session.user != null}">
+                    <g:if test="${params.controller == 'news' && params.action == 'create'}">
+                        <li id="current"><g:link class="create" action="create">Nowy news</g:link></li>
+                    </g:if>
+                    <g:else>
+                        <li><g:link class="create" action="create">Nowy news</g:link></li>
+                    </g:else>
+                </g:if>
             <g:render template="/shared/menuend" />
-
         <div class="body">
             <h1>Utworz News</h1>
             <g:if test="${flash.message}">

@@ -11,9 +11,9 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+*/
 public class GmailSender {
-
+/*
 	public static void main(String[] args) throws AddressException,
 			MessagingException {
 
@@ -55,5 +55,5 @@ public class GmailSender {
 		Transport.send(msg);
 		System.out.println("Message sent.");
 	}
-}
 */
+}

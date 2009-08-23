@@ -9,7 +9,12 @@
             <div id="wrapper">
                 <g:render template="/shared/menu" />
                 <g:if test="${session.user != null}">
-                    <li><g:link class="create" action="create">Nowy news</g:link></li>
+                    <g:if test="${params.controller == 'news' && params.action == 'create'}">
+                        <li id="current"><g:link class="create" action="create">Nowy news</g:link></li>
+                    </g:if>
+                    <g:else>
+                        <li><g:link class="create" action="create">Nowy news</g:link></li>
+                    </g:else>
                 </g:if>
                 <g:render template="/shared/menuend" />
 		        <div id="folder">

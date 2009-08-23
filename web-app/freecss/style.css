@@ -95,6 +95,7 @@ padding-right:15px;
   margin:0;
   padding:0 0 0 9px;
   }
+  
 #navcontainer a {
   float:left;
   display:block;
@@ -104,6 +105,7 @@ padding-right:15px;
   font-weight:bold;
   color:#765;
   }
+  
 /* Commented Backslash Hack
    hides rule from IE5-Mac \*/
 #navcontainer a {float:none;}
@@ -112,10 +114,10 @@ padding-right:15px;
   color:#333;
   }
 #navcontainer #current {
-  background-image:url("left.jpg");
+  background-image:url("leftc.jpg");
   }
 #navcontainer #current a {
-  background-image:url("right.jpg");
+  background-image:url("rightc.jpg");
   color:#333;
   padding-bottom:5px;
   }
@@ -160,16 +162,8 @@ border:5px solid #F6F0E2;
 
 #imageframe{
 border:0px solid #F6F0E2;
-text-align: center;
+text-align:center;
 padding-bottom:5%;
-float: left
-}
-
-#commentframe{
-border:1px solid #F6F0E2;
-text-align: right;
-padding-bottom:5%;
-padding-right:5%;
 }
 
 h1{

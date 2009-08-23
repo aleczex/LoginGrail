@@ -8,7 +8,12 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-            <li><g:link class="list" action="list">Lista uzytkownikow</g:link></li>
+            <g:if test="${params.controller == 'user' && params.action == 'create'}">
+                <li id="current"><g:link class="list" action="list">Lista uzytkownikow</g:link></li>
+            </g:if>
+            <g:else>
+                <li><g:link class="list" action="list">Lista uzytkownikow</g:link></li>
+            </g:else>
             <g:render template="/shared/menuend" />
 
         <div class="body">

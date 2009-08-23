@@ -9,14 +9,18 @@
         <div id="wrapper">
 			<g:render template="/shared/menu" />
 			<g:if test="${session.user != null}">
-				<li><g:link class="create" action="create">Nowy folder</g:link></li>
+                <g:if test="${params.controller == 'folder' && params.action =='create'}">
+                    <li id="current"><g:link class="create" action="create">Nowy folder</g:link></li>
+                </g:if>
+                <g:else>
+                    <li><g:link class="create" action="create">Nowy folder</g:link></li>
+                </g:else>
 			</g:if>
             <g:render template="/shared/menuend" />
 			<div id="folder">
 				<g:if test="${flash.message}">
 					<div class="message">${flash.message}</div>
 				</g:if>
-        
 				<g:each in="${folderInstanceList}" status="i" var="folderInstance">
 					<g:if test="${session.user != null}">
 						<g:link action="show" id="${folderInstance.id}">Edytuj</g:link>
