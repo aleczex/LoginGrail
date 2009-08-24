@@ -4,12 +4,14 @@
         <title>Show Picture</title>
     </head>
     <body>
-        <div class="nav">
-            <g:render template="/shared/menu" />    
+    <div id="main">
+        <div id="wrapper">
+            <g:render template="/shared/menu" />
             <span class="menuButton"><g:link class="list" action="list">Picture List</g:link></span>
             <g:if test="${session.user != null}">
                 <span class="menuButton"><g:link class="create" action="create">New Picture</g:link></span>
             </g:if>
+            <g:render template="/shared/menuend" />
         </div>
         <div class="body">
             <h1>Show Picture</h1>
@@ -19,48 +21,29 @@
             <div class="dialog">
                 <table>
                     <tbody>
-
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Id:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:pictureInstance, field:'id')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Caption:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:pictureInstance, field:'caption')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Date Added:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:pictureInstance, field:'dateAdded')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Filename:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:pictureInstance, field:'filename')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Folder:</td>
-                            
                             <td valign="top" class="value"><g:link controller="folder" action="show" id="${pictureInstance?.folder?.id}">${pictureInstance?.folder?.encodeAsHTML()}</g:link></td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">User:</td>
-                            
                             <td valign="top" class="value"><g:link controller="user" action="show" id="${pictureInstance?.user?.id}">${pictureInstance?.user?.encodeAsHTML()}</g:link></td>
-                            
                         </tr>
                     </tbody>
                 </table>

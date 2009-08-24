@@ -1,16 +1,19 @@
+import java.security.*;
+import java.math.*;
+
 class PictureController {
 	def scaffold = true 
-
+	
 	def beforeInterceptor = [action:this.&checkUser,except:
-		['index','list']]
-
+	['index','list']]
+	
 	def checkUser() {
 		if(!session.user) {
 			redirect(controller:'user',action:'login')
 			return false
 		}
 	}
-
+	
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		
@@ -22,14 +25,14 @@ class PictureController {
 		}
 		else {
 			[folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=?", folderInstance.id), pictureInstanceTotal: Picture.count(),
-			 commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=?)", folderInstance.id)]
+			commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=?)", folderInstance.id)]
 		}
 	}
 	
 	def save = {
 		def f = request.getFile('myFile')
 		def basePath = grailsAttributes.getApplicationContext().getResource("/images/upload/").getFile().toString()
-
+		
 		if(!f.empty) {
 			if(params.caption.empty) {
 				flash.message = 'caption cannot be empty'
@@ -38,8 +41,12 @@ class PictureController {
 			}
 			def p = new Picture(params)
 			p.filename = "fake"
-			p.save(flush:true)
-			p.filename = session.user.email + "_"+ p.id + ".jpg"
+			if( !p.save(flush:true) ) {
+				p.errors.each {
+					println it
+				}
+			}
+			p.filename = hashIt(session.user.email + "_"  + p.id) + p.id + ".jpg"
 			p.save()
 			f.transferTo( new File(basePath+'/'+p.filename) )
 			redirect(controller: 'picture', action:'list', id:params.folder.id)
@@ -61,17 +68,29 @@ class PictureController {
 		}
 	}
 	
-    def create = {
-			def folderInstance = Folder.get( params.id )
-	        def pictureInstance = new Picture()
-	        pictureInstance.properties = params
-			if(!folderInstance) {
-				flash.message = "Folder not found with id ${params.id}"
-				redirect(action:'list')
-			}
-			else {
-		        return [folderInstance: folderInstance, 'pictureInstance':pictureInstance]
-			}
-			
+	def create = {
+		def folderInstance = Folder.get( params.id )
+		def pictureInstance = new Picture()
+		pictureInstance.properties = params
+		if(!folderInstance) {
+			flash.message = "Folder not found with id ${params.id}"
+			redirect(action:'list')
+		}
+		else {
+			return [folderInstance: folderInstance, 'pictureInstance':pictureInstance]
+		}
+		
 	}
+	
+	def String hashIt(String s) {
+		MessageDigest m = MessageDigest.getInstance("MD5")
+		m.update(s.getBytes(), 0, s.length())
+		s = new BigInteger(1, m.digest()).toString(16)
+		if (s.length() == 31) {
+			s = "0" + s
+		}
+		System.out.println("MD5: "+s);
+		return s
+	}
+	
 }
