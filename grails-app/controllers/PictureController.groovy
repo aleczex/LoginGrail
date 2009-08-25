@@ -89,7 +89,6 @@ class PictureController {
 		if (s.length() == 31) {
 			s = "0" + s
 		}
-		System.out.println("MD5: "+s);
 		return s
 	}
 	

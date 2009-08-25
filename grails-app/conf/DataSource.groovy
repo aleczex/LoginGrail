@@ -1,8 +1,13 @@
+/** 
+ * The top dataSource holds configuration options for ALL
+ * environments... I'm presuming you want PostgreSQL in all
+ * your environments but you may want to use the default
+ * Hypersonic database in development and testing instead.
+ */
 dataSource {
-	pooled = true
-	driverClassName = "org.hsqldb.jdbcDriver"
-	username = "sa"
-	password = ""
+ pooled = true
+ driverClassName = "org.postgresql.Driver"
+        dialect = org.hibernate.dialect.PostgreSQLDialect
 }
 hibernate {
     cache.use_second_level_cache=true
@@ -11,22 +16,30 @@ hibernate {
 }
 // environment specific settings
 environments {
-	development {
-		dataSource {
-			dbCreate = "update" // one of 'create', 'create-drop','update'
-			url = "jdbc:hsqldb:file:db/devDB"
-		}
-	}
-	test {
-		dataSource {
-			dbCreate = "update"
-			url = "jdbc:hsqldb:mem:testDb"
-		}
-	}
-	production {
-		dataSource {
-			dbCreate = "update"
-			url = "jdbc:hsqldb:file:prodDb;shutdown=true"
-		}
-	}
+ development {
+  dataSource {
+                        // one of 'create', 'create-drop','update'
+   dbCreate = "update" 
+                        url="jdbc:postgresql://localhost:5432/domek"
+                        username = "grails"
+                        password = "grails123"
+  }
+ }
+ test {
+  dataSource {
+   dbCreate = "update"
+                        url="jdbc:postgresql://localhost:5432/test"
+   driverClassName = "org.postgresql.Driver"
+                        username = "tester"
+                        password = "tester"
+  }
+ }
+ production {
+  dataSource {
+   dbCreate = "update"
+                        url="jdbc:postgresql://localhost:5432/domek"
+                        username = "grails"
+                        password = "grails123"
+  }
+ }
 }

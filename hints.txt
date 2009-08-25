@@ -1,0 +1,126 @@
+PostgreSQL setup.
+
+First you need to have postgreSQL installed. The install varies per OS. I'll let you figure that out since 
+there's plenty of documentation on that part.
+Next you need to set up your grails application to connect to the database.
+Download a PostgreSQL JDBC driver and copy it into your applications lib folder, for example: 
+myProject/lib/pg74.216.jdbc3.jar in my set up. I don't really need to talk about setting up an application from 
+scratch or anything do I? You've all seen that enough times right?
+Next, set up your data-source for using your PostgreSQL driver...
+
+dataSource {
+    pooled = false
+    dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+    url = "jdbc:postgresql://localhost:5432/grails"
+    driverClassName = "org.postgresql.Driver"
+    dialect = org.hibernate.dialect.PostgreSQLDialect
+    username = "grails"
+    password = "grails"
+}
+
+Right now, this configuration will promptly fail. There is no grails database and no grails user. 
+Setting one up requires a little thinking. Obviously, we need to make the grails database first. 
+Let's get that out of the way and move to the slightly more ... confusing ... stuff.
+Setting up a database and user on a fresh install requires you to be the postgres user. 
+This is the username created by the postgres installer that the postgres daemon runs under. 
+I have no idea what my postgres user password is so this is how I run the postgres commands to create 
+the grails user and database...
+
+ $ sudo su
+ # su postgres
+ > createuser -P grails
+ > createdb grails
+
+
+... as the user postgres still, we set the grails user's password ...
+
+
+ > psql grails
+ grails=# ALTER ROLE grails WITH PASSWORD 'grails' \g
+ grails=# \q
+
+
+... and this would be ready to go except that when we try to login as grails we get an authentication error.
+By default Postgres uses the authentication system of the OS for determining the identity of the user. 
+This could be a problem if you plan on having users other than your own username or jetty/jboss/nobody use your 
+databases. Most likely you'll want different users depending on application. So we need to modify the 
+postgres configuration files to allow for users other than the console users to login.
+The configuration files are found in /var/lib/pgsql/data or other data directory depending on your specific setup. 
+The file for controlling authentication policies is pg_hba.conf. It is pretty well documented on its own 
+and by default the "method" for authentication is set to ident meaning that if I am username "fred" then 
+I can only use the database as "fred" even if I'm running the application "grails".
+
+So for local and host users to login as a password authenticated user we need to set the "method" to password 
+instead. I've set my pg_hba.conf to read...
+
+# TYPE  DATABASE    USER        CIDR-ADDRESS          METHOD
+# "local" is for Unix domain socket connections only
+local   all         all                               password sameuser
+# IPv4 local connections:
+host    all         all         127.0.0.1/32          password sameuser
+# IPv6 local connections:
+host    all         all         ::1/128               ident sameuser
+
+
+... allowing a user from local host to login using a username and password pair. I restart postgres 
+(as my own username not postgres)
+
+ $ sudo /etc/init.d/postgresql restart
+
+... and now from my shell I can login as the grails user to the grails database...
+
+ $ psql -U grails grails
+Password for user grails:
+
+... and I supply the password grails and I'm logged in. That means this time when I start my grails project 
+with grails run-app the grails user will authenticate and now my grails project can use postgres for development 
+against the postgres database and we can work against postgres on our development machine.
+
+EDIT:
+Your whole Grails configuration file (as of Grails 1.1) should look like this
+
+/** 
+ * The top dataSource holds configuration options for ALL
+ * environments... I'm presuming you want PostgreSQL in all
+ * your environments but you may want to use the default
+ * Hypersonic database in development and testing instead.
+ */
+dataSource {
+ pooled = true
+ driverClassName = "org.postgresql.Driver"
+        dialect = org.hibernate.dialect.PostgreSQLDialect
+}
+hibernate {
+    cache.use_second_level_cache=true
+    cache.use_query_cache=true
+    cache.provider_class='com.opensymphony.oscache.hibernate.OSCacheProvider'
+}
+// environment specific settings
+environments {
+ development {
+  dataSource {
+                        // one of 'create', 'create-drop','update'
+   dbCreate = "create-drop" 
+                        url="jdbc:postgresql://localhost:5432/dev"
+                        username = "dev"
+                        password = "dev"
+  }
+ }
+ test {
+  dataSource {
+   dbCreate = "update"
+                        url="jdbc:postgresql://localhost:5432/test"
+   driverClassName = "org.postgresql.Driver"
+                        username = "tester"
+                        password = "tester"
+  }
+ }
+ production {
+  dataSource {
+   dbCreate = "update"
+                        url="jdbc:postgresql://localhost:5432/grails"
+                        username = "grails"
+                        password = "grails"
+  }
+ }
+}

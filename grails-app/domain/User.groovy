@@ -14,4 +14,8 @@ class User {
 		email(email:true)
 		password(blank:false, password:true)
 	}
+	
+	static mapping = {
+		table 'people'
+	}
 }
