@@ -124,3 +124,10 @@ environments {
   }
  }
 }
+
+
+Zmiana w³aœciciela bazy danych:
+su postgres;
+psql
+alter database domek owner to grails;
+

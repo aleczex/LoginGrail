@@ -41,10 +41,10 @@
                             </tr> 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="dateAdded">Date Added:</label>
+                                    <label for="dateCreated">Date Created:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'dateAdded','errors')}">
-                                    <g:datePicker name="dateAdded" value="${pictureInstance?.dateAdded}" precision="minute" ></g:datePicker>
+                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'dateCreated','errors')}">
+                                    <g:datePicker name="dateCreated" value="${pictureInstance?.dateCreated}" precision="minute" ></g:datePicker>
                                 </td>
                             </tr> 
                             <tr class="prop">

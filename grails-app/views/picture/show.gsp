@@ -31,8 +31,8 @@
 		                            <td valign="top" class="value">${fieldValue(bean:pictureInstance, field:'caption')}</td>
 		                        </tr>
 		                        <tr class="prop">
-		                            <td valign="top" class="name">Date Added:</td>
-		                            <td valign="top" class="value">${fieldValue(bean:pictureInstance, field:'dateAdded')}</td>
+		                            <td valign="top" class="name">Date Created:</td>
+		                            <td valign="top" class="value">${fieldValue(bean:pictureInstance, field:'dateCreated')}</td>
 		                        </tr>
 		                        <tr class="prop">
 		                            <td valign="top" class="name">Filename:</td>

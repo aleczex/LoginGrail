@@ -4,6 +4,7 @@ class User {
 	String email
 	String password
 	SortedSet newsy
+	Date dateCreated = new Date()
 	
 	static hasMany = [ newsy: News]
 	

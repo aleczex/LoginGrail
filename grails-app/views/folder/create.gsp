@@ -29,7 +29,14 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="dateCreated">Date Created:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:folderInstance,field:'dateCreated','errors')}">
+                                    <g:datePicker name="dateCreated" value="${folderInstance?.dateCreated}" precision="minute" ></g:datePicker>
+                                </td>
+                            </tr>                         
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="name">Name:</label>

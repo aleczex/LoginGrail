@@ -24,8 +24,8 @@ class PictureController {
 			redirect(controller:'folder')
 		}
 		else {
-			[folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=?", folderInstance.id), pictureInstanceTotal: Picture.count(),
-			commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=?)", folderInstance.id)]
+			[folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=? order by p.dateCreated asc", folderInstance.id), pictureInstanceTotal: Picture.count(),
+			commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=?) order by c.dateCreated asc", folderInstance.id)]
 		}
 	}
 	

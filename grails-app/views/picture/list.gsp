@@ -35,7 +35,7 @@
 							 title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
 								<img src="${res}/${path}" alt="" width="320" />
 							</a>
-							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateAdded} [${pictureInstance.user.nick}])</p>
+							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.nick}])</p>
 						</div>
 						<div id="commentframe">
 							<g:link action="create" controller="comment" params="[id: pictureInstance.id, folderid: folderInstance.id]">Skomentuj</g:link>

@@ -19,7 +19,7 @@ class FolderController {
 
     def list = {
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        [ folderInstanceList: Folder.list( params ), folderInstanceTotal: Folder.count() ]
+        [ folderInstanceList: Folder.findAll( "from Folder as f order by f.dateCreated asc"), folderInstanceTotal: Folder.count() ]
     }
 
     def show = {

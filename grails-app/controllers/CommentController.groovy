@@ -25,6 +25,11 @@ class CommentController {
 		
 	}
 	
+    def list = {
+	        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+	        [ commentInstanceList: Comment.findAll( "from Comment as c order by c.dateCreated asc"), commentInstanceTotal: Comment.count() ]
+	    }
+	
 	def save = {
 		def commentInstance = new Comment(params)
 		if(!commentInstance.hasErrors() && commentInstance.save()) {

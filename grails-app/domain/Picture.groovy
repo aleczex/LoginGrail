@@ -3,7 +3,7 @@ class Picture implements Comparable {
 	User user 
 	String caption
 	Folder folder
-	Date dateAdded = new Date()
+	Date dateCreated = new Date()
 	String filename
 	
 	SortedSet comments

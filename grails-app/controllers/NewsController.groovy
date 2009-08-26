@@ -16,6 +16,10 @@ class NewsController {
 		return [ newsInstanceList: News.findAll( "from News as n order by n.dateCreated desc",[max:2]), newsInstanceTotal: News.count() ]
 	}
 	
+    def list = {
+	        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+	        [ newsInstanceList: News.findAll( "from News as n order by n.dateCreated asc"), newsInstanceTotal: News.count() ]
+	    }
 	
     def save = {
 	        def newsInstance = new News(params)
