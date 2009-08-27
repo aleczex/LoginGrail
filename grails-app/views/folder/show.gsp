@@ -8,11 +8,6 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-            <li><g:link class="list" action="list">Lista folderow</g:link></li>
-            <g:if test="${session.user != null}">
-                <li><g:link class="create" action="create">New Folder</g:link></li>
-            </g:if>
-            <g:render template="/shared/menuend" />
         <div class="body">
             <h1>Show Folder</h1>
             <g:if test="${flash.message}">
@@ -21,25 +16,16 @@
             <div class="dialog">
                 <table>
                     <tbody>
-
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Id:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:folderInstance, field:'id')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Name:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:folderInstance, field:'name')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Pictures:</td>
-                            
                             <td  valign="top" style="text-align:left;" class="value">
                                 <ul>
                                 <g:each var="p" in="${folderInstance.pictures}">
@@ -47,9 +33,7 @@
                                 </g:each>
                                 </ul>
                             </td>
-                            
                         </tr>
-                    
                     </tbody>
                 </table>
             </div>

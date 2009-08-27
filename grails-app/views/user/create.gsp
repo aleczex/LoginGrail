@@ -8,14 +8,6 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-            <g:if test="${params.controller == 'user' && params.action == 'create'}">
-                <li id="current"><g:link class="list" action="list">Lista uzytkownikow</g:link></li>
-            </g:if>
-            <g:else>
-                <li><g:link class="list" action="list">Lista uzytkownikow</g:link></li>
-            </g:else>
-            <g:render template="/shared/menuend" />
-
         <div class="body">
             <h1>Create User</h1>
             <g:if test="${flash.message}">

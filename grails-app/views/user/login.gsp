@@ -8,10 +8,6 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-            <g:if test="${session.user != null}">
-                <li><g:link class="create" action="create">Nowy użytkownik</g:link></li>
-            </g:if>
-            <g:render template="/shared/menuend" />
             <div class="body">
 			<g:form action="doLogin" method="post">
 				<div class="dialog">

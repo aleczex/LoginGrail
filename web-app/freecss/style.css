@@ -113,6 +113,7 @@ padding-right:15px;
 #navcontainer a:hover {
   color:#333;
   }
+
 #navcontainer #current {
   background-image:url("leftc.jpg");
   }
@@ -121,6 +122,26 @@ padding-right:15px;
   color:#333;
   padding-bottom:5px;
   }
+
+#navcontainer #sub {
+  color:#0000FF;
+  }
+#navcontainer #sub a {
+  padding-bottom:5px;
+  color:#0000FF;
+  }
+  
+#navcontainer #subcurrent {
+  background-image:url("leftc.jpg");
+  color:#0000FF;
+  }
+#navcontainer #subcurrent a {
+  background-image:url("rightc.jpg");
+  padding-bottom:5px;
+  color:#0000FF;
+  }
+  
+  
 #bannerbg{
 text-align:center;
 width:100%;
@@ -162,8 +183,22 @@ border:5px solid #F6F0E2;
 
 #imageframe{
 border:0px solid #F6F0E2;
-text-align:center;
 padding-bottom:5%;
+width: 64%;
+margin-right: 2%;
+margin-left: 2%;
+float: left;
+text-align:justify;
+}
+
+#commentframe{
+border:0px solid #F6F0E2;
+padding-bottom:5%;
+width: 26%;
+margin-right: 2%;
+margin-left: 2%;
+float: right;
+text-align:justify;
 }
 
 h1{

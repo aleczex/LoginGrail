@@ -7,8 +7,6 @@
 	    <div id="main">
 	        <div id="wrapper">
 	            <g:render template="/shared/menu" />
-	            <li><g:link class="list" action="list">Lista obrazków</g:link></li>
-	            <g:render template="/shared/menuend" />
         <div class="body">
             <h1>Dodaj obrazek</h1>
             <g:if test="${flash.message}">

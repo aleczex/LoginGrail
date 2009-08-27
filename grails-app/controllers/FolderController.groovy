@@ -34,15 +34,18 @@ class FolderController {
 
     def delete = {
         def folderInstance = Folder.get( params.id )
+        println("folderInstance: " + folderInstance)
         if(folderInstance) {
             try {
+                println("before delete: ")
                 folderInstance.delete(flush:true)
                 flash.message = "Folder ${params.id} deleted"
                 redirect(action:list)
             }
             catch(org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "Folder ${params.id} could not be deleted"
-                redirect(action:show,id:params.id)
+                println("error: " + e)
+            	flash.message = "Folder ${params.id} could not be deleted"
+                redirect(action:list,id:params.id)
             }
         }
         else {

@@ -8,11 +8,6 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-            <li><g:link class="list" action="list">Lista newsow</g:link></li>
-            <g:if test="${session.user != null}">
-                <li><g:link class="create" action="create">Nowy news</g:link></li>
-            </g:if>
-            <g:render template="/shared/menuend" />
         <div class="body">
             <h1>Show News</h1>
             <g:if test="${flash.message}">

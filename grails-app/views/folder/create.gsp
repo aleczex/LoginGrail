@@ -8,13 +8,6 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-                <g:if test="${params.controller == 'folder' && params.action =='create'}">
-                    <li id="current"><g:link class="list" action="list">Lista folderow</g:link></li>
-                </g:if>
-                <g:else>
-                    <li><g:link class="list" action="list">Lista folderow</g:link></li>
-                </g:else>
-            <g:render template="/shared/menuend" />
         <div class="body">
             <h1>Create Folder</h1>
             <g:if test="${flash.message}">

@@ -13,10 +13,6 @@
 	<div id="main">
 		<div id="wrapper">
             <g:render template="/shared/menu" />
-            <g:if test="${session.user != null}">
-                <li><g:link class="list" controller="user" action="list">Lista użytkowników</g:link></li>
-            </g:if> 
-            <g:render template="/shared/menuend" />
 			<div id="bannerbg">
 				<div id="banner">
 					<h1>Nowości na stronie</h1>

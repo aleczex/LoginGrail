@@ -14,36 +14,40 @@
 		<div id="main">
 			<div id="wrapper">
 				<g:render template="/shared/menu" />
-				<g:if test="${session.user != null}">
-					<li><g:link class="create" action="create" id="${folderInstance.id}">Nowy obrazek</g:link></li>
-				</g:if>
-				<g:render template="/shared/menuend" />
 				<div id="imagelist">
 				    <div id="folder">
 				    	<g:link controller="folder" action="list"><h1>${folderInstance.name}</h1></g:link>
 					</div>
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
-						<div id="imageframe">
-							<g:if test="${session.user != null}">
-								<g:link action="show" id="${pictureInstance.id}">Edytuj</g:link>
-							</g:if>
-							
-							
-							<g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
-							<g:set var="res" value="${resource(dir:'/images/upload')}" />
-							<a href="${res}/${path}" class="highslide" onclick="return hs.expand(this)"
-							 title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
-								<img src="${res}/${path}" alt="" width="320" />
-							</a>
-							<p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.nick}])</p>
-						</div>
-						<div id="commentframe">
-							<g:link action="create" controller="comment" params="[id: pictureInstance.id, folderid: folderInstance.id]">Skomentuj</g:link>
-							<g:findAll in="${commentInstanceList}" expr="it.picture == pictureInstance">
-     							<p>${it.description} 
-     							<g:if test="${it.user != null}">/${it.user.nick}</g:if>
-     							<g:else>/~anonim</g:else></p>
-							</g:findAll>
+						<div>
+							<div id="imageframe">
+								<g:if test="${session.user != null}">
+									<g:form method="post" >
+						                <input type="hidden" name="id" value="${pictureInstance?.id}" />
+						                <input type="hidden" name="version" value="${pictureInstance?.version}" />
+						                <div class="buttons">
+						                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+						                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
+						                </div>
+						            </g:form>									
+								</g:if>
+								
+								<g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
+								<g:set var="res" value="${resource(dir:'/images/upload')}" />
+								<a href="${res}/${path}" class="highslide" onclick="return hs.expand(this)"
+								 title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
+									<img src="${res}/${path}" alt="" width="320" />
+								</a>
+								<p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.nick}])</p>
+							</div>
+							<div id="commentframe">
+								<g:link action="create" controller="comment" params="[id: pictureInstance.id, folderid: folderInstance.id]">Skomentuj</g:link>
+								<g:findAll in="${commentInstanceList}" expr="it.picture == pictureInstance">
+	     							<p>${it.description} 
+	     							<g:if test="${it.user != null}">/${it.user.nick}</g:if>
+	     							<g:else>/~anonim</g:else></p>
+								</g:findAll>
+							</div>
 						</div>
 						<div class="clear"></div>
 					</g:each>

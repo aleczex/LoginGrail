@@ -8,22 +8,20 @@
     <div id="main">
         <div id="wrapper">
 			<g:render template="/shared/menu" />
-			<g:if test="${session.user != null}">
-                <g:if test="${params.controller == 'folder' && params.action =='create'}">
-                    <li id="current"><g:link class="create" action="create">Nowy folder</g:link></li>
-                </g:if>
-                <g:else>
-                    <li><g:link class="create" action="create">Nowy folder</g:link></li>
-                </g:else>
-			</g:if>
-            <g:render template="/shared/menuend" />
 			<div id="folder">
 				<g:if test="${flash.message}">
 					<div class="message">${flash.message}</div>
 				</g:if>
 				<g:each in="${folderInstanceList}" status="i" var="folderInstance">
 					<g:if test="${session.user != null}">
-						<g:link action="show" id="${folderInstance.id}">Edytuj</g:link>
+						<g:form method="post" >
+			                <input type="hidden" name="id" value="${folderInstance?.id}" />
+			                <input type="hidden" name="version" value="${folderInstance?.version}" />
+			                <div class="buttons">
+			                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+			                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
+			                </div>
+			            </g:form>
 					</g:if>
 					<g:link controller="picture" action="list" id="${folderInstance.id}"><h1>${fieldValue(bean:folderInstance, field:'name')}</h1></g:link>
 				</g:each>

@@ -8,16 +8,6 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-            <g:if test="${session.user != null}">
-	            <g:if test="${params.controller == 'user' && params.action == 'list'}">
-	                <li id="current"><g:link class="create" action="create">Nowy uzytkownik</g:link></li>
-	            </g:if>
-	            <g:else>
-	                <li><g:link class="create" action="create">Nowy uzytkownik</g:link></li>
-	            </g:else>
-            </g:if>
-
-            <g:render template="/shared/menuend" />
         <div class="body">
             <h1>User List</h1>
             <g:if test="${flash.message}">
@@ -37,7 +27,18 @@
                     <tbody>
                     <g:each in="${userInstanceList}" status="i" var="userInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td><g:link action="show" id="${userInstance.id}">${fieldValue(bean:userInstance, field:'id')}</g:link></td>
+							<td>
+							<g:if test="${session.user != null}">
+								<g:form method="post" >
+					                <input type="hidden" name="id" value="${userInstance?.id}" />
+					                <input type="hidden" name="version" value="${userInstance?.version}" />
+					                <div class="buttons">
+					                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+					                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
+					                </div>
+					            </g:form>
+							</g:if>
+							</td>
                             <td>${fieldValue(bean:userInstance, field:'nick')}</td>
                             <td>${fieldValue(bean:userInstance, field:'email')}</td>
                             <td>${fieldValue(bean:userInstance, field:'password')}</td>

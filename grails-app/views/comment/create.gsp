@@ -1,5 +1,6 @@
-<html>
-    <head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
         <meta name="layout" content="main" />
         <title>Dodaj komentarz</title>         
     </head>
@@ -7,10 +8,6 @@
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
-			<g:if test="${session.user != null}">
-	            <li><g:link class="list" action="list">Lista komentarzy</g:link></li>
-			</g:if> 
-	        <g:render template="/shared/menuend" />
         <div class="body">
             <h1>Dodaj komentarz</h1>
             <g:if test="${flash.message}">

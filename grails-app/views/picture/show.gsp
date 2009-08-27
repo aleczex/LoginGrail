@@ -9,11 +9,6 @@
 		<div id="main">
 			<div id="wrapper">    
 	            <g:render template="/shared/menu" />
-			    <li><g:link class="list" action="list">Picture List</g:link></li>
-            	<g:if test="${session.user != null}">
-                	<li><g:link class="create" action="create">New Picture</g:link></li>
-            	</g:if>
-	            <g:render template="/shared/menuend" />
         		<div id="imagelist">
 		            <h1>Show Picture</h1>
 		            <g:if test="${flash.message}">

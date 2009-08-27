@@ -6,10 +6,6 @@
     <body>
         <div class="nav">
             <g:render template="/shared/menu" />
-            <span class="menuButton"><g:link class="list" action="list">Lista uzytkownikow</g:link></span>
-            <g:if test="${session.user != null}">
-                <span class="menuButton"><g:link class="create" action="create">Nowy uzytkownik</g:link></span>
-            </g:if>
         </div>
         <div class="body">
             <h1>Edit User</h1>
