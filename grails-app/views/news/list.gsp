@@ -8,8 +8,9 @@
         <div id="main">
             <div id="wrapper">
                 <g:render template="/shared/menu" />
+                <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Dziennik budowy</h1>
+
 		        <div id="folder">
-					<h1>Dziennik budowy</h1>
 					<g:if test="${flash.message}">
 						<div class="message">${flash.message}</div>
 					</g:if>

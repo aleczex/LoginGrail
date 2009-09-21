@@ -18,10 +18,16 @@ class FolderController {
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
     def list = {
-        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        [ folderInstanceList: Folder.findAll( "from Folder as f order by f.dateCreated asc"), folderInstanceTotal: Folder.count() ]
-    }
+        def investmentInstance = Investment.get( params.id )
+        if(!investmentInstance) {
+            flash.message = "Investment not found with id ${params.id}"
+            redirect(action:list)
+        }
 
+    	params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        [ investmentInstance: investmentInstance, folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id =? order by f.dateCreated asc", investmentInstance.id) ]
+    }
+    
     def show = {
         def folderInstance = Folder.get( params.id )
 
@@ -94,7 +100,13 @@ class FolderController {
     }
 
     def create = {
-        def folderInstance = new Folder()
+        def investmentInstance = Investment.get( params.id )
+        if(!investmentInstance) {
+            flash.message = "Investment not found with id ${params.id}"
+            redirect(action:list)
+        }
+        
+        def folderInstance = new Folder(investmentInstance)
         folderInstance.properties = params
         return ['folderInstance':folderInstance]
     }

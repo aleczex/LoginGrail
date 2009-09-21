@@ -19,7 +19,7 @@
 					<div class="leftcontent">Można dodawać komentarze do zdjęć.<br/>Dodane powiększanie zdjęć. <br/>Newsy wyświetlane są teraz od najnowszego do najstarszego.<br/>Polskie literki w menu.<br/>Wreszcie style poprawione :-)</div>
 					<div class="rightcontent">
                         <a href="${resource(dir:'images', file:'logo.jpg')}" class="image" onclick="return hs.expand(this)"
-                            title="Nasza Żurawinka 2 lustrzane odbicie - wizualizacja z Archon'u" style="margin: 0 0 10px 15px">
+                            title="Nasza Żurawinka 2 lustrzane odbicie - wizualizacja na podstawie planu domu zmienionego przez architekta" style="margin: 0 0 10px 15px">
                             <img src="${resource(dir:'images', file:'logo.jpg')}" alt="" width="200" onclick="return hs.expand(this)"/>
                         </a>
                     </div>
@@ -49,7 +49,7 @@ This is yet another free release from www.freecss.info.  If you downloaded it fr
 				</div>
 				<div class="clear"></div>
 			</div>
-			<div id="footer"><a href="http://www.freecss.info">Free CSS Templates</a></div>
+			<div id="footer"><a href="http://www.horisone.com">Powered by Horisone</a></div>
 		</div>
 	</div>
 </body>

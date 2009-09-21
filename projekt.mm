@@ -3,9 +3,14 @@
 <node CREATED="1251792209401" ID="Freemind_Link_1046431854" MODIFIED="1251792282273" TEXT="projekt">
 <node CREATED="1251792259562" ID="Freemind_Link_1651867368" MODIFIED="1251792622947" POSITION="left" TEXT="Rejestracja inwestora">
 <node CREATED="1251792247300" ID="_" MODIFIED="1251792293112" TEXT="Dodaj inwestycj&#x119;">
-<node CREATED="1251792298602" ID="Freemind_Link_902351657" MODIFIED="1251792313383" TEXT="Dodaj folder">
-<node CREATED="1251792319436" ID="Freemind_Link_652921063" MODIFIED="1251792324629" TEXT="Dodaj zdj&#x119;cia"/>
-<node CREATED="1251792327742" ID="Freemind_Link_609276994" MODIFIED="1251792330260" TEXT="Dodaj opis"/>
+<node CREATED="1251792298602" ID="Freemind_Link_902351657" MODIFIED="1253045796370" TEXT="Dodaj folder">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1251792319436" ID="Freemind_Link_652921063" MODIFIED="1253045821426" TEXT="Dodaj zdj&#x119;cia">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1251792327742" ID="Freemind_Link_609276994" MODIFIED="1253045825773" TEXT="Dodaj opis">
+<icon BUILTIN="button_ok"/>
+</node>
 </node>
 <node CREATED="1251792347512" ID="Freemind_Link_856439447" MODIFIED="1251792352830" TEXT="Dodaj kosztorys">
 <node CREATED="1251792356381" ID="Freemind_Link_1874268543" MODIFIED="1251792361902" TEXT="Dodaj wydatek"/>
@@ -15,8 +20,11 @@
 <node CREATED="1251792417318" ID="Freemind_Link_1273213264" MODIFIED="1251792420509" TEXT="Dodaj zdj&#x119;cie"/>
 </node>
 </node>
-<node CREATED="1251792444964" ID="Freemind_Link_103610159" MODIFIED="1251792451453" TEXT="Dodaj dziennik budowy">
-<node CREATED="1251792454236" ID="Freemind_Link_514310396" MODIFIED="1251792462632" TEXT="Dodaj wpis do dziennika"/>
+<node CREATED="1251792444964" ID="Freemind_Link_103610159" MODIFIED="1253045805984" TEXT="Dodaj dziennik budowy">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1251792454236" ID="Freemind_Link_514310396" MODIFIED="1253045812453" TEXT="Dodaj wpis do dziennika">
+<icon BUILTIN="button_ok"/>
+</node>
 </node>
 </node>
 <node CREATED="1251792482677" ID="Freemind_Link_879503944" MODIFIED="1251792488244" TEXT="Ustawienia u&#x17c;ytkownika">

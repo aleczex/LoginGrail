@@ -20,8 +20,8 @@
                    	        <g:sortableColumn property="id" title="Id" />
                    	        <g:sortableColumn property="nick" title="Nick" />
                    	        <g:sortableColumn property="email" title="Email" />
-                   	        <g:sortableColumn property="password" title="Password" />
-                   	        <th>Newsy</th>
+                            <g:sortableColumn property="password" title="Password" />
+                            <g:sortableColumn property="investments" title="Inwestycje" />
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +42,7 @@
                             <td>${fieldValue(bean:userInstance, field:'nick')}</td>
                             <td>${fieldValue(bean:userInstance, field:'email')}</td>
                             <td>${fieldValue(bean:userInstance, field:'password')}</td>
-                            <td>${fieldValue(bean:userInstance, field:'newsy')}</td>
+                            <td>${fieldValue(bean:userInstance, field:'investments')}</td>
                         </tr>
                     </g:each>
                     </tbody>

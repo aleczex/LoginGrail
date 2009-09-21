@@ -52,17 +52,15 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="newsy">Newsy:</label>
+                                    <label for="investments">Inwestycje:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:userInstance,field:'newsy','errors')}">
-                                    
-<ul>
-<g:each var="n" in="${userInstance?.newsy?}">
-    <li><g:link controller="news" action="show" id="${n.id}">${n?.encodeAsHTML()}</g:link></li>
-</g:each>
-</ul>
-<g:link controller="news" params="['user.id':userInstance?.id]" action="create">Add News</g:link>
-
+                                <td valign="top" class="value ${hasErrors(bean:userInstance,field:'investments','errors')}">
+									<ul>
+									<g:each var="n" in="${userInstance?.investments?}">
+									    <li><g:link controller="investments" action="show" id="${n.id}">${n?.encodeAsHTML()}</g:link></li>
+									</g:each>
+									</ul>
+								<g:link controller="investment" params="['user.id':userInstance?.id]" action="create">Dodaj inwestycje</g:link>
                                 </td>
                             </tr> 
                         

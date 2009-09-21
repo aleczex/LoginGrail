@@ -3,10 +3,10 @@ class Picture implements Comparable {
 	User user 
 	String caption
 	Folder folder
-	Date dateCreated = new Date()
 	String filename
-	
 	SortedSet comments
+	Date dateCreated = new Date()
+	
 	static hasMany = [comments: Comment]
 	
 	int compareTo(obj) {

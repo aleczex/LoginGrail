@@ -17,8 +17,13 @@ class NewsController {
 	}
 	
     def list = {
+            def investmentInstance = Investment.get( params.id )
+            if(!investmentInstance) {
+                flash.message = "Investment not found with id ${params.id}"
+                redirect(action:list)
+            }
 	        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-	        [ newsInstanceList: News.findAll( "from News as n order by n.dateCreated asc"), newsInstanceTotal: News.count() ]
+            [ investmentInstance: investmentInstance, newsInstanceList: News.findAll( "from News as n where n.investment.id =? order by n.dateCreated asc", investmentInstance.id), newsInstanceTotal: 10 ]
 	    }
 	
     def save = {

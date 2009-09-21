@@ -38,7 +38,16 @@
                                     <input type="text" id="name" name="name" value="${fieldValue(bean:folderInstance,field:'name')}"/>
                                 </td>
                             </tr> 
-                        
+
+                            <tr class="prop">
+                                <td valign="top" class="name" class="value ${hasErrors(bean:investmentInstance,field:'investment','errors')}>
+                                    <label for="investment">Investment:</label>
+                                </td>
+                                <td valign="top" class="name">
+                                    <label for="user">${session.investment.name}</label>
+                                </td>                                
+                                <input type="hidden" id="investment.id" name="investment.id" value="${session.investment.id}"/>                                    
+                            </tr>   
                         </tbody>
                     </table>
                 </div>

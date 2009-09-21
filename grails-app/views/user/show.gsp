@@ -16,36 +16,24 @@
             <div class="dialog">
                 <table>
                     <tbody>
-
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Id:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:userInstance, field:'id')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Email:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:userInstance, field:'email')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name">Password:</td>
-                            
                             <td valign="top" class="value">${fieldValue(bean:userInstance, field:'password')}</td>
-                            
                         </tr>
-                    
                         <tr class="prop">
-                            <td valign="top" class="name">Newsy:</td>
-                            
+                            <td valign="top" class="name">Inwestycje:</td>
                             <td  valign="top" style="text-align:left;" class="value">
                                 <ul>
-                                <g:each var="n" in="${userInstance.newsy}">
-                                    <li><g:link controller="news" action="show" id="${n.id}">${n?.encodeAsHTML()}</g:link></li>
+                                <g:each var="n" in="${userInstance.investments}">
+                                    <li><g:link controller="investment" action="show" id="${n.id}">${n?.encodeAsHTML()}</g:link></li>
                                 </g:each>
                                 </ul>
                             </td>

@@ -1,14 +1,14 @@
 class News implements Comparable {
 	Long id
-	User user
+	Investment investment
 	String description
 	Date dateCreated = new Date()
 	
-	String toString() { "${this.class.name} : $id"
-	}
+    static constraints = {
+		description(blank:false)
+    }
 	
     int compareTo(obj) {
         obj.id.compareTo(id)
     }
-
 }

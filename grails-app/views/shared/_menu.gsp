@@ -3,7 +3,7 @@
 		<g:if test="${session.user != null}">Witaj ${session.user.nick}.</g:if>
 			Ostatnia aktualizacja: 27-08-2009
 	</div>
-	<div class="logo"><a href="#" class="logo"><span>Nasz</span>Domek</a></div>
+	<div class="logo"><a href="#" class="logo"><span>Nasza</span>Inwestycja</a></div>
 	<div id="top">
 		<div id="nav">
 			<div id="navcontainer">
@@ -14,6 +14,22 @@
                     <g:else>
                         <li><a href="${grailsApplication.config.grails.serverURL}">Start</a></li>
                     </g:else>
+
+                    <g:if test="${(params.controller == 'investment') && params.action == 'list'}">
+                        <li id="current"><g:link controller="investment">Inwestycja</g:link></li>
+                    </g:if>
+                    <g:else>
+                        <li><g:link controller="investment">Inwestycja</g:link></li>
+                    </g:else>
+
+                    <g:if test="${session.user != null}">
+	                    <g:if test="${params.controller == 'investment' && params.action =='create'}">
+	                        <li id="subcurrent"><g:link class="create" action="create">Nowa inwestycja</g:link></li>
+	                    </g:if>
+                        <g:if test="${params.controller == 'investment' && params.action =='list'}">
+                            <li id="sub"><g:link class="create" action="create">Nowa inwestycja</g:link></li>
+                        </g:if>
+                    </g:if>             
                     <g:if test="${(params.controller == 'folder' ||params.controller == 'picture') && params.action == 'list'}">
                         <li id="current"><g:link controller="folder">Galeria</g:link></li>
                     </g:if>
