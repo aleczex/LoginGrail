@@ -7,7 +7,7 @@
         <link rel="icon" type="image/gif" href="${resource(dir:'images',file:'animated_favicon1.gif')}" />
         <g:javascript library="application" />
         <g:layoutHead />
-        <title><g:layoutTitle default="Ania i Alek budują Żurawinkę 2"/></title>
+        <title><g:layoutTitle default="Nasza inwestycja"/></title>
     </head>
     <body>
         <g:layoutBody />		

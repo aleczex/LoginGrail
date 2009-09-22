@@ -14,10 +14,10 @@
 		<div id="main">
 			<div id="wrapper">
 				<g:render template="/shared/menu" />
+                <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->
+                <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}</h1>
+
 				<div id="imagelist">
-				    <div id="folder">
-				    	<g:link controller="folder" action="list"><h1>${folderInstance.name}</h1></g:link>
-					</div>
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
 						<div>
 							<div id="imageframe">

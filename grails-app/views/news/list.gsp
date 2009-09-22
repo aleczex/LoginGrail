@@ -32,7 +32,6 @@
 						        </td>
 	                            <td>${fieldValue(bean:newsInstance, field:'dateCreated')}</td>
 	                            <td>${fieldValue(bean:newsInstance, field:'description')}</td>
-	                            <td>${fieldValue(bean:newsInstance, field:'user.nick')}</td>
 	                        </tr>
 	                    </g:each>
 	                    </tbody>

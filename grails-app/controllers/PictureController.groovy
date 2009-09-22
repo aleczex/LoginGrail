@@ -18,13 +18,19 @@ class PictureController {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		
 		def folderInstance = Folder.get( params.id )
-		
+
 		if(!folderInstance) {
 			flash.message = "Folder not found with id ${params.id}"
 			redirect(controller:'folder')
 		}
 		else {
-			[folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=? order by p.dateCreated asc", folderInstance.id), pictureInstanceTotal: Picture.count(),
+	        def investmentInstance = Investment.find( "from Investment as i where exists (from Folder as f where f.id=?))", folderInstance.id )
+	        if(!investmentInstance) {
+	            flash.message = "Investment not found with id ${params.id}"
+	            redirect(action:list)
+	        }           
+
+			[investmentInstance: investmentInstance, folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=? order by p.dateCreated asc", folderInstance.id), pictureInstanceTotal: Picture.count(),
 			commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=?) order by c.dateCreated asc", folderInstance.id)]
 		}
 	}

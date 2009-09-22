@@ -1,7 +1,8 @@
 <div id="header">
 	<div id="user">
-		<g:if test="${session.user != null}">Witaj ${session.user.nick}.</g:if>
-			Ostatnia aktualizacja: 27-08-2009
+		<g:if test="${session.user != null}"><g:link class="list" controller="user" action="doLogout">Wyloguj|</g:link>Zalogowany ${session.user.nick}. </g:if>
+        <g:else><g:link class="list" controller="user" action="login">Zaloguj się</g:link></g:else>
+			Ostatnia aktualizacja: 22-09-2009
 	</div>
 	<div class="logo"><a href="#" class="logo"><span>Nasza</span>Inwestycja</a></div>
 	<div id="top">
@@ -90,17 +91,6 @@
 	                		<li id="sub"><g:link class="create" action="create">Nowy użytkownik</g:link></li>
 	            		</g:if>
             		</g:if>
-					<g:if test="${session.user != null}">
-                        <li><g:link class="list" controller="user" action="doLogout">Wyloguj</g:link></li>
-					</g:if> 
-					<g:else>
-	                    <g:if test="${(params.controller == 'user') && params.action == 'login'}">
-	                        <li id="current"><g:link class="list" controller="user" action="login">Zaloguj</g:link></li>
-	                    </g:if>
-	                    <g:else>
-	                        <li><g:link class="list" controller="user" action="login">Zaloguj</g:link></li>
-	                    </g:else>
-					</g:else>
 				</ul>
 			</div>
 		</div>
