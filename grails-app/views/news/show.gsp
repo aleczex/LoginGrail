@@ -39,13 +39,6 @@
                             
                         </tr>
                     
-                        <tr class="prop">
-                            <td valign="top" class="name">User:</td>
-                            
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${newsInstance?.user?.id}">${newsInstance?.user?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
                     </tbody>
                 </table>
             </div>
@@ -56,6 +49,8 @@
                     <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
                 </g:form>
             </div>
+            <g:render template="/shared/footer" />
         </div>
-    </body>
+    </div>
+</body>
 </html>

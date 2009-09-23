@@ -21,6 +21,7 @@
             <g:form method="post" >
                 <input type="hidden" name="id" value="${folderInstance?.id}" />
                 <input type="hidden" name="version" value="${folderInstance?.version}" />
+                <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -33,23 +34,6 @@
                                     <input type="text" id="name" name="name" value="${fieldValue(bean:folderInstance,field:'name')}"/>
                                 </td>
                             </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="pictures">Pictures:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:folderInstance,field:'pictures','errors')}">
-                                    
-<ul>
-<g:each var="p" in="${folderInstance?.pictures?}">
-    <li><g:link controller="picture" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
-</g:each>
-</ul>
-<g:link controller="picture" params="['folder.id':folderInstance?.id]" action="create">Add Picture</g:link>
-
-                                </td>
-                            </tr> 
-                        
                         </tbody>
                     </table>
                 </div>
@@ -58,6 +42,8 @@
                     <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
                 </div>
             </g:form>
+            <g:render template="/shared/footer" />
         </div>
-    </body>
+    </div>
+</body>
 </html>

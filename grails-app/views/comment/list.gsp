@@ -49,6 +49,8 @@
             <div class="paginateButtons">
                 <g:paginate total="${commentInstanceTotal}" />
             </div>
+            <g:render template="/shared/footer" />
         </div>
-    </body>
+    </div>
+</body>
 </html>

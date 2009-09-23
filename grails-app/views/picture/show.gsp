@@ -50,10 +50,9 @@
 		                    <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
 		                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
 		                </g:form>
-		            </div>
-					<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
-				</div>
-			</div>		
-		</div>	
-	</body>
+            </div>
+            <g:render template="/shared/footer" />
+        </div>
+    </div>
+</body>
 </html>

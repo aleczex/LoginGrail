@@ -15,8 +15,10 @@
 			<div id="wrapper">
 				<g:render template="/shared/menu" />
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->
-                <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}</h1>
-
+                <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}
+                    <g:if test="${session.user != null}">
+                       <g:link class="create" action="create" id="${folderInstance.id}"> (Nowe zdjęcie)</g:link>
+                    </g:if></h1>
 				<div id="imagelist">
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
 						<div>
@@ -51,9 +53,9 @@
 						</div>
 						<div class="clear"></div>
 					</g:each>
-    		    </div>
-				<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
-			</div>
-		</div>			
-	</body>
+            </div>
+            <g:render template="/shared/footer" />
+        </div>
+    </div>
+</body>
 </html>

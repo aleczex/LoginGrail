@@ -44,9 +44,9 @@
                                     <label for="investment">Investment:</label>
                                 </td>
                                 <td valign="top" class="name">
-                                    <label for="user">${session.investment.name}</label>
+                                    <label for="user">${investmentInstance.name}</label>
                                 </td>                                
-                                <input type="hidden" id="investment.id" name="investment.id" value="${session.investment.id}"/>                                    
+                                <input type="hidden" id="investmentInstance.id" name="investmentInstance.id" value="${investmentInstance.id}"/>                                    
                             </tr>   
                         </tbody>
                     </table>
@@ -55,6 +55,9 @@
                     <span class="button"><input class="save" type="submit" value="Create" /></span>
                 </div>
             </g:form>
+            </div>
+            <g:render template="/shared/footer" />
         </div>
-    </body>
+    </div>
+</body>
 </html>

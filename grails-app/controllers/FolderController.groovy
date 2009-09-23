@@ -21,7 +21,7 @@ class FolderController {
         def investmentInstance = Investment.get( params.id )
         if(!investmentInstance) {
             flash.message = "Investment not found with id ${params.id}"
-            redirect(action:list)
+            redirect(controller:'investment',action:'list')
         }
 
     	params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
@@ -46,21 +46,23 @@ class FolderController {
                 println("before delete: ")
                 folderInstance.delete(flush:true)
                 flash.message = "Folder ${params.id} deleted"
-                redirect(action:list)
+                redirect(action:list, id:params.investmentid)
             }
             catch(org.springframework.dao.DataIntegrityViolationException e) {
                 println("error: " + e)
             	flash.message = "Folder ${params.id} could not be deleted"
-                redirect(action:list,id:params.id)
+                redirect(action:list,id:params.investmentid)
             }
         }
         else {
             flash.message = "Folder not found with id ${params.id}"
-            redirect(action:list)
+            redirect(action:list, id:params.investmentid)
         }
     }
 
     def edit = {
+        def investmentInstance = Investment.get(params.investmentid)
+        
         def folderInstance = Folder.get( params.id )
 
         if(!folderInstance) {
@@ -68,7 +70,7 @@ class FolderController {
             redirect(action:list)
         }
         else {
-            return [ folderInstance : folderInstance ]
+            return [ investmentInstance:investmentInstance, folderInstance : folderInstance ]
         }
     }
 
@@ -87,7 +89,7 @@ class FolderController {
             folderInstance.properties = params
             if(!folderInstance.hasErrors() && folderInstance.save()) {
                 flash.message = "Folder ${params.id} updated"
-                redirect(action:show,id:folderInstance.id)
+                redirect(action:list,id:params.investmentid)
             }
             else {
                 render(view:'edit',model:[folderInstance:folderInstance])
@@ -106,16 +108,22 @@ class FolderController {
             redirect(action:list)
         }
         
-        def folderInstance = new Folder(investmentInstance)
+        def folderInstance = new Folder(investment: investmentInstance)
         folderInstance.properties = params
-        return ['folderInstance':folderInstance]
+        return [investmentInstance: investmentInstance, 'folderInstance':folderInstance]
     }
 
     def save = {
+        def investmentInstance = Investment.get( params.investmentInstance.id )
+        if(!investmentInstance) {
+            flash.message = "Investment not found with id ${params.id}"
+            redirect(action:list)
+        }
         def folderInstance = new Folder(params)
+        folderInstance.investment = investmentInstance;
         if(!folderInstance.hasErrors() && folderInstance.save()) {
             flash.message = "Folder ${folderInstance.id} created"
-            redirect(action:list)
+            redirect(action:list, id:investmentInstance.id)
         }
         else {
             render(view:'create',model:[folderInstance:folderInstance])

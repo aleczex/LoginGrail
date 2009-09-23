@@ -49,7 +49,7 @@ This is yet another free release from www.freecss.info.  If you downloaded it fr
 				</div>
 				<div class="clear"></div>
 			</div>
-			<div id="footer"><a href="http://www.horisone.com">Powered by Horisone</a></div>
+            <g:render template="/shared/footer" />
 		</div>
 	</div>
 </body>

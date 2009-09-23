@@ -11,48 +11,12 @@
 				<ul id="navlist">
                     <g:if test="${params.controller == null}">
                         <li id="current"><a href="${grailsApplication.config.grails.serverURL}">Start</a></li>
+                        <li><g:link controller="investment">Inwestycje</g:link></li>
                     </g:if>
                     <g:else>
                         <li><a href="${grailsApplication.config.grails.serverURL}">Start</a></li>
+                        <li id="current"><g:link controller="investment">Inwestycje</g:link></li>
                     </g:else>
-
-                    <g:if test="${(params.controller == 'investment') && params.action == 'list'}">
-                        <li id="current"><g:link controller="investment">Inwestycja</g:link></li>
-                    </g:if>
-                    <g:else>
-                        <li><g:link controller="investment">Inwestycja</g:link></li>
-                    </g:else>
-
-                    <g:if test="${session.user != null}">
-	                    <g:if test="${params.controller == 'investment' && params.action =='create'}">
-	                        <li id="subcurrent"><g:link class="create" action="create">Nowa inwestycja</g:link></li>
-	                    </g:if>
-                        <g:if test="${params.controller == 'investment' && params.action =='list'}">
-                            <li id="sub"><g:link class="create" action="create">Nowa inwestycja</g:link></li>
-                        </g:if>
-                    </g:if>             
-                    <g:if test="${(params.controller == 'folder' ||params.controller == 'picture') && params.action == 'list'}">
-                        <li id="current"><g:link controller="folder">Galeria</g:link></li>
-                    </g:if>
-                    <g:else>
-                        <li><g:link controller="folder">Galeria</g:link></li>
-                    </g:else>
-					<g:if test="${session.user != null}">
-		                <g:if test="${params.controller == 'folder' && params.action =='create'}">
-		                    <li id="subcurrent"><g:link class="create" action="create">Nowy folder</g:link></li>
-		                </g:if>
-		                <g:if test="${params.controller == 'folder' && params.action =='list'}">
-		                    <li id="sub"><g:link class="create" action="create">Nowy folder</g:link></li>
-		                </g:if>
-					</g:if>             
-                	<g:if test="${session.user != null}">
-                    	<g:if test="${params.controller == 'picture' && params.action == 'list'}">
-							<li id="sub"><g:link class="create" action="create" id="${folderInstance.id}">Nowy obrazek</g:link></li>
-						</g:if>	
-                    	<g:if test="${params.controller == 'picture' && params.action == 'create'}">
-							<li id="subcurrent"><g:link class="create" action="create" id="${folderInstance.id}">Nowy obrazek</g:link></li>
-						</g:if>	
-					</g:if> 
 					<g:if test="${session.user != null}">
 	            		<g:if test="${params.controller == 'comment' && params.action == 'list'}">
 				            <li id="subcurrent"><g:link class="list" controller="comment" action="list">Lista komentarzy</g:link></li>
@@ -61,20 +25,6 @@
 				            <li id="sub"><g:link class="list" controller="comment" action="list">Lista komentarzy</g:link></li>
 	            		</g:if>
 					</g:if> 					
-					<g:if test="${params.controller == 'news' && params.action == 'list'}">
-    					<li id="current"><g:link controller="news">Dziennik budowy</g:link></li>
-                    </g:if>
-                    <g:else>
-                        <li><g:link controller="news">Dziennik budowy</g:link></li>
-                    </g:else>
-					<g:if test="${session.user != null}">
-                    	<g:if test="${params.controller == 'news' && params.action == 'create'}">
-                        	<li id="subcurrent"><g:link class="create" action="create">Nowy wpis</g:link></li>
-                    	</g:if>
-                    	<g:if test="${params.controller == 'news' && params.action == 'list'}">
-                        	<li id="sub"><g:link class="create" action="create">Nowy wpis</g:link></li>
-                    	</g:if>
-                	</g:if>             
                 	<g:if test="${session.user != null}">
 						<g:if test="${params.controller == 'user' && params.action == 'list'}">
 	                		<li id="current"><g:link class="list" controller="user" action="list">Użytkownicy</g:link></li>

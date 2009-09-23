@@ -88,6 +88,8 @@
                     <span class="button"><input class="save" type="submit" value="Create" /></span>
                 </div>
             </g:form>
+            <g:render template="/shared/footer" />
         </div>
-    </body>
+    </div>
+</body>
 </html>

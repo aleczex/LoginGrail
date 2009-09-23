@@ -51,6 +51,8 @@
             <div class="paginateButtons">
                 <g:paginate total="${userInstanceTotal}" />
             </div>
+            <g:render template="/shared/footer" />
         </div>
-    </body>
+    </div>
+</body>
 </html>

@@ -86,9 +86,8 @@
 		                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete"/></span>
 		                </div>
 		            </g:form>
-					<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
-				</div>
-			</div>		
-		</div>	
-	</body>
+            <g:render template="/shared/footer" />
+        </div>
+    </div>
+</body>
 </html>

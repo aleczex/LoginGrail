@@ -21,6 +21,7 @@
             <g:form method="post" >
                 <input type="hidden" name="id" value="${newsInstance?.id}" />
                 <input type="hidden" name="version" value="${newsInstance?.version}" />
+                <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -43,14 +44,6 @@
                                 </td>
                             </tr> 
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="user">User:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:newsInstance,field:'user','errors')}">
-                                    <g:select optionKey="id" from="${User.list()}" name="user.id" value="${newsInstance?.user?.id}" ></g:select>
-                                </td>
-                            </tr> 
                         
                         </tbody>
                     </table>
@@ -60,6 +53,8 @@
                     <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
                 </div>
             </g:form>
+            <g:render template="/shared/footer" />
         </div>
-    </body>
+    </div>
+</body>
 </html>

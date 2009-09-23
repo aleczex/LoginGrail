@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta name="layout" content="main" />
-        <title>Lista newsów</title>
+        <title>Lista newsï¿½w</title>
     </head>
     <body>
         <div id="main">
@@ -10,7 +10,11 @@
                 <g:render template="/shared/menu" />
 
         <div class="body">
-            <h1>Inwestycje</h1>
+            <h1>Inwestycje
+                    <g:if test="${session.user != null}">
+                            <g:link class="create" action="create">(Nowa inwestycja)</g:link>
+                    </g:if></h1>    
+
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -41,6 +45,8 @@
             <div class="paginateButtons">
                 <g:paginate total="${investmentInstanceTotal}" />
             </div>
+            <g:render template="/shared/footer" />
         </div>
-    </body>
+    </div>
+</body>
 </html>

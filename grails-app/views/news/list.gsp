@@ -8,8 +8,10 @@
         <div id="main">
             <div id="wrapper">
                 <g:render template="/shared/menu" />
-                <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Dziennik budowy</h1>
-
+                <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>
+->Dziennik budowy<g:if test="${session.user != null}">
+                       <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy wpis)</g:link>
+                    </g:if></h1>
 		        <div id="folder">
 					<g:if test="${flash.message}">
 						<div class="message">${flash.message}</div>
@@ -23,26 +25,26 @@
 									<g:form method="post" >
 						                <input type="hidden" name="id" value="${newsInstance?.id}" />
 						                <input type="hidden" name="version" value="${newsInstance?.version}" />
+                                        <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
 						                <div class="buttons">
 						                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
 						                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
 						                </div>
 						            </g:form>	
 						        </g:if>
-						        </td>
-	                            <td>${fieldValue(bean:newsInstance, field:'dateCreated')}</td>
-	                            <td>${fieldValue(bean:newsInstance, field:'description')}</td>
-	                        </tr>
-	                    </g:each>
+						           </td>
+	                               <td>${fieldValue(bean:newsInstance, field:'dateCreated')}</td>
+	                               <td>${fieldValue(bean:newsInstance, field:'description')}</td>
+	                           </tr>
+	                       </g:each>
 	                    </tbody>
 	                </table>
 	            </div>
 	            <div class="clear"></div>
-	            <div class="paginateButtons">
-	                <g:paginate total="${newsInstanceTotal}" />
-	            </div>
-				<div class="clear"/>
-				<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
+	               <div class="paginateButtons">
+	                   <g:paginate total="${newsInstanceTotal}" />
+	               </div>
+                <g:render template="/shared/footer" />
             </div>
         </div>
     </body>

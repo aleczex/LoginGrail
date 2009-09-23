@@ -8,7 +8,11 @@
     <div id="main">
         <div id="wrapper">
 			<g:render template="/shared/menu" />
-            <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Galeria</h1>
+            <h1><g:link controller="investment">Inwestycja</g:link>->
+<g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Galeria
+                    <g:if test="${session.user != null}">
+                       <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy folder)</g:link>
+                    </g:if></h1>
 			<div id="folder">
 				<g:if test="${flash.message}">
 					<div class="message">${flash.message}</div>
@@ -16,7 +20,8 @@
 				<g:each in="${folderInstanceList}" status="i" var="folderInstance">
 					<g:if test="${session.user != null}">
 						<g:form method="post" >
-			                <input type="hidden" name="id" value="${folderInstance?.id}" />
+                            <input type="hidden" name="id" value="${folderInstance?.id}" />
+                            <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
 			                <input type="hidden" name="version" value="${folderInstance?.version}" />
 			                <div class="buttons">
 			                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
@@ -26,9 +31,9 @@
 					</g:if>
 					<g:link controller="picture" action="list" id="${folderInstance.id}"><h1>${fieldValue(bean:folderInstance, field:'name')}</h1></g:link>
 				</g:each>
-			</div>
-			<div class="clear"/>
-			<div id="footer"><a href="http://www.freecss.info">Free CSS Templates </a></div>
+            </div>
+            <g:render template="/shared/footer" />
         </div>
-	</body>
+    </div>
+</body>
 </html>
