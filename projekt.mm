@@ -12,17 +12,23 @@
 <icon BUILTIN="button_ok"/>
 </node>
 </node>
+<node CREATED="1253776051275" ID="Freemind_Link_555767287" MODIFIED="1253776093839" TEXT="Usu&#x144; folder">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1253776098011" ID="Freemind_Link_1271483354" MODIFIED="1253776133122" TEXT="Edytuj folder">
+<icon BUILTIN="button_ok"/>
+</node>
 <node CREATED="1251792347512" ID="Freemind_Link_856439447" MODIFIED="1251792352830" TEXT="Dodaj kosztorys">
-<node CREATED="1251792356381" ID="Freemind_Link_1874268543" MODIFIED="1251792361902" TEXT="Dodaj wydatek"/>
+<node CREATED="1251792356381" ID="Freemind_Link_1874268543" MODIFIED="1253776127512" TEXT="Dodaj wydatek"/>
 </node>
 <node CREATED="1251792364827" ID="Freemind_Link_723463177" MODIFIED="1251792408199" TEXT="Dodaj usterki">
 <node CREATED="1251792390635" ID="Freemind_Link_835053636" MODIFIED="1251792414425" TEXT="Dodaj usterk&#x119;">
-<node CREATED="1251792417318" ID="Freemind_Link_1273213264" MODIFIED="1251792420509" TEXT="Dodaj zdj&#x119;cie"/>
+<node CREATED="1251792417318" ID="Freemind_Link_1273213264" MODIFIED="1253776115652" TEXT="Dodaj zdj&#x119;cie"/>
 </node>
 </node>
 <node CREATED="1251792444964" ID="Freemind_Link_103610159" MODIFIED="1253045805984" TEXT="Dodaj dziennik budowy">
 <icon BUILTIN="button_ok"/>
-<node CREATED="1251792454236" ID="Freemind_Link_514310396" MODIFIED="1253045812453" TEXT="Dodaj wpis do dziennika">
+<node CREATED="1251792454236" ID="Freemind_Link_514310396" MODIFIED="1253776119949" TEXT="Dodaj wpis do dziennika">
 <icon BUILTIN="button_ok"/>
 </node>
 </node>
@@ -30,8 +36,11 @@
 <node CREATED="1251792482677" ID="Freemind_Link_879503944" MODIFIED="1251792488244" TEXT="Ustawienia u&#x17c;ytkownika">
 <node CREATED="1251792563624" ID="Freemind_Link_520212323" MODIFIED="1251792569754" TEXT="Widoczno&#x15b;&#x107; inwestycji">
 <node CREATED="1251792491215" ID="Freemind_Link_339267546" MODIFIED="1251792544986" TEXT="Tylko dla znajomych"/>
-<node CREATED="1251792547817" ID="Freemind_Link_1940843873" MODIFIED="1251792553445" TEXT="Tylko dla zarejestrowanych"/>
+<node CREATED="1251792547817" ID="Freemind_Link_1940843873" MODIFIED="1251792553445" TEXT="Tylko dla zarejestrowanych">
+<node CREATED="1253776033400" ID="Freemind_Link_1902441646" MODIFIED="1253776033400" TEXT=""/>
+</node>
 <node CREATED="1251792556479" ID="Freemind_Link_822101397" MODIFIED="1251792559669" TEXT="Dla wszystkich"/>
+<node CREATED="1253776036900" ID="Freemind_Link_568949769" MODIFIED="1253776044119" TEXT="Zablokowana"/>
 </node>
 <node CREATED="1251792581684" ID="Freemind_Link_1289453760" MODIFIED="1251792585468" TEXT="Zmiana has&#x142;a"/>
 <node CREATED="1251792587626" ID="Freemind_Link_502877046" MODIFIED="1251792591800" TEXT="Zmiana emaila"/>
