@@ -66,11 +66,12 @@ class PictureController {
 	def delete = {
 		def basePath = grailsAttributes.getApplicationContext().getResource("/images/upload/").getFile().toString()
 		def p = Picture.get(params.id)	
+		def folderid = p.folder.id
 		def f = new File(basePath +'/'+ p.filename)
 		if(f) {
 			f.delete()
 			p.delete()
-			redirect(action:'list')
+			redirect(action:'list', id: folderid)
 		}
 	}
 	
@@ -78,6 +79,7 @@ class PictureController {
 		def folderInstance = Folder.get( params.id )
 		def pictureInstance = new Picture()
 		pictureInstance.properties = params
+		pictureInstance.caption = 'opis zdjęcia';
 		if(!folderInstance) {
 			flash.message = "Folder not found with id ${params.id}"
 			redirect(action:'list')
@@ -88,6 +90,32 @@ class PictureController {
 		
 	}
 	
+    def update = {
+	        def pictureInstance = Picture.get( params.id )
+	        if(pictureInstance) {
+	            if(params.version) {
+	                def version = params.version.toLong()
+	                if(pictureInstance.version > version) {
+	                    
+	                	pictureInstance.errors.rejectValue("version", "picture.optimistic.locking.failure", "Another user has updated this Picture while you were editing.")
+	                    render(view:'edit',model:[pictureInstance:pictureInstance])
+	                    return
+	                }
+	            }
+	            pictureInstance.properties = params
+	            if(!pictureInstance.hasErrors() && pictureInstance.save()) {
+	                flash.message = "Picture ${params.id} updated"
+	                redirect(action:list,id:pictureInstance.folder.id)
+	            }
+	            else {
+	                render(view:'edit',model:[pictureInstance:pictureInstance])
+	            }
+	        }
+	        else {
+	            flash.message = "Picture not found with id ${params.id}"
+	            redirect(action:list)
+	        }
+	    }	
 	def String hashIt(String s) {
 		MessageDigest m = MessageDigest.getInstance("MD5")
 		m.update(s.getBytes(), 0, s.length())

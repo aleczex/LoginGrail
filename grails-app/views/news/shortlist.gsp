@@ -7,7 +7,7 @@
     <body>
         <div id="shortnews">
 		<g:each in="${newsInstanceList}" var="newsInstance">
-		    ${fieldValue(bean:newsInstance, field:'dateCreated')} [${fieldValue(bean:newsInstance, field:'user.nick')}]
+		    ${fieldValue(bean:newsInstance, field:'dateCreated')}
 		    <p><h4>${fieldValue(bean:newsInstance, field:'description')}</h4></p>
 	    </g:each>
         </div>

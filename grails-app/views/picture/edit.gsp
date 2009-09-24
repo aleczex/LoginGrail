@@ -35,6 +35,7 @@
 		            <g:form method="post" >
 		                <input type="hidden" name="id" value="${pictureInstance?.id}" />
 		                <input type="hidden" name="version" value="${pictureInstance?.version}" />
+                        <input type="hidden" id="filename" name="filename" value="${fieldValue(bean:pictureInstance,field:'filename')}"/>
 		                <div class="dialog">
 		                    <table>
 		                        <tbody>
@@ -52,14 +53,6 @@
 		                                </td>
 		                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'dateCreated','errors')}">
 		                                    <g:datePicker name="dateCreated" value="${pictureInstance?.dateCreated}" precision="minute" ></g:datePicker>
-		                                </td>
-		                            </tr> 
-		                            <tr class="prop">
-		                                <td valign="top" class="name">
-		                                    <label for="filename">Filename:</label>
-		                                </td>
-		                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'filename','errors')}">
-		                                    <input type="text" id="filename" name="filename" value="${fieldValue(bean:pictureInstance,field:'filename')}"/>
 		                                </td>
 		                            </tr> 
 		                            <tr class="prop">
