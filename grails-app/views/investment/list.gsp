@@ -12,7 +12,7 @@
         <div class="body">
             <h1>Inwestycje
                     <g:if test="${session.user != null}">
-                            <g:link class="create" action="create">(Nowa inwestycja)</g:link>
+                            <g:link class="create" action="create">(Dodaj nową inwestycję)</g:link>
                     </g:if></h1>    
 
             <g:if test="${flash.message}">
@@ -25,8 +25,8 @@
                    	        <g:sortableColumn property="name" title="Nazwa inwestycji" />
                    	        <g:sortableColumn property="dateCreated" title="Data utworzenia" />
                    	        <th>Galeria</th>
-                   	        <th>Nowosci</th>
-                   	        <th>Uzytkownik</th>
+                   	        <th>Nowości</th>
+                   	        <th>Użytkownik</th>
                         </tr>
                     </thead>
                     <tbody>

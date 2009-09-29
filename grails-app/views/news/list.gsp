@@ -28,12 +28,12 @@
                                         <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
 						                <div class="buttons">
 						                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-						                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
+						                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
 						                </div>
 						            </g:form>	
 						        </g:if>
 						           </td>
-	                               <td>${fieldValue(bean:newsInstance, field:'dateCreated')}</td>
+	                               <td><g:formatDate format="yyyy-MM-dd HH:mm" date="${newsInstance.dateCreated}"/></td>
 	                               <td>${fieldValue(bean:newsInstance, field:'description')}</td>
 	                           </tr>
 	                       </g:each>

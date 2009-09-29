@@ -5,7 +5,7 @@ class Comment implements Comparable {
 	Picture picture
 	Date dateCreated = new Date()
 	
-    
+	static belongsTo = [picture: Picture]
     static constraints = {
     	user(nullable:true)
     	description(blank:false)

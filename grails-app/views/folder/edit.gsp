@@ -28,7 +28,7 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="name">Name:</label>
+                                    <label for="name">Nazwa:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:folderInstance,field:'name','errors')}">
                                     <input type="text" id="name" name="name" value="${fieldValue(bean:folderInstance,field:'name')}"/>
@@ -38,8 +38,8 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" value="Update" /></span>
-                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
+                    <span class="button"><g:actionSubmit class="save" action="Update" value="Zmień"/></span>
+                    <span class="button"><g:link controller="folder" action="list" id="${investmentInstance.id}">Powrót</g:link></span>
                 </div>
             </g:form>
             <g:render template="/shared/footer" />

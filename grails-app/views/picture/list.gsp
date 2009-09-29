@@ -17,7 +17,7 @@
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->
                 <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}
                     <g:if test="${session.user != null}">
-                       <g:link class="create" action="create" id="${folderInstance.id}"> (Nowe zdjęcie)</g:link>
+                       <g:link class="create" action="create" id="${folderInstance.id}"> (Dodaj nowe zdjęcie)</g:link>
                     </g:if></h1>
 				<div id="imagelist">
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
@@ -29,7 +29,7 @@
 						                <input type="hidden" name="version" value="${pictureInstance?.version}" />
 						                <div class="buttons">
 						                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-						                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
+						                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien? Zostaną usunięte wszystkie komentarze dodane do tego zdjęcia.');" value="Usuń" /></span>
 						                </div>
 						            </g:form>									
 								</g:if>

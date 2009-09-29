@@ -18,18 +18,18 @@ class PictureController {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		
 		def folderInstance = Folder.get( params.id )
-
+		
 		if(!folderInstance) {
 			flash.message = "Folder not found with id ${params.id}"
 			redirect(controller:'folder')
 		}
 		else {
-	        def investmentInstance = Investment.find( "from Investment as i where exists (from Folder as f where f.id=?))", folderInstance.id )
-	        if(!investmentInstance) {
-	            flash.message = "Investment not found with id ${params.id}"
-	            redirect(action:list)
-	        }           
-
+			def investmentInstance = Investment.find( "from Investment as i where exists (from Folder as f where f.id=?))", folderInstance.id )
+			if(!investmentInstance) {
+				flash.message = "Investment not found with id ${params.id}"
+				redirect(action:list)
+			}           
+			
 			[investmentInstance: investmentInstance, folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=? order by p.dateCreated asc", folderInstance.id), pictureInstanceTotal: Picture.count(),
 			commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=?) order by c.dateCreated asc", folderInstance.id)]
 		}
@@ -90,32 +90,49 @@ class PictureController {
 		
 	}
 	
-    def update = {
-	        def pictureInstance = Picture.get( params.id )
-	        if(pictureInstance) {
-	            if(params.version) {
-	                def version = params.version.toLong()
-	                if(pictureInstance.version > version) {
-	                    
-	                	pictureInstance.errors.rejectValue("version", "picture.optimistic.locking.failure", "Another user has updated this Picture while you were editing.")
-	                    render(view:'edit',model:[pictureInstance:pictureInstance])
-	                    return
-	                }
-	            }
-	            pictureInstance.properties = params
-	            if(!pictureInstance.hasErrors() && pictureInstance.save()) {
-	                flash.message = "Picture ${params.id} updated"
-	                redirect(action:list,id:pictureInstance.folder.id)
-	            }
-	            else {
-	                render(view:'edit',model:[pictureInstance:pictureInstance])
-	            }
-	        }
-	        else {
-	            flash.message = "Picture not found with id ${params.id}"
-	            redirect(action:list)
-	        }
-	    }	
+	def update = {
+		def pictureInstance = Picture.get( params.id )
+		if(pictureInstance) {
+			if(params.version) {
+				def version = params.version.toLong()
+				if(pictureInstance.version > version) {
+					
+					pictureInstance.errors.rejectValue("version", "picture.optimistic.locking.failure", "Another user has updated this Picture while you were editing.")
+					render(view:'edit',model:[pictureInstance:pictureInstance])
+					return
+				}
+			}
+			pictureInstance.properties = params
+			if(!pictureInstance.hasErrors() && pictureInstance.save()) {
+				flash.message = "Picture ${params.id} updated"
+				redirect(action:list,id:pictureInstance.folder.id)
+			}
+			else {
+				render(view:'edit',model:[pictureInstance:pictureInstance])
+			}
+		}
+		else {
+			flash.message = "Picture not found with id ${params.id}"
+			redirect(action:list)
+		}
+	}	
+	
+	def edit = {
+		def pictureInstance = Picture.get( params.id )
+		
+		if(!pictureInstance) {
+			flash.message = "Picture not found with id ${params.id}"
+			redirect(action:list)
+		}
+		else {
+			def folderInstance = Folder.find("from Folder as f where exists (from Picture as p where f.id = p.folder.id and p.id=?)", pictureInstance.id);
+			return [ folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id = ? order by f.dateCreated asc)", folderInstance.investment.id), 
+			         pictureInstance : pictureInstance,
+			         folderInstance: folderInstance,
+			         investmentInstance: folderInstance.investment]
+		}
+	}
+	
 	def String hashIt(String s) {
 		MessageDigest m = MessageDigest.getInstance("MD5")
 		m.update(s.getBytes(), 0, s.length())

@@ -14,8 +14,10 @@
 		<div id="main">
 			<div id="wrapper">    
 	            <g:render template="/shared/menu" />
+                <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->
+                <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}(Edycja)
+                </h1>
 		        <div id="imagelist">
-		            <h1>Edytuj obrazek</h1>
 		            <g:if test="${flash.message}">
 		            	<div class="message">${flash.message}</div>
 		            </g:if>
@@ -24,7 +26,6 @@
 			                <g:renderErrors bean="${pictureInstance}" as="list" />
 			            </div>
 		            </g:hasErrors>
-            
 		            <g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
 					<g:set var="res" value="${resource(dir:'/images/upload')}" />
 					<a href="${res}/${path}" class="highslide" onclick="return hs.expand(this)"
@@ -41,7 +42,7 @@
 		                        <tbody>
 		                            <tr class="prop">
 		                                <td valign="top" class="name">
-		                                    <label for="caption">Caption:</label>
+		                                    <label for="caption">Podpis:</label>
 		                                </td>
 		                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'caption','errors')}">
 		                                    <input type="text" id="caption" name="caption" value="${fieldValue(bean:pictureInstance,field:'caption')}"/>
@@ -49,7 +50,7 @@
 		                            </tr> 
 		                            <tr class="prop">
 		                                <td valign="top" class="name">
-		                                    <label for="dateCreated">Date Created:</label>
+		                                    <label for="dateCreated">Data utworzenia:</label>
 		                                </td>
 		                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'dateCreated','errors')}">
 		                                    <g:datePicker name="dateCreated" value="${pictureInstance?.dateCreated}" precision="minute" ></g:datePicker>
@@ -60,23 +61,21 @@
 		                                    <label for="folder">Folder:</label>
 		                                </td>
 		                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'folder','errors')}">
-		                                    <g:select optionKey="id" from="${Folder.list()}" name="folder.id" value="${pictureInstance?.folder?.id}" ></g:select>
+		                                    <g:select optionKey="id" optionValue="name" from="${folderInstanceList}" name="folder.id" value="${folderInstance?.id}" ></g:select>
 		                                </td>
 		                            </tr> 
 		                            <tr class="prop">
 		                                <td valign="top" class="name">
-		                                    <label for="user">User:</label>
-		                                </td>
-		                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'user','errors')}">
-		                                    <g:select optionKey="id" from="${User.list()}" name="user.id" value="${pictureInstance?.user?.id}" ></g:select>
+		                                    <label for="user">Użytkownik: ${session.user.nick}</label>
+                                            <input type="hidden" name="user.id" value="${session.user.id}" />		                                    
 		                                </td>
 		                            </tr> 
 		                        </tbody>
 		                    </table>
 		                </div>
 		                <div class="buttons">
-		                    <span class="button"><g:actionSubmit class="save" value="Update" /></span>
-		                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete"/></span>
+		                    <span class="button"><g:actionSubmit action="update" value="Zmień" /></span>
+		                    <span class="button"><g:link controller="picture" action="list" id="${folderInstance.id}">Powrót</g:link></span>
 		                </div>
 		            </g:form>
             <g:render template="/shared/footer" />
