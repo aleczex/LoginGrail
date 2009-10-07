@@ -1,18 +1,16 @@
-import groovy.text.Template
-import groovy.text.SimpleTemplateEngine
-import org.springframework.mail.MailException
+import EmailerService
 
 class UserController {
-
-	def defaultAction = "edit"
+	def emailerService
+	
+	def defaultAction = "login"
 	
 	def scaffold = true
 	
-	def login = {
-	}
+	def login ={}
 	
 	def beforeInterceptor = [action:this.&checkUser,except:
-		['login', 'doLogin']]
+		['login', 'doLogin', 'forgotPassword']]
 	
 	def checkUser() {
 		if(!session.user) {
@@ -22,13 +20,16 @@ class UserController {
 	}
 
 	def doLogin = {
+		println "in do Login"
 		def user = User.findWhere(email:params['email'],
 		password:params['password'])
 		session.user = user
-		if (!user)
-		redirect(controller:'user', action:'login')
-		else
-		redirect(uri:'/')
+		if (!user) {
+			flash.message="Nie ma takiego użytkownika. Spróbuj jeszcze raz."
+			redirect(controller:'user', action:'login')
+		} else {
+			redirect(uri:'/')
+		}
 	}
 	
 	def doLogout = {
@@ -36,46 +37,17 @@ class UserController {
 		redirect(uri:'/')
 	}
 	
-//	def processOrder = {
-//			if(session.cart){
-//				session.cart.client = session.client
-//				def order = mainService.processOrder(session.cart, params)
-//				if(order){
-//					flash.message = 'Order processed succesfully.'
-//					if(sendNotificationEmail(order)) flash.mailSent = true
-//					else flash.mailSent = false
-//				}
-//				chain(action:orderProcessed, model:[order:order])
-//			}
-//			else sessionExpired()
-//		}
-
-	
-	private sendNotificationEmail(Order order) {
-	
-		File tplFile = grailsAttributes.getApplicationContext().getResource( File.separator + "WEB-INF" + File.separator + "templates" + File.separator + "mail.gsp").getFile(); 
-		def binding = ["order": order] 
-		def engine = new SimpleTemplateEngine() 
-		def template = engine.createTemplate(tplFile).make(binding) 
-		def body = template.toString()
-		def email = [
-			to: ['aleksander.pena@gmail.com'], // "to" expects a List
-			subject: "Your Order #${order.number}",
-			text: 	body
-		]
-
-		try { 
-			emailerService.sendEmail(email) 
-		} catch (MailException ex) { 
-			log.error("Failed to send emails", ex) 
-			return false 
-		} 
-		return true 
+	def forgotPassword = {
+		//def templateUri = grailsAttributes.getTemplateUri("myTemplate",request)
+		def email = [ to: [ params.email ], subject: 'Przypomnienie hasła', text: 'tutaj hasło'] 
+        email.template = grailsAttributes.getApplicationContext().getResource("templates" + File.separator + "mail.gsp"); 
+		println "forgot password z: " + email
+		if(params.email == null || params.email.isEmpty()) {
+			flash.message = "Musisz podać prawidłowy adres email!"
+		} else {
+	        emailerService.sendNotificationEmail(email)
+			flash.message = "Email z przypomnieniem hasła został wysłany na twój adres email"
+		}
+		redirect(controller:'user', action:'login')
 	}
-}
-
-class Order {
-	def number
-	def clientName
-	def ordered
 }
