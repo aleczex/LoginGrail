@@ -9,7 +9,10 @@
         <div id="wrapper">
             <g:render template="/shared/menu" />
             <div class="body">
-			<g:form action="doLogin" method="post">
+            <g:if test="${flash.message}">
+                <div class="message">${flash.message}</div>
+            </g:if>
+			<g:form method="post">
 				<div class="dialog">
 				<p>Wpisz nazwę użytkownika (Twój adres email) i hasło:</p>
 				<table class="userForm">
@@ -28,9 +31,11 @@
 					</tr>
 				</table>
 				</div>
-				<div class="buttons"><span class="formButton"> <input
-					type="submit" value="Login"></input> </span></div>
-			</g:form> 
+				<div class="buttons">
+                    <span class="button"> <g:actionSubmit action="doLogin" value="Zaloguj się"/></input> </span>
+                    <span class="button"> <g:actionSubmit action="forgotPassword" onclick="return confirm('Jesteś pewien? Na twój adres email podany podczas rejestracji zostanie wysłany mail z przypomnieniem hasła');" value="Przypomnij hasło"/></input> </span>
+                </div>
+			</g:form>
 		</div>
 	</body>
 </html>
