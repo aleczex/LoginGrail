@@ -1,6 +1,6 @@
 <div id="header">
 	<div id="user">
-		<g:if test="${session.user != null}"><g:link class="list" controller="user" action="doLogout">Wyloguj|</g:link>Zalogowany ${session.user.nick}. </g:if>
+		<g:if test="${session.user != null}"><g:link class="list" controller="user" action="doLogout">Wyloguj|</g:link>Zalogowany ${session.user.nick}. <g:if test="${session.user.isAdmin == true}">(Administrator)</g:if></g:if>
         <g:else><g:link class="list" controller="user" action="login">Zaloguj się</g:link></g:else>
 			Ostatnia aktualizacja: 22-09-2009
 	</div>

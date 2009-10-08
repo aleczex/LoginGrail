@@ -5,6 +5,7 @@ class User {
 	String password
 	SortedSet investments
 	Date dateCreated = new Date()
+	Boolean isAdmin
 	
 	static hasMany = [ investments: Investment]
 
@@ -12,6 +13,7 @@ class User {
 		nick(blank:false)
 		email(email:true)
 		password(blank:false, password:true)
+		isAdmin(blank:false)
 	}
 	
 	static mapping = {

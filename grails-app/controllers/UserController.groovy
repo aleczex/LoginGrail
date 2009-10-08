@@ -45,8 +45,11 @@ class UserController {
 		if(params.email == null || params.email.isEmpty()) {
 			flash.message = "Musisz podać prawidłowy adres email!"
 		} else {
-	        emailerService.sendNotificationEmail(email)
-			flash.message = "Email z przypomnieniem hasła został wysłany na twój adres email"
+	        if(emailerService.sendNotificationEmail(email)) {
+	        	flash.message = "Email z przypomnieniem hasła został wysłany na twój adres email"
+	        } else {
+	        	flash.message = "Nie udało się wysłać emaila z przypomnieniem hasła"
+	        }
 		}
 		redirect(controller:'user', action:'login')
 	}

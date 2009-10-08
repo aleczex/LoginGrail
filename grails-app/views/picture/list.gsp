@@ -16,14 +16,17 @@
 				<g:render template="/shared/menu" />
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->
                 <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}
-                    <g:if test="${session.user != null}">
+                    <g:if test="${session.user != null && (session.user.id == investmentInstance.user.id || session.user.isAdmin)}">
                        <g:link class="create" action="create" id="${folderInstance.id}"> (Dodaj nowe zdjęcie)</g:link>
                     </g:if></h1>
 				<div id="imagelist">
+                <g:if test="${flash.message}">
+                    <div class="message">${flash.message}</div>
+                </g:if>
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
 						<div>
 							<div id="imageframe">
-								<g:if test="${session.user != null}">
+                                <g:if test="${session.user != null && (session.user.id == investmentInstance.user.id || session.user.isAdmin)}">
 									<g:form method="post" >
 						                <input type="hidden" name="id" value="${pictureInstance?.id}" />
 						                <input type="hidden" name="version" value="${pictureInstance?.version}" />

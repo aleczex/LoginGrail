@@ -24,7 +24,7 @@ class PictureController {
 			redirect(controller:'folder')
 		}
 		else {
-			def investmentInstance = Investment.find( "from Investment as i where exists (from Folder as f where f.id=?))", folderInstance.id )
+			def investmentInstance = Investment.find( "from Investment as i where i.id=?", folderInstance.investment.id )
 			if(!investmentInstance) {
 				flash.message = "Investment not found with id ${params.id}"
 				redirect(action:list)
@@ -77,9 +77,16 @@ class PictureController {
 	
 	def create = {
 		def folderInstance = Folder.get( params.id )
+		def investmentInstance = Investment.find( "from Investment as i where i.id=?", folderInstance.investment.id )
 		def pictureInstance = new Picture()
 		pictureInstance.properties = params
 		pictureInstance.caption = 'opis zdjęcia';
+		
+        if(session.user.id != investmentInstance.user.id && !session.user.isAdmin) {
+            flash.message = "Nie możesz edytować nie swojej inwestycji"
+            redirect(id:params.id, action:list)
+        }
+        
 		if(!folderInstance) {
 			flash.message = "Folder not found with id ${params.id}"
 			redirect(action:'list')

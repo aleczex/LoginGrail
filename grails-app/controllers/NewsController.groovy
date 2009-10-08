@@ -46,8 +46,12 @@ class NewsController {
 	def create = {
 		def investmentInstance = Investment.get( params.id )
 		if(!investmentInstance) {
-			flash.message = "Investment not found with id ${params.id}"
+			flash.message = "Nie ma inwestycji o takim numerze id: ${params.id}"
 			redirect(action:list)
+		}
+		if(session.user.id != investmentInstance.user.id && !session.user.isAdmin) {
+            flash.message = "Nie możesz edytować nie swojej inwestycji"
+			redirect(id:investmentInstance.id, action:list)
 		}
 		
 		def folderInstance = new Folder(investment: investmentInstance)
@@ -79,7 +83,10 @@ class NewsController {
     
 	def edit = {
 			def investmentInstance = Investment.get(params.investmentid)
-			
+			if(!investmentInstance) {
+				flash.message = "Nie ma inwestycji o takim numerze id: ${params.id}"
+            	redirect(action:list)
+			}
 	        def newsInstance = News.get( params.id )
 
 	        if(!newsInstance) {

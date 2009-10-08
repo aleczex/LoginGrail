@@ -10,7 +10,9 @@
                 <g:render template="/shared/menu" />
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>
 ->Dziennik budowy<g:if test="${session.user != null}">
-                       <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy wpis)</g:link>
+                    <g:if test="${session.user.id == investmentInstance.user.id || session.user.isAdmin}">                       
+                        <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy wpis)</g:link>
+                    </g:if>
                     </g:if></h1>
 		        <div id="folder">
 					<g:if test="${flash.message}">
@@ -22,15 +24,17 @@
 	                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 								<td>
 								<g:if test="${session.user != null}">
+                                    <g:if test="${session.user.id == investmentInstance.user.id || session.user.isAdmin}">
 									<g:form method="post" >
-						                <input type="hidden" name="id" value="${newsInstance?.id}" />
-						                <input type="hidden" name="version" value="${newsInstance?.version}" />
-                                        <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
-						                <div class="buttons">
-						                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-						                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
-						                </div>
+							                <input type="hidden" name="id" value="${newsInstance?.id}" />
+							                <input type="hidden" name="version" value="${newsInstance?.version}" />
+	                                        <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
+							                <div class="buttons">
+							                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+							                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
+							                </div>
 						            </g:form>	
+                                   </g:if>
 						        </g:if>
 						           </td>
 	                               <td><g:formatDate format="yyyy-MM-dd HH:mm" date="${newsInstance.dateCreated}"/></td>

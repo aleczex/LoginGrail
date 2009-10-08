@@ -107,6 +107,10 @@ class FolderController {
             flash.message = "Investment not found with id ${params.id}"
             redirect(action:list)
         }
+        if(session.user.id != investmentInstance.user.id && !session.user.isAdmin) {
+            flash.message = "Nie możesz edytować nie swojej inwestycji"
+            redirect(id:investmentInstance.id, action:list)
+        }
         
         def folderInstance = new Folder(investment: investmentInstance)
         folderInstance.properties = params
