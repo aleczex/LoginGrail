@@ -131,3 +131,5 @@ su postgres;
 psql
 alter database domek owner to grails;
 
+przywrócenie danych z backupu (winxp):
+psql domek -U grails <db_backup.sql

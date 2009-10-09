@@ -17,29 +17,10 @@
                         <li><a href="${grailsApplication.config.grails.serverURL}">Start</a></li>
                         <li id="current"><g:link controller="investment">Inwestycje</g:link></li>
                     </g:else>
-					<g:if test="${session.user != null}">
-	            		<g:if test="${params.controller == 'comment' && params.action == 'list'}">
+                	<g:if test="${session.user != null && session.user.isAdmin}">
 				            <li id="subcurrent"><g:link class="list" controller="comment" action="list">Lista komentarzy</g:link></li>
-	            		</g:if>
-	            		<g:if test="${params.controller == 'picture' && params.action == 'list'}">
-				            <li id="sub"><g:link class="list" controller="comment" action="list">Lista komentarzy</g:link></li>
-	            		</g:if>
-					</g:if> 					
-                	<g:if test="${session.user != null}">
-						<g:if test="${params.controller == 'user' && params.action == 'list'}">
 	                		<li id="current"><g:link class="list" controller="user" action="list">Użytkownicy</g:link></li>
-	            		</g:if>
-	            		<g:else>
-	                		<li><g:link class="list" controller="user" action="list">Użytkownicy</g:link></li>
-	            		</g:else>
-					</g:if> 
-            		<g:if test="${session.user != null}">
-	            		<g:if test="${params.controller == 'user' && params.action == 'create'}">
 	                		<li id="subcurrent"><g:link class="create" action="create">Nowy użytkownik</g:link></li>
-	            		</g:if>
-	            		<g:if test="${params.controller == 'user' && params.action == 'list'}">
-	                		<li id="sub"><g:link class="create" action="create">Nowy użytkownik</g:link></li>
-	            		</g:if>
             		</g:if>
 				</ul>
 			</div>

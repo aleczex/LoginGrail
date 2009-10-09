@@ -19,7 +19,7 @@ class NewsController {
 	def list = {
 		def investmentInstance = Investment.get( params.id )
 		if(!investmentInstance) {
-			flash.message = "Investment not found with id ${params.id}"
+			flash.message = "Nie ma inwestycji o takim numerze id: ${params.id}"
 			redirect(controller:'investment',action:'list')
 		}
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
@@ -29,13 +29,13 @@ class NewsController {
 	def save = {
 		def investmentInstance = Investment.get( params.investmentInstance.id )
 		if(!investmentInstance) {
-			flash.message = "Investment not found with id ${params.id}"
+			flash.message = "Nie ma inwestycji o takim numerze id: ${params.id}"
 			redirect(action:list)
 		}			
 		def newsInstance = new News(params)
 		newsInstance.investment = investmentInstance;
 		if(!newsInstance.hasErrors() && newsInstance.save()) {
-			flash.message = "News ${newsInstance.id} created"
+			flash.message = "Dodany wpis do dziennika"
 			redirect(action:list, id:investmentInstance.id)
 		}
 		else {
@@ -66,17 +66,17 @@ class NewsController {
 			try {
 				println("before delete: ")
 				newsInstance.delete(flush:true)
-				flash.message = "News ${params.id} deleted"
+				flash.message = "Wpis skasowany"
 				redirect(action:list, id:params.investmentid)
 			}
 			catch(org.springframework.dao.DataIntegrityViolationException e) {
 				println("error: " + e)
-				flash.message = "News ${params.id} could not be deleted"
+				flash.message = "Wpis ${params.id} nie może być skasowany"
 				redirect(action:list,id:params.investmentid)
 			}
 		}
 		else {
-			flash.message = "News not found with id ${params.id}"
+			flash.message = "Nie znaleziony wpis o id = ${params.id}"
 			redirect(action:list, id:params.investmentid)
 		}
 	}	
@@ -90,7 +90,7 @@ class NewsController {
 	        def newsInstance = News.get( params.id )
 
 	        if(!newsInstance) {
-	            flash.message = "News not found with id ${params.id}"
+	            flash.message = "Wpis nie znaleziony o id=${params.id}"
 	            redirect(action:list)
 	        }
 	        else {
@@ -112,7 +112,7 @@ class NewsController {
 	            }
 	            newsInstance.properties = params
 	            if(!newsInstance.hasErrors() && newsInstance.save()) {
-	                flash.message = "News ${params.id} updated"
+	                flash.message = "Wpis ${params.id} poprawiony"
 	                redirect(action:list,id: params.investmentid)
 	            }
 	            else {
@@ -120,7 +120,7 @@ class NewsController {
 	            }
 	        }
 	        else {
-	            flash.message = "News not found with id ${params.id}"
+	            flash.message = "Wpis o id = ${params.id} nie znaleziony"
 	            redirect(action:list)
 	        }
 	    }
