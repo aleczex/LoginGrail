@@ -61,7 +61,7 @@ ALTER TABLE public.hibernate_sequence OWNER TO grails;
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: grails
 --
 
-SELECT pg_catalog.setval('hibernate_sequence', 114, true);
+SELECT pg_catalog.setval('hibernate_sequence', 126, true);
 
 
 --
@@ -167,6 +167,8 @@ COPY news (id, version, date_created, description, user_id) FROM stdin;
 88	0	2009-09-19 20:37:51.653	Dodałem kilka nowych zdjęć zalanego stropu. Częściowo rozebrano już szalunki i przygotowano pustaki do murawania poddasza. Od poniedziałku ruszamy z dalszą budową.	1
 113	0	2009-09-30 20:25:24.817	Wieniec pod więźbę już wylany. Szambo w trakcie budowy.	1
 114	0	2009-09-30 20:26:00.76	Jutro mają podłączyć wodę z wodociągu i zainstalować licznik i zawory.	1
+124	2	2009-10-03 10:20:00	Woda już podłączona i założony licznik. Wyrównany także teren przed domem - wreszcie porządek na działce.	1
+126	0	2009-10-07 16:31:01.427	Licznik wody zaplombowany :)	1
 \.
 
 
@@ -192,6 +194,7 @@ COPY picture (id, version, caption, filename, folder_id, user_id, date_created) 
 110	3	No i widok od przodu - trochę pod słońce niestety	e833df4a2f66b0f46c05b89d372036de110.jpg	103	1	2009-09-30 19:48:00
 107	3	A to gotowa już studnia na deszczówkę i odwodnienie działki	e8dd6963f4bc34345eba50feb79cf0eb107.jpg	103	1	2009-09-30 19:49:00
 109	3	Ta wielka dziura - to będzie nasze szambo	864a8d2149c7f641e2c50a9607fb3bfb109.jpg	103	1	2009-09-30 19:50:00
+125	1	Licznik już zaplombowany - mamy własną wodę :)	b3b2ed83b885d0078ba26940a2b24b9c125.jpg	103	1	2009-10-07 16:00:42.99
 87	2	Widok z tyłu z zasypanymi studzienkami	199ac4d56c612f6f6c24c4d1948f706187.jpg	70	1	2009-09-19 20:35:00
 78	2	Większość stępli już rozebrana	dc30e70aff00365543b941e4158433f378.jpg	6	1	2009-09-19 20:30:00
 79	2	Widoczek z góry	d9eced5127da6c9010fdd3963b06c43c79.jpg	6	1	2009-09-19 20:30:00
@@ -275,11 +278,20 @@ COPY picture (id, version, caption, filename, folder_id, user_id, date_created) 
 61	5	Widoczek od tyłu	35f1800ec9ecb5769433c75b86477eea61.jpg	6	1	2009-08-25 08:40:00
 68	1	Jeszcze widok z bliska	2ea35b39b35e14678a32ec010248581168.jpg	6	1	2009-09-03 20:37:29.097
 69	1	I jeszcze z drugiej strony	36e1ea4125d94f2652d43ba8476bae0169.jpg	6	1	2009-09-03 20:38:02.388
+119	2	Tak wygląda na razie na poddaszu	db4e19754b8b08732b015f0a0c27f194119.jpg	103	1	2009-10-02 09:51:00
+123	2	A to już widok na posprzątaną działkę	47b2a18f7f6772c012bedfd1e1e533a4123.jpg	103	1	2009-10-02 16:44:00
+120	2	Woda podłączona - dziury jeszcze nie zakopane czekają na odbiór przez wodociągi	370a3e0d88d277772fda8269cf0799ee120.jpg	103	1	2009-10-02 09:50:00
 71	2	Zakopana już prawie cała rura kanalizacyjna i wyrównany teren za domem	82615fa87a4ab026d0434c2a043a4aed71.jpg	70	1	2009-09-03 20:39:00
 72	2	Odprowadzenie deszczówki	2281c80676f4239af31b53c2e05991c772.jpg	70	1	2009-09-03 20:40:00
 73	2	Tam w rogu ma być studnia na deszczówkę	e0ec716f247b98e4555a86122aa5b5b473.jpg	70	1	2009-09-03 20:40:00
 74	3	Tutaj ma być studnia z kręgów do której będzie się zbierać deszczówka	7f624e4b11f4f463f8da04bb5f820d1f74.jpg	70	1	2009-09-03 20:41:00
 96	2	Tutaj będzie salon	050fd37f988c71e9de07e77ecd35b70496.jpg	90	1	2009-09-23 17:26:00
+122	3	Wyrównywanie terenu koparką	840d549b1a9d11a832f9d2c3348d1f1d122.jpg	103	1	2009-10-02 09:53:00
+121	2	67	e11d06f132f598c46e4a24ad08ecbc85121.jpg	103	1	2009-10-02 09:54:00
+117	6	Szambo już podłączone.	80e0c4188ba243b1ba00e0c9f3f957c0117.jpg	103	1	2009-10-02 09:52:00
+115	2	Widać już wejścia z balkonu do pokojów	76a17699c2281872ff912dbe04818b08115.jpg	103	1	2009-10-02 09:49:00
+116	2	A z drugiej strony 'balkonik' w pokoju nad garażem	ee16627a02409db6a71a265392fe0622116.jpg	103	1	2009-10-02 09:49:00
+118	2	Kawałek działki za domem	2426bf22e1ed0ce074fe3b20f93af6a1118.jpg	103	1	2009-10-02 09:55:00
 \.
 
 

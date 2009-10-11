@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta name="layout" content="main" />
-        <title>Lista newsów</title>
+        <title>Inwestycja: ${investmentInstance.name}</title>
     </head>
     <body>
         <div id="main">
