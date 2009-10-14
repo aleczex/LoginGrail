@@ -1,8 +1,13 @@
 <div id="header">
 	<div id="user">
-		<g:if test="${session.user != null}"><g:link class="list" controller="user" action="doLogout">Wyloguj|</g:link>Zalogowany ${session.user.nick}. <g:if test="${session.user.isAdmin == true}">(Administrator)</g:if></g:if>
-        <g:else><g:link class="list" controller="user" action="login">Zaloguj się</g:link></g:else>
-			Ostatnia aktualizacja: 22-09-2009
+
+<jsec:isLoggedIn>
+    <g:link controller="auth" action="signOut">Wyloguj|</g:link>Zalogowany <jsec:principal/>.
+</jsec:isLoggedIn>
+<jsec:isNotLoggedIn>
+    <g:link controller="auth" action="signIn">Zaloguj</g:link>
+</jsec:isNotLoggedIn> 
+Ostatnia aktualizacja: 22-09-2009
 	</div>
 	<div class="logo"><a href="#" class="logo"><span>Nasza</span>Inwestycja</a></div>
 	<div id="top">

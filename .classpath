@@ -86,5 +86,6 @@
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-8.4-701.jdbc3.jar"/>
+	<classpathentry kind="lib" path="lib/jsecurity-jdk14.jar"/>
 	<classpathentry kind="output" path="web-app/WEB-INF/classes"/>
 </classpath>
