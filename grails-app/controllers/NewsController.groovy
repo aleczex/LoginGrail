@@ -2,15 +2,6 @@ class NewsController {
 	
 	def scaffold = true
 	
-	def beforeInterceptor = [action:this.&checkUser,except:
-	['index','list','shortlist']]
-	def checkUser() {
-		if(!session.user) {
-			redirect(controller:'user',action:'login')
-			return false
-		}
-	}
-	
 	def shortlist = {
 		params.max = 2
 		return [ newsInstanceList: News.findAll( "from News as n order by n.dateCreated desc",[max:2]), newsInstanceTotal: News.count() ]
@@ -49,11 +40,6 @@ class NewsController {
 			flash.message = "Nie ma inwestycji o takim numerze id: ${params.id}"
 			redirect(action:list)
 		}
-		if(session.user.id != investmentInstance.user.id && !session.user.isAdmin) {
-            flash.message = "Nie możesz edytować nie swojej inwestycji"
-			redirect(id:investmentInstance.id, action:list)
-		}
-		
 		def folderInstance = new Folder(investment: investmentInstance)
 		folderInstance.properties = params
 		return [investmentInstance: investmentInstance, 'folderInstance':folderInstance]

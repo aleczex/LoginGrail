@@ -4,7 +4,7 @@ class Investment implements Comparable {
     SortedSet newsy
     SortedSet folders
     Date dateCreated = new Date()
-    User user
+    JsecUser user
     
     static hasMany = [ newsy: News, folders: Folder]
     

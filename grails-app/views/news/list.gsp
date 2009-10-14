@@ -8,12 +8,11 @@
         <div id="main">
             <div id="wrapper">
                 <g:render template="/shared/menu" />
-                <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>
-->Dziennik budowy<g:if test="${session.user != null}">
-                    <g:if test="${session.user.id == investmentInstance.user.id || session.user.isAdmin}">                       
-                        <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy wpis)</g:link>
-                    </g:if>
-                    </g:if></h1>
+                <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Dziennik budowy
+	                <jsec:isLoggedIn>
+	                    <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy wpis)</g:link>
+	                </jsec:isLoggedIn>
+                </h1>
 		        <div id="folder">
 					<g:if test="${flash.message}">
 						<div class="message">${flash.message}</div>

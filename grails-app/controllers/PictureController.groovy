@@ -4,16 +4,6 @@ import java.math.*;
 class PictureController {
 	def scaffold = true 
 	
-	def beforeInterceptor = [action:this.&checkUser,except:
-	['index','list']]
-	
-	def checkUser() {
-		if(!session.user) {
-			redirect(controller:'user',action:'login')
-			return false
-		}
-	}
-	
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		

@@ -1,11 +1,10 @@
 <div id="header">
 	<div id="user">
-
 <jsec:isLoggedIn>
     <g:link controller="auth" action="signOut">Wyloguj|</g:link>Zalogowany <jsec:principal/>.
 </jsec:isLoggedIn>
 <jsec:isNotLoggedIn>
-    <g:link controller="auth" action="signIn">Zaloguj</g:link>
+    <g:link controller="auth" action="login">Zaloguj</g:link>
 </jsec:isNotLoggedIn> 
 Ostatnia aktualizacja: 22-09-2009
 	</div>

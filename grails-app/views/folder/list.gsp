@@ -9,16 +9,18 @@
         <div id="wrapper">
 			<g:render template="/shared/menu" />
             <h1><g:link controller="investment">Inwestycja</g:link>->
-<g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Galeria
-                        <g:if test="${session.user != null && (session.user.id == investmentInstance.user.id || session.user.isAdmin)}">
-                            <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy folder)</g:link>
-                        </g:if></h1>
+				<g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Galeria
+				<jsec:isLoggedIn>
+				    <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy folder)</g:link>
+				</jsec:isLoggedIn>
+			</h1>
+
 			<div id="folder">
 				<g:if test="${flash.message}">
 					<div class="message">${flash.message}</div>
 				</g:if>
 				<g:each in="${folderInstanceList}" status="i" var="folderInstance">
-                    <g:if test="${session.user != null && (session.user.id == investmentInstance.user.id || session.user.isAdmin)}">
+                    <jsec:isLoggedIn>
 						<g:form method="post" >
 	                        <input type="hidden" name="id" value="${folderInstance?.id}" />
 	                        <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
@@ -28,7 +30,7 @@
 				                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien? Możesz usunąć tylko taki folder, w którym nie ma zdjęć');" value="Usuń" /></span>
 				            </div>
                         </g:form>
-					</g:if>
+					</jsec:isLoggedIn>
 					<g:link controller="picture" action="list" id="${folderInstance.id}"><h1>${fieldValue(bean:folderInstance, field:'name')}</h1></g:link>
 				</g:each>
             </div>

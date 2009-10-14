@@ -1,16 +1,6 @@
 class CommentController {
 	def scaffold = true
 	
-	def beforeInterceptor = [action:this.&checkUser,except:
-	['create', 'save']]
-	
-	def checkUser() {
-		if(!session.user) {
-			redirect(controller:'user',action:'login')
-			return false
-		}
-	}
-	
 	def create = {
 		def pictureInstance = Picture.get( params.id )
 		def commentInstance = new Comment()

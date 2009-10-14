@@ -16,8 +16,10 @@
 				<g:render template="/shared/menu" />
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->
                 <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}
+					<jsec:isLoggedIn>
+                        <g:link class="create" action="create" id="${folderInstance.id}"> (Dodaj nowe zdjęcie)</g:link>
+					</jsec:isLoggedIn>
                     <g:if test="${session.user != null && (session.user.id == investmentInstance.user.id || session.user.isAdmin)}">
-                       <g:link class="create" action="create" id="${folderInstance.id}"> (Dodaj nowe zdjęcie)</g:link>
                     </g:if></h1>
 				<div id="imagelist">
                 <g:if test="${flash.message}">
@@ -43,13 +45,13 @@
 								 title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
 									<img src="${res}/${path}" alt="" width="320" />
 								</a>
-								<p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.nick}])</p>
+								<p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.username}])</p>
 							</div>
 							<div id="commentframe">
 								<g:link action="create" controller="comment" params="[id: pictureInstance.id, folderid: folderInstance.id]">Skomentuj</g:link>
 								<g:findAll in="${commentInstanceList}" expr="it.picture == pictureInstance">
 	     							<p>${it.description} 
-	     							<g:if test="${it.user != null}">/${it.user.nick}</g:if>
+	     							<g:if test="${it.user != null}">/${it.user.username}</g:if>
 	     							<g:else>/~anonim</g:else></p>
 								</g:findAll>
 							</div>

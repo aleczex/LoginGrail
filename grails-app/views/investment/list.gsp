@@ -11,10 +11,10 @@
 
         <div class="body">
             <h1>Inwestycje
-                    <g:if test="${session.user != null}">
-                            <g:link class="create" action="create">(Dodaj nową inwestycję)</g:link>
-                    </g:if></h1>    
-
+				<jsec:isLoggedIn>
+				    <g:link class="create" action="create">(Dodaj nową inwestycję)</g:link>
+				</jsec:isLoggedIn>
+            </h1>    
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -30,8 +30,18 @@
                     <tbody>
                     <g:each in="${investmentInstanceList}" status="i" var="investmentInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td><g:link action="show" id="${investmentInstance.id}">${fieldValue(bean:investmentInstance, field:'name')} 
-(<g:formatDate format="yyyy-MM-dd" date="${investmentInstance.dateCreated}"/> - ${fieldValue(bean:investmentInstance, field:'user.nick')})</g:link></td>
+                            <td>		                    
+                            <jsec:isLoggedIn>
+		                        <g:form method="post" >
+		                            <input type="hidden" name="id" value="${investmentInstance?.id}" />
+		                            <div class="buttons">
+		                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+		                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien? Możesz usunąć tylko taki folder, w którym nie ma zdjęć');" value="Usuń" /></span>
+		                            </div>
+		                        </g:form>
+		                    </jsec:isLoggedIn>
+                            <g:link action="show" id="${investmentInstance.id}">${fieldValue(bean:investmentInstance, field:'name')} 
+(<g:formatDate format="yyyy-MM-dd" date="${investmentInstance.dateCreated}"/> - ${fieldValue(bean:investmentInstance, field:'user.username')})</g:link></td>
                             <td><ul>
                             <g:each in="${investmentInstance.folders}" status="j" var="folderInstance">
                                 <g:if test="${j < 3}">
@@ -39,8 +49,6 @@
                                 </g:if>
                             </g:each>
                             </ul>
-
-
                             <td><ul>
 		                    <g:each in="${investmentInstance.newsy}" status="j" var="newsInstance">
                                 <g:if test="${j < 3}">

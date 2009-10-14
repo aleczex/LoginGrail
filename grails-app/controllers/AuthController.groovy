@@ -4,7 +4,7 @@ import org.jsecurity.SecurityUtils
 
 class AuthController {
     def jsecSecurityManager
-
+    def emailerService
     def index = { redirect(action: 'login', params: params) }
 
     def login = {
@@ -12,13 +12,12 @@ class AuthController {
     }
 
     def signIn = {
-        def authToken = new UsernamePasswordToken(params.username, params.password)
+    	def authToken = new UsernamePasswordToken(params.username, params.password)
 
         // Support for "remember me"
         if (params.rememberMe) {
             authToken.rememberMe = true
         }
-
         try{
             // Perform the actual login. An AuthenticationException
             // will be thrown if the username is unrecognised or the
@@ -66,4 +65,21 @@ class AuthController {
     def unauthorized = {
         render 'You do not have permission to access this page.'
     }
+    
+    def forgotPassword = {
+            //def templateUri = grailsAttributes.getTemplateUri("myTemplate",request)
+            def email = [ to: [ params.email ], subject: 'Przypomnienie hasła', text: 'tutaj hasło'] 
+            email.template = grailsAttributes.getApplicationContext().getResource("templates" + File.separator + "mail.gsp"); 
+            println "forgot password z: " + email
+            if(params.email == null || params.email.isEmpty()) {
+                flash.message = "Musisz podać prawidłowy adres email!"
+            } else {
+                if(emailerService.sendNotificationEmail(email)) {
+                    flash.message = "Email z przypomnieniem hasła został wysłany na twój adres email"
+                } else {
+                    flash.message = "Nie udało się wysłać emaila z przypomnieniem hasła"
+                }
+            }
+            redirect(controller:'user', action:'login')
+        }
 }

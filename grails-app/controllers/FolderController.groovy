@@ -2,16 +2,6 @@
 
 class FolderController {
     
-	def beforeInterceptor = [action:this.&checkUser,except:
-		['index','list','show']]
-	def checkUser() {
-		if(!session.user) {
-			redirect(controller:'user',action:'login')
-			return false
-		}
-	}
-
-	
     def index = { redirect(action:list,params:params) }
 
     // the delete, save and update actions only accept POST requests
@@ -40,10 +30,8 @@ class FolderController {
 
     def delete = {
         def folderInstance = Folder.get( params.id )
-        println("folderInstance: " + folderInstance)
         if(folderInstance) {
             try {
-                println("before delete: ")
                 folderInstance.delete(flush:true)
                 flash.message = "Folder ${params.id} deleted"
                 redirect(action:list, id:params.investmentid)
@@ -106,10 +94,6 @@ class FolderController {
         if(!investmentInstance) {
             flash.message = "Investment not found with id ${params.id}"
             redirect(action:list)
-        }
-        if(session.user.id != investmentInstance.user.id && !session.user.isAdmin) {
-            flash.message = "Nie możesz edytować nie swojej inwestycji"
-            redirect(id:investmentInstance.id, action:list)
         }
         
         def folderInstance = new Folder(investment: investmentInstance)

@@ -43,9 +43,8 @@
                                     <label for="user">User:</label>
                                 </td>
                                 <td valign="top" class="name">
-                                	<label for="user">${session.user.nick}</label>
+                                	<label for="user">user</label>
 								</td>                                
-								<input type="hidden" id="user.id" name="user.id" value="${session.user.id}"/>                                    
                             </tr>         
                                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:investmentInstance,field:'investment','errors')}>

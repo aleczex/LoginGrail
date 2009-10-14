@@ -13,25 +13,19 @@ class SecurityFilters {
 		//			}
 		//		}
 		
-		auth(controller: "Auth", action: "signIn" ) {
-			before = {
-					accessControl{false}
-			}
-		}
-		
 		// Creating, modifying, or deleting a book requires the "Administrator" 
 		// role. 
-		investmentEdit(controller: "Investment", action: "(create|edit|save|update|delete)") { 
-			before = { 
-				accessControl { 
-					role("Administrator") || role ("User")
-				}
-			}
-		}
-		investmentList(controller: "Investment", action: "(index|list)") { 
-			before = { 
-				accessControl {false} 
-			}
-		}
+//		investmentEdit(controller: "Investment", action: "(create|edit|save|update|delete)") { 
+//			before = { 
+//				accessControl { 
+//					role("Administrator") || role ("User")
+//				}
+//			}
+//		}
+//		investmentList(controller: "Investment", action: "(index|list)") { 
+//			before = { 
+//				accessControl {false} 
+//			}
+//		}
 	}
 }
