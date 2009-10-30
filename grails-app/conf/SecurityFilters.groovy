@@ -13,19 +13,12 @@ class SecurityFilters {
 		//			}
 		//		}
 		
-		// Creating, modifying, or deleting a book requires the "Administrator" 
-		// role. 
-//		investmentEdit(controller: "Investment", action: "(create|edit|save|update|delete)") { 
-//			before = { 
-//				accessControl { 
-//					role("Administrator") || role ("User")
-//				}
-//			}
-//		}
-//		investmentList(controller: "Investment", action: "(index|list)") { 
-//			before = { 
-//				accessControl {false} 
-//			}
-//		}
+		investmentChange(controller: "investment|folder|picture|comment|news", action: "(create|edit|save|update|delete)") { 
+			before = { 
+				accessControl { 
+					role("Administrator") || role ("User")
+				}
+			}
+		}
 	}
 }

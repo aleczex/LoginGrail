@@ -31,7 +31,8 @@
                     <g:each in="${investmentInstanceList}" status="i" var="investmentInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                             <td>		                    
-                            <jsec:isLoggedIn>
+                            <g:set var="permission" value='${new org.jsecurity.authz.permission.WildcardPermission("investment:edit:${investmentInstance.id}")}'/>
+                            <jsec:hasPermission permission="${permission}">
 		                        <g:form method="post" >
 		                            <input type="hidden" name="id" value="${investmentInstance?.id}" />
 		                            <div class="buttons">
@@ -39,7 +40,7 @@
 		                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien? Możesz usunąć tylko taki folder, w którym nie ma zdjęć');" value="Usuń" /></span>
 		                            </div>
 		                        </g:form>
-		                    </jsec:isLoggedIn>
+		                    </jsec:hasPermission>
                             <g:link action="show" id="${investmentInstance.id}">${fieldValue(bean:investmentInstance, field:'name')} 
 (<g:formatDate format="yyyy-MM-dd" date="${investmentInstance.dateCreated}"/> - ${fieldValue(bean:investmentInstance, field:'user.username')})</g:link></td>
                             <td><ul>

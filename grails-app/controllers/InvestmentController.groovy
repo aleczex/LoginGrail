@@ -1,4 +1,9 @@
+import org.jsecurity.authc.AuthenticationException
+import org.jsecurity.authc.UsernamePasswordToken
+import org.jsecurity.SecurityUtils
+
 class InvestmentController {
+
 	def scaffold = true
     def index = { redirect(action:list,params:params)}
 	
