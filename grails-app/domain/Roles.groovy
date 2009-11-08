@@ -1,4 +1,4 @@
-class JsecRole {
+class Roles {
     String name
 
     static constraints = {

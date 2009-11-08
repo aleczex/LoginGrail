@@ -1,4 +1,4 @@
-class JsecUser {
+class Users {
     String username
     String passwordHash
     String email

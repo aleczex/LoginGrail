@@ -1,6 +1,6 @@
 class Picture implements Comparable {
 	Long id
-	JsecUser user 
+	Users user 
 	String caption
 	Folder folder
 	String filename

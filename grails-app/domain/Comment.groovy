@@ -1,6 +1,6 @@
 class Comment implements Comparable {
 	Long id
-	JsecUser user
+	Users user
 	String description
 	Picture picture
 	Date dateCreated = new Date()
