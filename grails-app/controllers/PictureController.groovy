@@ -72,11 +72,11 @@ class PictureController {
 		pictureInstance.properties = params
 		pictureInstance.caption = 'opis zdjęcia';
 		
-        if(session.user.id != investmentInstance.user.id && !session.user.isAdmin) {
-            flash.message = "Nie możesz edytować nie swojej inwestycji"
-            redirect(id:params.id, action:list)
-        }
-        
+//        if(session.user.id != investmentInstance.user.id && !session.user.isAdmin) {
+//            flash.message = "Nie możesz edytować nie swojej inwestycji"
+//            redirect(id:params.id, action:list)
+//        }
+        println params;
 		if(!folderInstance) {
 			flash.message = "Folder not found with id ${params.id}"
 			redirect(action:'list')
