@@ -126,10 +126,14 @@ environments {
 }
 
 
-Zmiana w≥aúciciela bazy danych:
+Zmiana w≈Ça≈õciciela bazy danych:
 su postgres;
 psql
 alter database domek owner to grails;
 
-przywrÛcenie danych z backupu (winxp):
+przywr√≥cenie danych z backupu (winxp):
 psql domek -U grails <db_backup.sql
+
+backup:
+
+ pg_dump -U grails domek >db_bakup.sql

@@ -40,16 +40,6 @@
                                     <g:datePicker name="dateCreated" value="${investmentInstance?.dateCreated}" precision="minute" ></g:datePicker>
                                 </td>
                             </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="user">User:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:investmentInstance,field:'user','errors')}">
-                                    <g:select optionKey="id" from="${JsecUser.list()}" name="user.id" value="${investmentInstance?.user?.id}" ></g:select>
-                                </td>
-                            </tr> 
-                        
                         </tbody>
                     </table>
                 </div>

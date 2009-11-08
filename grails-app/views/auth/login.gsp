@@ -19,7 +19,7 @@
                 <table class="userForm">
                     <tr class='prop'>
                         <td valign='top' style='text-align: left;' width='20%'>
-                            <label for='username'>Username:</label>
+                            <label for='username'>Nazwa użytkownika:</label>
                         </td>
                         <td valign='top' style='text-align: left;' width='80%'>
                             <input id="username" type='text' name='username' value='${username}' />
@@ -34,7 +34,7 @@
                         </td>
                     </tr>
 			        <tr>
-			          <td>Remember me?:</td>
+			          <td>Zapamiętaj mnie:</td>
 			          <td><g:checkBox name="rememberMe" value="${rememberMe}" /></td>
 			        </tr>
                 </table>

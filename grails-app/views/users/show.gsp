@@ -4,16 +4,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Show JsecUser</title>
+        <title>Show Users</title>
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list">JsecUser List</g:link></span>
-            <span class="menuButton"><g:link class="create" action="create">New JsecUser</g:link></span>
+            <span class="menuButton"><g:link class="list" action="list">Users List</g:link></span>
+            <span class="menuButton"><g:link class="create" action="create">New Users</g:link></span>
         </div>
         <div class="body">
-            <h1>Show JsecUser</h1>
+            <h1>Show Users</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -25,28 +25,28 @@
                         <tr class="prop">
                             <td valign="top" class="name">Id:</td>
                             
-                            <td valign="top" class="value">${fieldValue(bean:jsecUserInstance, field:'id')}</td>
+                            <td valign="top" class="value">${fieldValue(bean:usersInstance, field:'id')}</td>
                             
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name">Username:</td>
                             
-                            <td valign="top" class="value">${fieldValue(bean:jsecUserInstance, field:'username')}</td>
+                            <td valign="top" class="value">${fieldValue(bean:usersInstance, field:'username')}</td>
                             
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name">Email:</td>
                             
-                            <td valign="top" class="value">${fieldValue(bean:jsecUserInstance, field:'email')}</td>
+                            <td valign="top" class="value">${fieldValue(bean:usersInstance, field:'email')}</td>
                             
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name">Date Created:</td>
                             
-                            <td valign="top" class="value">${fieldValue(bean:jsecUserInstance, field:'dateCreated')}</td>
+                            <td valign="top" class="value">${fieldValue(bean:usersInstance, field:'dateCreated')}</td>
                             
                         </tr>
                     
@@ -55,7 +55,7 @@
                             
                             <td  valign="top" style="text-align:left;" class="value">
                                 <ul>
-                                <g:each var="i" in="${jsecUserInstance.investments}">
+                                <g:each var="i" in="${usersInstance.investments}">
                                     <li><g:link controller="investment" action="show" id="${i.id}">${i?.encodeAsHTML()}</g:link></li>
                                 </g:each>
                                 </ul>
@@ -66,7 +66,7 @@
                         <tr class="prop">
                             <td valign="top" class="name">Password Hash:</td>
                             
-                            <td valign="top" class="value">${fieldValue(bean:jsecUserInstance, field:'passwordHash')}</td>
+                            <td valign="top" class="value">${fieldValue(bean:usersInstance, field:'passwordHash')}</td>
                             
                         </tr>
                     
@@ -75,7 +75,7 @@
             </div>
             <div class="buttons">
                 <g:form>
-                    <input type="hidden" name="id" value="${jsecUserInstance?.id}" />
+                    <input type="hidden" name="id" value="${usersInstance?.id}" />
                     <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
                     <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
                 </g:form>

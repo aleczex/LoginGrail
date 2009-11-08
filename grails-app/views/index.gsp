@@ -16,7 +16,13 @@
 			<div id="bannerbg">
 				<div id="banner">
 					<h1>Nowości na stronie</h1>
-					<div class="leftcontent">Można dodawać komentarze do zdjęć.<br/>Dodane powiększanie zdjęć. <br/>Newsy wyświetlane są teraz od najnowszego do najstarszego.<br/>Polskie literki w menu.<br/>Wreszcie style poprawione :-)</div>
+					<div class="leftcontent">
+Nowa wersja dostępna, wkrótce możliwość rejestrowania się i dodawania zdjęć z własnych inwestycji.<br/>
+Można dodawać komentarze do zdjęć.<br/>
+Dodane powiększanie zdjęć. <br/>
+Newsy wyświetlane są teraz od najnowszego do najstarszego.<br/>
+Polskie literki w menu.<br/>
+Wreszcie style poprawione :-)</div>
 					<div class="rightcontent">
                         <a href="${resource(dir:'images', file:'logo.jpg')}" class="image" onclick="return hs.expand(this)"
                             title="Nasza Żurawinka 2 lustrzane odbicie - wizualizacja na podstawie planu domu zmienionego przez architekta" style="margin: 0 0 10px 15px">

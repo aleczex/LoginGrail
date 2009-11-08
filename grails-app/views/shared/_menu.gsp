@@ -6,7 +6,7 @@
 <jsec:isNotLoggedIn>
     <g:link controller="auth" action="login">Zaloguj</g:link>
 </jsec:isNotLoggedIn> 
-Ostatnia aktualizacja: 22-09-2009
+Ostatnia aktualizacja: 08-11-2009
 	</div>
 	<div class="logo"><a href="#" class="logo"><span>Nasza</span>Inwestycja</a></div>
 	<div id="top">

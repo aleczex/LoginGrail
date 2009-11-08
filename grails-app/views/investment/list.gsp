@@ -41,7 +41,7 @@
 		                            </div>
 		                        </g:form>
 		                    </jsec:hasPermission>
-                            <g:link action="show" id="${investmentInstance.id}">${fieldValue(bean:investmentInstance, field:'name')} 
+                            <g:link action="show" id="${investmentInstance.id}">${fieldValue(bean:investmentInstance, field:'name')}<br/> 
 (<g:formatDate format="yyyy-MM-dd" date="${investmentInstance.dateCreated}"/> - ${fieldValue(bean:investmentInstance, field:'user.username')})</g:link></td>
                             <td><ul>
                             <g:each in="${investmentInstance.folders}" status="j" var="folderInstance">

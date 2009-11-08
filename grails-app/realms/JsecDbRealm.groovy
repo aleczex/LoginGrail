@@ -20,7 +20,7 @@ class JsecDbRealm {
         // Get the user with the given username. If the user is not
         // found, then they don't have an account and we throw an
         // exception.
-        def user = JsecUser.findByUsername(username)
+        def user = Users.findByUsername(username)
         if (!user) {
             throw new UnknownAccountException("No account found for user [${username}]")
         }
@@ -39,7 +39,7 @@ class JsecDbRealm {
     }
 
     def hasRole(principal, roleName) {
-        def criteria = JsecUserRoleRel.createCriteria()
+        def criteria = UsersRolesRel.createCriteria()
         def roles = criteria.list {
             role {
                 eq('name', roleName)
@@ -53,7 +53,7 @@ class JsecDbRealm {
     }
 
     def hasAllRoles(principal, roles) {
-        def criteria = JsecUserRoleRel.createCriteria()
+        def criteria = UsersRolesRel.createCriteria()
         def r = criteria.list {
             role {
                 'in'('name', roles)
@@ -72,7 +72,7 @@ class JsecDbRealm {
         //
         // First find all the permissions that the user has that match
         // the required permission's type and project code.
-        def criteria = JsecUserPermissionRel.createCriteria()
+        def criteria = UsersPermissionsRel.createCriteria()
         def permissions = criteria.list {
             user {
                 eq('username', principal)
@@ -119,15 +119,15 @@ class JsecDbRealm {
         // If not, does he gain it through a role?
         //
         // First, find the roles that the user has.
-        def user = JsecUser.findByUsername(principal)
-        def roles = JsecUserRoleRel.findAllByUser(user)
+        def user = Users.findByUsername(principal)
+        def roles = UsersRolesRel.findAllByUser(user)
 
         // If the user has no roles, then he obviously has no permissions
         // via roles.
         if (roles.isEmpty()) return false
 
         // Get the permissions from the roles that the user does have.
-        criteria = JsecRolePermissionRel.createCriteria()
+        criteria = RolesPermissionsRel.createCriteria()
         def results = criteria.list {
             'in'('role', roles.collect { it.role })
             permission {

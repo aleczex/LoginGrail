@@ -84,7 +84,7 @@
                                     <label for="user">User:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:investmentInstance,field:'user','errors')}">
-                                    <g:select optionKey="id" from="${JsecUser.list()}" name="user.id" value="${investmentInstance?.user?.id}" ></g:select>
+                                    <g:select optionKey="id" from="${Users.list()}" name="user.id" value="${investmentInstance?.user?.id}" ></g:select>
                                 </td>
                             </tr> 
                         
