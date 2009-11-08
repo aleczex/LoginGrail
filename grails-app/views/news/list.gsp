@@ -8,10 +8,11 @@
         <div id="main">
             <div id="wrapper">
                 <g:render template="/shared/menu" />
+                <g:set var="permission" value='${new org.jsecurity.authz.permission.WildcardPermission("investment:edit:${investmentInstance.id}")}'/>
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Dziennik budowy
-	                <jsec:isLoggedIn>
+                    <jsec:hasPermission permission="${permission}">
 	                    <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy wpis)</g:link>
-	                </jsec:isLoggedIn>
+	                </jsec:hasPermission>
                 </h1>
 		        <div id="folder">
 					<g:if test="${flash.message}">
@@ -22,19 +23,19 @@
 	                    <g:each in="${newsInstanceList}" status="i" var="newsInstance">
 	                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 								<td>
-								<g:if test="${session.user != null}">
-                                    <g:if test="${session.user.id == investmentInstance.user.id || session.user.isAdmin}">
-									<g:form method="post" >
-							                <input type="hidden" name="id" value="${newsInstance?.id}" />
-							                <input type="hidden" name="version" value="${newsInstance?.version}" />
-	                                        <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
-							                <div class="buttons">
-							                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-							                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
-							                </div>
-						            </g:form>	
-                                   </g:if>
-						        </g:if>
+                                <jsec:hasPermission permission="${permission}">
+                                    <g:form method="post" >
+                                            <input type="hidden" name="id" value="${newsInstance?.id}" />
+                                            <input type="hidden" name="version" value="${newsInstance?.version}" />
+                                            <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
+                                            <div class="buttons">
+                                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+                                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
+                                            </div>
+                                    </g:form>
+                                </jsec:hasPermission>
+
+
 						           </td>
 	                               <td><g:formatDate format="yyyy-MM-dd HH:mm" date="${newsInstance.dateCreated}"/></td>
 	                               <td>${fieldValue(bean:newsInstance, field:'description')}</td>
