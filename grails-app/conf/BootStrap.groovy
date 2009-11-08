@@ -3,13 +3,13 @@ import org.jsecurity.crypto.hash.Sha1Hash
 class BootStrap {
 	
 	def init = { 
-		//    		 servletContext ->
+//		    		 servletContext ->
 		//     	new User(nick:"Alek",email:"apena@wp.pl",password:"password").save()
 		
 		// Administrator user and role. 
-		//		def adminRole = new JsecRole(name: "Administrator").save() 
-		//		def adminUser = new JsecUser(username: "admin", passwordHash: new Sha1Hash("admin").toHex()).save() 
-		//		new JsecUserRoleRel(user: adminUser, role: adminRole).save()
+//		def adminRole = new JsecRole(name: "Administrator").save() 
+//		def adminUser = new JsecUser(username: "Alek", passwordHash: new Sha1Hash("aleczek123").toHex()).save() 
+//		new JsecUserRoleRel(user: adminUser, role: adminRole).save()
 		//		
 		//
 		//		def userRole = new JsecRole(name: "User").save() 

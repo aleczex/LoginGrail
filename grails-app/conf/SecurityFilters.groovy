@@ -13,12 +13,31 @@ class SecurityFilters {
 		//			}
 		//		}
 		
-		investmentChange(controller: "investment|folder|picture|comment|news", action: "(create|edit|save|update|delete)") { 
+		
+
+		visitorChange(controller: "comment", action: "(list|show|edit|update|delete)") { 
+            before = { 
+                accessControl { 
+                    role("Administrator") || role ("User")
+                }
+            }
+        }
+
+		userChange(controller: "investment|folder|picture|news", action: "(create|edit|save|update|delete)") { 
 			before = { 
 				accessControl { 
 					role("Administrator") || role ("User")
 				}
 			}
+		}
+		
+		
+		adminChange(controller: "auth|users", action: "(list|show|create|edit|save|update|delete)") {
+			before = { 
+        		accessControl { 
+                	role("Administrator")
+            	}
+        	}
 		}
 	}
 }
