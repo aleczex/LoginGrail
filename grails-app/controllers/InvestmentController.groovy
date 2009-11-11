@@ -16,7 +16,7 @@ class InvestmentController {
             
             def subject = org.jsecurity.SecurityUtils.getSubject()
             println "subject:"+subject
-            if(subject) {
+            if(subject && subject.principal) {
 	            println "principal: "+subject.principal
 	            def isPermitted = subject.isPermitted(new org.jsecurity.authz.permission.WildcardPermission("investment:list:1"))
 	            println "isPermitted:"+isPermitted

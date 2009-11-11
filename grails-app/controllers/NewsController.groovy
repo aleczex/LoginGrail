@@ -2,11 +2,6 @@ class NewsController {
 	
 	def scaffold = true
 	
-	def shortlist = {
-		params.max = 2
-		return [ newsInstanceList: News.findAll( "from News as n order by n.dateCreated desc",[max:2]), newsInstanceTotal: News.count() ]
-	}
-	
 	def list = {
 		def investmentInstance = Investment.get( params.id )
 		if(!investmentInstance) {

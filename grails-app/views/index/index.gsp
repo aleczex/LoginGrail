@@ -49,9 +49,12 @@ This is yet another free release from www.freecss.info.  If you downloaded it fr
 				</div>
 				<div class="rightcolumn">
                     <h2>Co nowego?</h2>
-                    <object height="250" data="news/shortlist" type="text/html" width="100%">
-                        <a href="news/shortlist">ten dokument</a>
-                    </object>
+			        <div id="shortnews">
+			        <g:each in="${newsInstanceList}" var="newsInstance">
+			            ${fieldValue(bean:newsInstance, field:'dateCreated')}
+			            <p><h4>${fieldValue(bean:newsInstance, field:'description')}</h4></p>
+			        </g:each>
+			        </div>
 				</div>
 				<div class="clear"></div>
 			</div>
