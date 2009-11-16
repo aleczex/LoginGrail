@@ -34,25 +34,25 @@ Wreszcie style poprawione :-)</div>
 			</div>
 			<div class="contentmain">
 				<div class="leftcolumn"> 
-					<h2>Na skróty:</h2>
-					<div id="navvy">
-						<ul id="navvylist">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Contact</a></li>
-							<li><a href="#">About</a></li>
-							<li><a href="#">Sitemap</a></li>
-							<li><a href="#">Templates</a></li>
-						</ul>
-					</div>
-					<h2>This Template </h2>
-This is yet another free release from www.freecss.info.  If you downloaded it from a site other than www.freecss.info or www.webmaster-files.com please email me at info@freecss.info.     
+					<h2>Ostatnie wpisy w dzienniku budowy:</h2>
+                    <div id="shortnews">
+                    <g:each in="${newsInstanceList}" var="newsInstance">
+                        ${fieldValue(bean:newsInstance, field:'dateCreated')}
+                        <p><h4>${fieldValue(bean:newsInstance, field:'description')}</h4></p>
+                    </g:each>
+                    </div>
+					<h2>Nowe komentarze:</h2>
 				</div>
 				<div class="rightcolumn">
-                    <h2>Co nowego?</h2>
+                    <h2>Najnowsze zdjęcia:</h2>
 			        <div id="shortnews">
-			        <g:each in="${newsInstanceList}" var="newsInstance">
-			            ${fieldValue(bean:newsInstance, field:'dateCreated')}
-			            <p><h4>${fieldValue(bean:newsInstance, field:'description')}</h4></p>
+			        <g:each in="${latestPicturesList}" var="pictureInstance">
+                         <g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
+                         <g:set var="res" value="${resource(dir:'/images/upload')}" />
+                         <a href="picture/list/${pictureInstance.folderId.encodeAsHTML() + '#' + pictureInstance.id.encodeAsHTML()}" title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
+                              <img src="${res}/${path}" alt="" width="100" />
+                         </a>
+                         <p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.username}])</p>
 			        </g:each>
 			        </div>
 				</div>

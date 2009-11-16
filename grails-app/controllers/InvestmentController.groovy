@@ -3,7 +3,7 @@ import org.jsecurity.authc.UsernamePasswordToken
 import org.jsecurity.SecurityUtils
 
 class InvestmentController {
-	
+	def investmentService
 	def scaffold = true
 	def index = { redirect(action:list,params:params)
 	}
@@ -43,7 +43,7 @@ class InvestmentController {
 	
 	def delete = {
 		def investmentInstance = Investment.get( params.id )
-		if(investmentInstance) {
+		if(investmentService.hasRightToInvestment(investmentInstance)) {
 			try {
             def userPermissionRel = UsersPermissionsRel.findByTarget("investment:show,list,edit:"+investmentInstance.id)
 	            investmentInstance.delete(flush:true)
@@ -55,7 +55,7 @@ class InvestmentController {
 			}
 		}
 		else {
-			flash.message = "Investment not found with id ${params.id}"
+			flash.message = "Nie możesz usunąć tej inwestycji"
 		}
 		redirect(action:list)
 	}
@@ -69,9 +69,7 @@ class InvestmentController {
 		if(!investmentInstance.hasErrors() && investmentInstance.save()) {
 			def wildcardPermission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
 			println "wildperm: " +wildcardPermission 
-			
 			new UsersPermissionsRel(user: userInstance, permission: wildcardPermission, target: "investment:show,list,edit:"+investmentInstance.id, actions: "*").save()
-			
 			flash.message = "Investment ${investmentInstance.id} created"
 			redirect(action:show,id:investmentInstance.id)
 		}
@@ -84,10 +82,43 @@ class InvestmentController {
 		def investmentInstance = new Investment()
 		investmentInstance.properties = params
 		def subject = org.jsecurity.SecurityUtils.getSubject()
-		println "sub:" + subject.principal
 		def userInstance = Users.findByUsername(subject.principal)
-		println "inst:" + userInstance
 		return [investmentInstance: investmentInstance, userInstance: userInstance]
 	}
+    
+	def update = {
+	        def investmentInstance = Investment.get( params.id )
+	        if(investmentService.hasRightToInvestment(investmentInstance)) {
+	            if(params.version) {
+	                def version = params.version.toLong()
+	                if(investmentInstance.version > version) {
+	                    investmentInstance.errors.rejectValue("version", "${lowerCaseName}.optimistic.locking.failure", "Another user has updated this Investment while you were editing.")
+	                    render(view:'edit',model:[investmentInstance:investmentInstance])
+	                    return
+	                }
+	            }
+	            investmentInstance.properties = params
+	            if(!investmentInstance.hasErrors() && investmentInstance.save()) {
+	                flash.message = "Inwestycja uaktualniona"
+	                redirect(action:show,id:investmentInstance.id)
+	            }
+	            else {
+	                render(view:'edit',model:[investmentInstance:investmentInstance])
+	            }
+	        }
+	        else {
+	            flash.message = "Inwestycja nie znaleziona"
+	            redirect(action:list)
+	        }
+	    }
 	
+    def edit = {
+	        def investmentInstance = Investment.get( params.id )
+	        if(investmentService.hasRightToInvestment(investmentInstance)) {
+	            return [ investmentInstance : investmentInstance ]
+	        } else { 
+	            flash.message = "Nie możesz edytować inwestycji ${investmentInstance}"
+	            redirect(action:list)
+	        }
+	    }
 }

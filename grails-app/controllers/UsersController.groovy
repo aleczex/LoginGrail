@@ -87,6 +87,35 @@ class UsersController {
         return ['usersInstance':usersInstance]
     }
 
+    def register = {
+        def usersInstance = new Users()
+        usersInstance.properties = params
+        return ['usersInstance':usersInstance]
+    }
+    
+    def reguser = {
+        def usersInstance = new Users()
+        usersInstance.properties = params
+        usersInstance.passwordHash = new Sha1Hash(usersInstance.passwordHash).toHex()
+        if(!usersInstance.hasErrors() && usersInstance.save()) {
+            println "Users ${usersInstance.id} created"
+            def investmentInstance = new Investment()
+            investmentInstance.name = params.investmentname
+            investmentInstance.user = usersInstance
+            def subject = org.jsecurity.SecurityUtils.getSubject()
+            if(!investmentInstance.hasErrors() && investmentInstance.save()) {
+            	def wildcardPermission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
+            	new UsersPermissionsRel(user: usersInstance, permission: wildcardPermission, target: "investment:show,list,edit:"+investmentInstance.id, actions: "*").save()
+                println "Users ${usersInstance.id} and Investment ${investmentInstance.id} created"
+            	flash.message = "Users ${usersInstance.id} and Investment ${investmentInstance.id} created"
+	            redirect(controller:'auth',action:'login',id:usersInstance.id)
+            }
+        }
+        else {
+            render(view:'create',model:[usersInstance:usersInstance])
+        }    	
+    }
+    
     def save = {
         def usersInstance = new Users(params)
         if(!usersInstance.hasErrors() && usersInstance.save()) {

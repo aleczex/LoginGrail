@@ -10,17 +10,17 @@
 		<![endif]-->          
 		<title>Galeria</title>
 	</head>
+    <g:set var="permission" value='${new org.jsecurity.authz.permission.WildcardPermission("investment:edit:${investmentInstance.id}")}'/>
 	<body>
 		<div id="main">
 			<div id="wrapper">
 				<g:render template="/shared/menu" />
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->
                 <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}
-					<jsec:isLoggedIn>
+                    <jsec:hasPermission permission="${permission}">
                         <g:link class="create" action="create" id="${folderInstance.id}"> (Dodaj nowe zdjęcie)</g:link>
-					</jsec:isLoggedIn>
-                    <g:if test="${session.user != null && (session.user.id == investmentInstance.user.id || session.user.isAdmin)}">
-                    </g:if></h1>
+					</jsec:hasPermission>
+                </h1>
 				<div id="imagelist">
                 <g:if test="${flash.message}">
                     <div class="message">${flash.message}</div>
@@ -28,21 +28,20 @@
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
 						<div>
 							<div id="imageframe">
-                                <g:if test="${session.user != null && (session.user.id == investmentInstance.user.id || session.user.isAdmin)}">
-									<g:form method="post" >
-						                <input type="hidden" name="id" value="${pictureInstance?.id}" />
-						                <input type="hidden" name="version" value="${pictureInstance?.version}" />
-						                <div class="buttons">
-						                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-						                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien? Zostaną usunięte wszystkie komentarze dodane do tego zdjęcia.');" value="Usuń" /></span>
-						                </div>
-						            </g:form>									
-								</g:if>
-								
+	                            <jsec:hasPermission permission="${permission}">
+                                    <g:form method="post" >
+                                        <input type="hidden" name="id" value="${pictureInstance?.id}" />
+                                        <input type="hidden" name="version" value="${pictureInstance?.version}" />
+                                        <div class="buttons">
+                                            <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+                                            <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien? Zostaną usunięte wszystkie komentarze dodane do tego zdjęcia.');" value="Usuń" /></span>
+                                        </div>
+                                    </g:form>                                   
+	                            </jsec:hasPermission>
 								<g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
 								<g:set var="res" value="${resource(dir:'/images/upload')}" />
 								<a href="${res}/${path}" class="highslide" onclick="return hs.expand(this)"
-								 title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
+								 title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px" name="${fieldValue(bean:pictureInstance, field:'id')}">
 									<img src="${res}/${path}" alt="" width="320" />
 								</a>
 								<p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.username}])</p>

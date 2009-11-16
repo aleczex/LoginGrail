@@ -36,16 +36,21 @@ class PictureController {
 				return false
 			}
 			def p = new Picture(params)
+			def subject = org.jsecurity.SecurityUtils.getSubject()
+		    def userInstance = Users.findByUsername(subject.principal)
+		    p.user = userInstance
+
 			p.filename = "fake"
 			if( !p.save(flush:true) ) {
 				p.errors.each {
 					println it
 				}
 			}
-			p.filename = hashIt(session.user.email + "_"  + p.id) + p.id + ".jpg"
+			p.filename = hashIt(userInstance.email + "_"  + p.id) + p.id + ".jpg"
 			p.save()
 			f.transferTo( new File(basePath+'/'+p.filename) )
-			redirect(controller: 'picture', action:'list', id:params.folder.id)
+			def link="/picture/list/"+params.folder.id.encodeAsHTML() + "#" + p.id.encodeAsHTML()
+			redirect(uri: link)
 		} else {
 			flash.message = 'file cannot be empty'
 			render(view:'create')
