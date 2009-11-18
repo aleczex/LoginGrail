@@ -9,22 +9,6 @@ class InvestmentController {
 	}
 	
 	def list = {
-			println params.action
-			println params.controller
-			def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
-            println "wildperm: " +permission 
-            
-            def subject = org.jsecurity.SecurityUtils.getSubject()
-            println "subject:"+subject
-            if(subject && subject.principal) {
-	            println "principal: "+subject.principal
-	            def isPermitted = subject.isPermitted(new org.jsecurity.authz.permission.WildcardPermission("investment:list:1"))
-	            println "isPermitted:"+isPermitted
-	            def userInstance = Users.findByUsername(subject.principal)
-	            println "userInstance"+userInstance
-	            //            new UsersPermissionsRel(user: userInstance, permission: wildcardPermission, target: "investment:show,list,edit:"+, actions: "*").save()
-			}
-			
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		[ investmentInstanceList: Investment.list( params ), investmentInstanceTotal: Investment.count() ]
 	}
@@ -43,42 +27,40 @@ class InvestmentController {
 	
 	def delete = {
 		def investmentInstance = Investment.get( params.id )
-		if(investmentService.hasRightToInvestment(investmentInstance)) {
-			try {
-            def userPermissionRel = UsersPermissionsRel.findByTarget("investment:show,list,edit:"+investmentInstance.id)
-	            investmentInstance.delete(flush:true)
-	            userPermissionRel.delete(flush:true)
-				flash.message = "Inwestycja '${investmentInstance.name}' usunięta"
-			}
-			catch(org.springframework.dao.DataIntegrityViolationException e) {
-				flash.message = "Investment ${params.id} could not be deleted"
+		if(investmentService.hasRightToInvestment(investmentInstance, "delete")) {
+			if(investmentService.remInvestment(investmentInstance)) {
+				flash.message = "Inwestycja '${investmentInstance?.name}' usunięta"
+				redirect(action:list)
+			} else {
+				flash.message = "Inwestycja '${investmentInstance?.name}' nie może być usunięta"
+				redirect(action:list)
 			}
 		}
 		else {
 			flash.message = "Nie możesz usunąć tej inwestycji"
+			redirect(action:list)
 		}
-		redirect(action:list)
 	}
 	
 	def save = {
-		def subject = org.jsecurity.SecurityUtils.getSubject()
-		def userInstance = Users.findByUsername(subject.principal)
-		def investmentInstance = new Investment()
-		investmentInstance.name = params.name
-		investmentInstance.user = userInstance
-		if(!investmentInstance.hasErrors() && investmentInstance.save()) {
-			def wildcardPermission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
-			println "wildperm: " +wildcardPermission 
-			new UsersPermissionsRel(user: userInstance, permission: wildcardPermission, target: "investment:show,list,edit:"+investmentInstance.id, actions: "*").save()
-			flash.message = "Investment ${investmentInstance.id} created"
-			redirect(action:show,id:investmentInstance.id)
-		}
-		else {
-			render(view:'create',model:[investmentInstance:investmentInstance])
+		def userInstance = investmentService.getLoggedUser()
+		if(userInstance) {
+			def investmentInstance = investmentService.addInvestmentForUser(params.name, userInstance)
+			if(investmentInstance) {
+				flash.message = "Inwestycja '${investmentInstance.name}' utworzona"
+				redirect(action:show,id:investmentInstance.id)
+			} else {
+				flash.message = "Nie udalo sie dodać inwestycji"
+				redirect(action:list)
+			}
+		} else {
+            flash.message = "Nie masz praw do zapisu inwestycji"
+            redirect(action:list)
 		}
 	}
 	
 	def create = {
+		println "w create"
 		def investmentInstance = new Investment()
 		investmentInstance.properties = params
 		def subject = org.jsecurity.SecurityUtils.getSubject()
@@ -88,7 +70,7 @@ class InvestmentController {
     
 	def update = {
 	        def investmentInstance = Investment.get( params.id )
-	        if(investmentService.hasRightToInvestment(investmentInstance)) {
+	        if(investmentService.hasRightToInvestment(investmentInstance, "update")) {
 	            if(params.version) {
 	                def version = params.version.toLong()
 	                if(investmentInstance.version > version) {
@@ -107,17 +89,17 @@ class InvestmentController {
 	            }
 	        }
 	        else {
-	            flash.message = "Inwestycja nie znaleziona"
+	            flash.message = "Nie możesz zmieniać tej inwestycji"
 	            redirect(action:list)
 	        }
 	    }
 	
     def edit = {
 	        def investmentInstance = Investment.get( params.id )
-	        if(investmentService.hasRightToInvestment(investmentInstance)) {
+	        if(investmentService.hasRightToInvestment(investmentInstance, "edit")) {
 	            return [ investmentInstance : investmentInstance ]
 	        } else { 
-	            flash.message = "Nie możesz edytować inwestycji ${investmentInstance}"
+	            flash.message = "Nie możesz edytować tej inwestycji"
 	            redirect(action:list)
 	        }
 	    }
