@@ -10,6 +10,6 @@ class UserTests extends GrailsUnitTestCase {
     }
 
     void testSomething() {
-
+    	println "nic"
     }
 }

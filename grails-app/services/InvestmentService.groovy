@@ -5,7 +5,7 @@ class InvestmentService {
         return Users.findByUsername(subject.principal)
 	}
 	
-	def hasRightToInvestment(investmentInstance, action, userInstance) {
+	def hasRightToInvestment(investmentInstance, action) {
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
 		def subject = org.jsecurity.SecurityUtils.getSubject()
 		def isPermitted = false
@@ -40,13 +40,14 @@ class InvestmentService {
 	
 	def addInvestmentForUser(investmentName, userInstance) {
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
+		def userRole = UsersRolesRel.findByUser(userInstance.id)
 		def investmentInstance = new Investment()
 		investmentInstance.name = investmentName
 		investmentInstance.user = userInstance
 		if(!investmentInstance.hasErrors() && investmentInstance.save()) {
 			println "investment saved: " + investmentInstance
 			def userPermissionRel 
-			if(subject.hasRole("Administrator")) {
+			if(userRole.hasRole("Administrator")) {
 				userPermissionRel = UsersPermissionsRel.findByTargetAndUser("investment:*:*", userInstance)
 				println "full permission for administrator found?: " + userPermissionRel
 				if(!userPermissionRel) {

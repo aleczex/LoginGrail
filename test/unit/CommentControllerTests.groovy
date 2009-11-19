@@ -10,6 +10,7 @@ class CommentControllerTests extends ControllerUnitTestCase {
     }
 
     void testSomething() {
-
+    	println "test"
+    	
     }
 }

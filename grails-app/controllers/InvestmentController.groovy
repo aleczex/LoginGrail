@@ -9,6 +9,7 @@ class InvestmentController {
 	}
 	
 	def list = {
+		println "list"
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		[ investmentInstanceList: Investment.list( params ), investmentInstanceTotal: Investment.count() ]
 	}
