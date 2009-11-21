@@ -6,6 +6,7 @@ class InvestmentService {
 	}
 	
 	def hasRightToInvestment(investmentInstance, action) {
+		if(!action) return false
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
 		def subject = org.jsecurity.SecurityUtils.getSubject()
 		def isPermitted = false
@@ -18,20 +19,24 @@ class InvestmentService {
 		}
 		return isPermitted
 	}
+
 	def remInvestment(investmentInstance) {
 		println "inside rem 1" + investmentInstance
 		if(!investmentInstance) {
 			return false
 		}
 		def userInstance = investmentInstance.user
+		println "user: " + userInstance
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
 		try {
 			def userPermissionRel = UsersPermissionsRel.findByTargetAndUser("investment:*:"+investmentInstance.id, userInstance)
 			println "userpermrel " + userPermissionRel
 			if(userPermissionRel) {
-				userPermissionRel.delete(flush:true)
+				//userPermissionRel.delete(flush:true)
+				println "delete: " + userPermissionRel
 			}
-			investmentInstance.delete(flush:true)
+			//investmentInstance.delete(flush:true)
+			println "delete: " + investmentInstance
 			return true
 		} catch(org.springframework.dao.DataIntegrityViolationException e) {
 			return false

@@ -8,8 +8,12 @@ class InvestmentController {
 	def index = { redirect(action:list,params:params)
 	}
 	
+	def test = {
+		def investmentInstance = Investment.get( params.id )
+		investmentService.remInvestment(investmentInstance)
+	}
+	
 	def list = {
-		println "list"
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		[ investmentInstanceList: Investment.list( params ), investmentInstanceTotal: Investment.count() ]
 	}
