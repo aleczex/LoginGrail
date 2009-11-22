@@ -23,7 +23,7 @@
                         <tbody>
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="filename">File name:</label>
+                                    <label for="filename">Nazwa pliku ze zdjęciem:</label>
                                 </td>
                                 <td valign="top" class="value">
                                     <input type="file" id="myFile" name="myFile" />
@@ -31,23 +31,30 @@
                             </tr>
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="caption">Caption:</label>
+                                    <label for="caption">Podpis zdjęcia:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'caption','errors')}">
                                     <input type="text" id="caption" name="caption" value="${fieldValue(bean:pictureInstance,field:'caption')}"/>
                                 </td>
                             </tr> 
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="dateCreated">Date Created:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'dateCreated','errors')}">
-                                    <g:datePicker name="dateCreated" value="${pictureInstance?.dateCreated}" precision="minute" ></g:datePicker>
-                                </td>
-                            </tr> 
+					        <tr class="prop">
+								<g:set var="now" value="${new Date()}" />
+					            <td valign="top" class="name">
+					                <label for="dateCreated">Data utworzenia:</label>
+					            </td>
+					            <td valign="top">
+									<g:formatDate format="dd-MM-yyyy HH:mm" date="${now}"/>
+					            </td>
+								<input type="hidden" name="dateCreated" value="struct" />
+								<input type="hidden" name="dateCreated_day" id="dateCreated_day" value='<g:formatDate format="dd" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_month" id="dateCreated_month" value='<g:formatDate format="MM" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_year" id="dateCreated_year" value='<g:formatDate format="yyyy" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_hour" id="dateCreated_hour" value='<g:formatDate format="HH" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_minute" id="dateCreated_minute" value='<g:formatDate format="mm" date="${now}"/>' />
+					        </tr> 
                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:pictureInstance,field:'folder','errors')}>
-                                    <label for="folder">Folder:</label>
+                                    <label for="folder">Nazwa folderu:</label>
                                 </td>
                                 <td valign="top" class="name">
                                 	<label for="folder">${folderInstance.name}</label>
@@ -56,18 +63,18 @@
                             </tr> 
                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:pictureInstance,field:'user','errors')}>
-                                    <label for="user">User:</label>
+                                    <label for="user">Użytkownik:</label>
                                 </td>
                                 <td valign="top" class="name">
                                 	<label for="user"><jsec:principal/></label>
 								</td>                                
-								<input type="hidden" id="user.id" name="user.id" value=""/>                                    
+								<input type="hidden" id="user.id" name="user.id" value="${userInstance.id}"/>                                    
                             </tr> 
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><input class="save" type="submit" value="Create" /></span>
+                    <span class="button"><input class="save" type="submit" action="Create" value="Utwórz" /></span>
                 </div>
             </g:form>
         </div>

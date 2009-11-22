@@ -50,26 +50,21 @@
 		                            </tr> 
 		                            <tr class="prop">
 		                                <td valign="top" class="name">
-		                                    <label for="dateCreated">Data utworzenia:</label>
-		                                </td>
-		                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'dateCreated','errors')}">
-		                                    <g:datePicker name="dateCreated" value="${pictureInstance?.dateCreated}" precision="minute" ></g:datePicker>
-		                                </td>
-		                            </tr> 
-		                            <tr class="prop">
-		                                <td valign="top" class="name">
 		                                    <label for="folder">Folder:</label>
 		                                </td>
 		                                <td valign="top" class="value ${hasErrors(bean:pictureInstance,field:'folder','errors')}">
 		                                    <g:select optionKey="id" optionValue="name" from="${folderInstanceList}" name="folder.id" value="${folderInstance?.id}" ></g:select>
 		                                </td>
 		                            </tr> 
-		                            <tr class="prop">
-		                                <td valign="top" class="name">
-		                                    <label for="user">Użytkownik: ${session.user.nick}</label>
-                                            <input type="hidden" name="user.id" value="${session.user.id}" />		                                    
+		                         	<tr class="prop">
+		                                <td valign="top" class="name" class="value ${hasErrors(bean:pictureInstance,field:'user','errors')}>
+		                                    <label for="user">Użytkownik:</label>
 		                                </td>
-		                            </tr> 
+		                                <td valign="top" class="name">
+		                                	<label for="user"><jsec:principal/></label>
+										</td>                                
+										<input type="hidden" id="user.id" name="user.id" value="${userInstance.id}"/>                                    
+		                            </tr> 		                            
 		                        </tbody>
 		                    </table>
 		                </div>
