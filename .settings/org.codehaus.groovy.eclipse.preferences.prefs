@@ -1,4 +1,5 @@
-#Thu Nov 19 21:28:57 CET 2009
+#Sat Nov 21 23:03:33 CET 2009
 eclipse.preferences.version=1
 groovy.compiler.output.path=bin-groovy
 groovy.dont.check.package.vs.src.path=true
+groovy.dont.generate.class.files=true
