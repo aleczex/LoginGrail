@@ -1,58 +1,77 @@
+import org.jsecurity.authz.permission.WildcardPermission
+
 class InvestmentService { 
 	
-	def getLoggedUser() {
-        def subject = org.jsecurity.SecurityUtils.getSubject()
-        return Users.findByUsername(subject.principal)
+	def getUserPermission(investmentInstance, userInstance) {
+		def userRole = UsersRoles.findByUser(userInstance)
+		println "rola dla uzytkownika: " + userInstance.name + " = " + userRole
+		if(userRole == "User") {
+			return UsersPermissionsRel.findByTargetAndUser("investment:*:"+investmentInstance.id, userInstance)
+		} 
+		if(userRole == "Administrator") {
+			return UsersPermissionsRel.findByTargetAndUser("investment:*:*", userInstance)
+		}
+		return null
 	}
 	
+	// ok
 	def hasRightToInvestment(investmentInstance, action) {
-		if(!action) return false
+		if(!action || !investmentInstance) return false
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
-		def subject = org.jsecurity.SecurityUtils.getSubject()
+        def subject = org.jsecurity.SecurityUtils.getSubject()
 		def isPermitted = false
-		if(investmentInstance && subject && subject.principal) {
-			println "hasright, investmentInstance not null"
-			isPermitted = subject.isPermitted(new org.jsecurity.authz.permission.WildcardPermission("investment:"+action+":"+investmentInstance.id))
-		} else if(investmentInstance == null && subject && subject.principal) {
-			println "hasright, investmentInstance null"
-			isPermitted = subject.isPermitted(new org.jsecurity.authz.permission.WildcardPermission("investment:"+action+":*"))
+
+		if(subject && subject.principal) {
+			// check for Admin right
+			isPermitted = subject.isPermitted(new WildcardPermission("investment:"+action+":*"))
+			if(!isPermitted) {
+				// check for user right
+				isPermitted = subject.isPermitted(new WildcardPermission("investment:"+action+":"+investmentInstance.id))
+			}
+			println "has right to " +action+ ", " + investmentInstance.name + "?: " + isPermitted
 		}
 		return isPermitted
 	}
 
+	// ok
 	def remInvestment(investmentInstance) {
-		println "inside rem 1" + investmentInstance
 		if(!investmentInstance) {
+			println "investmentInstance = null"
 			return false
 		}
-		def userInstance = investmentInstance.user
-		println "user: " + userInstance
+		println "usuwamy inwestycje: " + investmentInstance.name
+		def ownerInstance = investmentInstance.user
+		println "wlasciciel inwestycji: " + ownerInstance.username
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
 		try {
-			def userPermissionRel = UsersPermissionsRel.findByTargetAndUser("investment:*:"+investmentInstance.id, userInstance)
-			println "userpermrel " + userPermissionRel
-			if(userPermissionRel) {
-				//userPermissionRel.delete(flush:true)
-				println "delete: " + userPermissionRel
+			def ownerPermissionRel = UsersPermissionsRel.findByTargetAndUser("investment:*:"+investmentInstance.id, ownerInstance)
+			println "userpermrel " + ownerPermissionRel
+			investmentInstance.delete(flush:true)
+			println "deleted: " + investmentInstance.name
+			if(ownerPermissionRel) {
+				ownerPermissionRel.delete(flush:true)
+				println "deleted: " + ownerPermissionRel
 			}
-			//investmentInstance.delete(flush:true)
-			println "delete: " + investmentInstance
 			return true
 		} catch(org.springframework.dao.DataIntegrityViolationException e) {
 			return false
 		}
 	}
 	
-	def addInvestmentForUser(investmentName, userInstance) {
+	// ok
+	def addInvestmentForUser(investmentName) {
+		println "add investment: " + investmentName
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
-		def userRole = UsersRolesRel.findByUser(userInstance.id)
+		def subject = org.jsecurity.SecurityUtils.getSubject()
+		if(!subject) return null
+		def userInstance = Users.findByUsername(subject.principal)
 		def investmentInstance = new Investment()
 		investmentInstance.name = investmentName
 		investmentInstance.user = userInstance
 		if(!investmentInstance.hasErrors() && investmentInstance.save()) {
 			println "investment saved: " + investmentInstance
 			def userPermissionRel 
-			if(userRole.hasRole("Administrator")) {
+			if(subject.hasRole("Administrator")) {
 				userPermissionRel = UsersPermissionsRel.findByTargetAndUser("investment:*:*", userInstance)
 				println "full permission for administrator found?: " + userPermissionRel
 				if(!userPermissionRel) {
@@ -62,8 +81,8 @@ class InvestmentService {
 			} else {
 				userPermissionRel = new UsersPermissionsRel(user: userInstance, permission: permission, target: "investment:*:"+investmentInstance.id, actions: "*")            
 			}
-			
 			if(!userPermissionRel.hasErrors() && userPermissionRel.save()) {
+				println "investment created"
 				return investmentInstance
 			} else {
 				investmentInstance.delete()
