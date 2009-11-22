@@ -18,19 +18,23 @@
 	<div class="dialog">
 	<table>
 		<tbody>
-
+	        <tr class="prop">
+				<g:set var="now" value="${new Date()}" />
+	            <td valign="top" class="name">
+	                <label for="dateCreated">Data utworzenia:</label>
+	            </td>
+	            <td valign="top">
+					<g:formatDate format="dd-MM-yyyy HH:mm" date="${now}"/>
+	            </td>
+				<input type="hidden" name="dateCreated" value="struct" />
+				<input type="hidden" name="dateCreated_day" id="dateCreated_day" value='<g:formatDate format="dd" date="${now}"/>' />
+				<input type="hidden" name="dateCreated_month" id="dateCreated_month" value='<g:formatDate format="MM" date="${now}"/>' />
+				<input type="hidden" name="dateCreated_year" id="dateCreated_year" value='<g:formatDate format="yyyy" date="${now}"/>' />
+				<input type="hidden" name="dateCreated_hour" id="dateCreated_hour" value='<g:formatDate format="HH" date="${now}"/>' />
+				<input type="hidden" name="dateCreated_minute" id="dateCreated_minute" value='<g:formatDate format="mm" date="${now}"/>' />
+	        </tr> 
 			<tr class="prop">
-				<td valign="top" class="name"><label for="dateCreated">Date
-				Created:</label></td>
-				<td valign="top"
-					class="value ${hasErrors(bean:newsInstance,field:'dateCreated','errors')}">
-				<g:datePicker name="dateCreated"
-					value="${newsInstance?.dateCreated}" precision="minute"></g:datePicker>
-				</td>
-			</tr>
-
-			<tr class="prop">
-				<td valign="top" class="name"><label for="description">Description:</label>
+				<td valign="top" class="name"><label for="description">Treść wpisu:</label>
 				</td>
 				<td valign="top"
 					class="value ${hasErrors(bean:newsInstance,field:'description','errors')}">
@@ -40,15 +44,15 @@
 			<tr class="prop">
 				<td valign="top" class="name"
 					class="value ${hasErrors(bean:newsInstance,field:'user','errors')}>
-                                    <label for="user">User:</label>
+                                    <label for="user">Użytkownik:</label>
                                 </td>
                                 <td valign="top" class="name">
-                                	<label for="user">user</label>
+                                	<label for="user"><jsec:principal/></label>
 								</td>                                
                             </tr>         
                                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:investmentInstance,field:'investment','errors')}>
-                                    <label for="investment">Investment:</label>
+                                    <label for="investment">Inwestycja:</label>
                                 </td>
                                 <td valign="top" class="name">
                                     <label for="user">${investmentInstance.name}</label>
@@ -59,7 +63,7 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><input class="save" type="submit" value="Create" /></span>
+                    <span class="button"><input class="save" type="submit" action="Create" value="Utwórz" /></span>
                 </div>
             </g:form>
             </div>

@@ -25,16 +25,6 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="dateCreated">Date Created:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:newsInstance,field:'dateCreated','errors')}">
-                                    <g:datePicker name="dateCreated" value="${newsInstance?.dateCreated}" precision="minute" ></g:datePicker>
-                                </td>
-                            </tr> 
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="description">Description:</label>
@@ -43,8 +33,6 @@
                                     <input type="text" id="description" name="description" value="${fieldValue(bean:newsInstance,field:'description')}"/>
                                 </td>
                             </tr> 
-                        
-                        
                         </tbody>
                     </table>
                 </div>

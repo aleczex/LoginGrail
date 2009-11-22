@@ -20,34 +20,34 @@
 					</g:if>
 	                <table>
 	                    <tbody>
-	                    <g:each in="${newsInstanceList}" status="i" var="newsInstance">
-	                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-								<td>
-                                <jsec:hasPermission permission="${permission}">
-                                    <g:form method="post" >
-                                            <input type="hidden" name="id" value="${newsInstance?.id}" />
-                                            <input type="hidden" name="version" value="${newsInstance?.version}" />
-                                            <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
-                                            <div class="buttons">
-                                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-                                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
-                                            </div>
-                                    </g:form>
-                                </jsec:hasPermission>
-
-
-						           </td>
-	                               <td><g:formatDate format="yyyy-MM-dd HH:mm" date="${newsInstance.dateCreated}"/></td>
-	                               <td>${fieldValue(bean:newsInstance, field:'description')}</td>
-	                           </tr>
-	                       </g:each>
+		                    <g:each in="${newsInstanceList}" status="i" var="newsInstance">
+		                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+									<td>
+		                                <jsec:hasPermission permission="${permission}">
+		                                    <g:form method="post" >
+		                                            <input type="hidden" name="id" value="${newsInstance?.id}" />
+		                                            <input type="hidden" name="version" value="${newsInstance?.version}" />
+		                                            <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
+		                                            <div class="buttons">
+		                                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+		                                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
+		                                            </div>
+		                                    </g:form>
+		                                </jsec:hasPermission>
+						           	</td>
+		                            <td><g:formatDate format="yyyy-MM-dd" date="${newsInstance.dateCreated}"/></td>
+		                            <td>${fieldValue(bean:newsInstance, field:'description')}</td>
+		                        </tr>
+		                        <tr/>
+		                        <tr/>
+							</g:each>
 	                    </tbody>
 	                </table>
 	            </div>
 	            <div class="clear"></div>
-	               <div class="paginateButtons">
-	                   <g:paginate total="${newsInstanceTotal}" />
-	               </div>
+	            <div class="paginateButtons">
+	                <g:paginate next="Następny" previous="Poprzedni" total="${newsInstanceTotal}" params="['id': investmentInstance.id]" />
+	            </div>
                 <g:render template="/shared/footer" />
             </div>
         </div>
