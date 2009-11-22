@@ -24,8 +24,8 @@
                     <thead>
                         <tr>
                    	        <th></th>
-                   	        <th>Najnowsze zdjęcia w folderach:</th>
-                   	        <th>Najnowsze wpisy do dziennika:</th>
+                   	        <th>Ostatnio dodane zdjęcia:</th>
+                   	        <th>Ostatnie wpisy do dziennika:</th>
                         </tr>
                     </thead>
                     <tbody>

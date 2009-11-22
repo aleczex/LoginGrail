@@ -31,14 +31,20 @@
                                     <input type="text" id="name" name="name" value="${fieldValue(bean:investmentInstance,field:'name')}"/>
                                 </td>
                             </tr> 
-                        
                             <tr class="prop">
+								<g:set var="now" value="${new Date()}" />
                                 <td valign="top" class="name">
-                                    <label for="dateCreated">Date Created:</label>
+                                    <label for="dateCreated">Data utworzenia:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:investmentInstance,field:'dateCreated','errors')}">
-                                    <g:datePicker name="dateCreated" value="${investmentInstance?.dateCreated}" precision="minute" ></g:datePicker>
+                                <td valign="top">
+									<g:formatDate format="dd-MM-yyyy HH:mm" date="${now}"/>
                                 </td>
+								<input type="hidden" name="dateCreated" value="struct" />
+								<input type="hidden" name="dateCreated_day" id="dateCreated_day" value='<g:formatDate format="dd" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_month" id="dateCreated_month" value='<g:formatDate format="MM" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_year" id="dateCreated_year" value='<g:formatDate format="yyyy" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_hour" id="dateCreated_hour" value='<g:formatDate format="HH" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_minute" id="dateCreated_minute" value='<g:formatDate format="mm" date="${now}"/>' />
                             </tr> 
                         </tbody>
                     </table>
