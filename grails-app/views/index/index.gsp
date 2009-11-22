@@ -36,23 +36,38 @@ Wreszcie style poprawione :-)</div>
 				<div class="leftcolumn"> 
 					<h2>Ostatnie wpisy w dzienniku budowy:</h2>
                     <div id="shortnews">
-                    <g:each in="${newsInstanceList}" var="newsInstance">
-                        ${fieldValue(bean:newsInstance, field:'dateCreated')}
+                    <g:each in="${newsInstanceList}" var="newsInfo">
+						<g:set var="newsInstance" value="${newsInfo.get(0)}" />
                         <p><h4>${fieldValue(bean:newsInstance, field:'description')}</h4></p>
+						Inwestycja: ${newsInfo.get(1)} - (<g:formatDate format="yyyy-MM-dd" date="${newsInstance.dateCreated}"/>)
                     </g:each>
                     </div>
 					<h2>Nowe komentarze:</h2>
+                    <div id="shortnews">
+                    <g:each in="${latestCommentsList}" var="commentInfo">
+						<g:set var="commentInstance" value="${commentInfo.get(0)}" />
+						<g:set var="pictureInstance" value="${commentInfo.get(2)}" />
+                        <p><h4>${fieldValue(bean:commentInstance, field:'description')}</h4></p>
+                        <a href="picture/list/${pictureInstance.folderId.encodeAsHTML() + '#' + pictureInstance.id.encodeAsHTML()}" 
+                         	title="Zobacz komentowane zdjęcie" style="margin: 0 0 10px 15px">
+						Inwestycja: ${commentInfo.get(1)} - (<g:formatDate format="yyyy-MM-dd" date="${commentInstance.dateCreated}"/>)
+                         	
+                         	</a>
+                    </g:each>
+                    </div>					
 				</div>
 				<div class="rightcolumn">
                     <h2>Najnowsze zdjęcia:</h2>
 			        <div id="shortnews">
-			        <g:each in="${latestPicturesList}" var="pictureInstance">
+			        <g:each in="${latestPicturesList}" var="pictureInfo">
+                        <g:set var="pictureInstance" value="${pictureInfo.get(0)}" />
                          <g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
                          <g:set var="res" value="${resource(dir:'/images/upload')}" />
-                         <a href="picture/list/${pictureInstance.folderId.encodeAsHTML() + '#' + pictureInstance.id.encodeAsHTML()}" title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
+                         <a href="picture/list/${pictureInstance.folderId.encodeAsHTML() + '#' + pictureInstance.id.encodeAsHTML()}" 
+                         	title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">
                               <img src="${res}/${path}" alt="" width="100" />
                          </a>
-                         <p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.username}])</p>
+                         <p>Inwestycja: ${pictureInfo.get(1)} - ${pictureInstance.caption} (<g:formatDate format="yyyy-MM-dd" date="${pictureInstance.dateCreated}"/> [${pictureInstance.user.username}])</p>
 			        </g:each>
 			        </div>
 				</div>

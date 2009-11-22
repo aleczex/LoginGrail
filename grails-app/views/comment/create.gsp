@@ -23,33 +23,23 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-								<g:if test="${session.user != null}">
-	                                <td valign="top" class="name">
-	                                    <label for="dateCreated">Date Created:</label>
-	                                </td>
-	                                <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'dateCreated','errors')}">
-	                                    <g:datePicker type="hidden" name="dateCreated" value="${commentInstance?.dateCreated}" precision="minute" ></g:datePicker>
-	                                </td>
-                                </g:if>
-                                <g:else>
-									<g:set var="now" value="${new Date()}" />
-	                                <td valign="top" class="name">
-	                                    <label for="dateCreated">Date Created:</label>
-	                                </td>
-	                                <td valign="top">
-										<g:formatDate format="dd-MM-yyyy HH:mm" date="${now}"/>
-	                                </td>
-									<input type="hidden" name="dateCreated" value="struct" />
-									<input type="hidden" name="dateCreated_day" id="dateCreated_day" value='<g:formatDate format="dd" date="${now}"/>' />
-									<input type="hidden" name="dateCreated_month" id="dateCreated_month" value='<g:formatDate format="MM" date="${now}"/>' />
-									<input type="hidden" name="dateCreated_year" id="dateCreated_year" value='<g:formatDate format="yyyy" date="${now}"/>' />
-									<input type="hidden" name="dateCreated_hour" id="dateCreated_hour" value='<g:formatDate format="HH" date="${now}"/>' />
-									<input type="hidden" name="dateCreated_minute" id="dateCreated_minute" value='<g:formatDate format="mm" date="${now}"/>' />
-								</g:else>                                
+								<g:set var="now" value="${new Date()}" />
+                                <td valign="top" class="name">
+                                    <label for="dateCreated">Data utworzenia:</label>
+                                </td>
+                                <td valign="top">
+									<g:formatDate format="dd-MM-yyyy HH:mm" date="${now}"/>
+                                </td>
+								<input type="hidden" name="dateCreated" value="struct" />
+								<input type="hidden" name="dateCreated_day" id="dateCreated_day" value='<g:formatDate format="dd" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_month" id="dateCreated_month" value='<g:formatDate format="MM" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_year" id="dateCreated_year" value='<g:formatDate format="yyyy" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_hour" id="dateCreated_hour" value='<g:formatDate format="HH" date="${now}"/>' />
+								<input type="hidden" name="dateCreated_minute" id="dateCreated_minute" value='<g:formatDate format="mm" date="${now}"/>' />
                             </tr> 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="description">Description:</label>
+                                    <label for="description">Treść komentarza:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'description','errors')}">
                                     <input type="text" id="description" name="description" value="${fieldValue(bean:commentInstance,field:'description')}"/>
@@ -57,35 +47,32 @@
                             </tr> 
                             <tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:commentInstance,field:'picture','errors')}>
-                                    <label for="folder">Picture:</label>
+                                    <label for="folder">Obrazek:</label>
                                 </td>
                                 <td valign="top" class="name">
                                 	<label for="folder">${pictureInstance.caption}</label>
 								</td>                                
 								<input type="hidden" id="picture.id" name="picture.id" value="${pictureInstance.id}"/>                                    
                             </tr> 
-                            <tr class="prop">
+                         	<tr class="prop">
                                 <td valign="top" class="name" class="value ${hasErrors(bean:pictureInstance,field:'user','errors')}>
-                                    <label for="user">User:</label>
+                                    <label for="user">Użytkownik:</label>
                                 </td>
-                                <g:if test="${session.user != null}">
-	                                <td valign="top" class="name">
-	                                	<label for="user">${session.user.nick}</label>
-									</td>                                
-									<input type="hidden" id="user.id" name="user.id" value="${session.user.id}"/>
-								</g:if>
-								<g:else>
-	                                <td valign="top" class="name">
+	                            <td valign="top" class="name">
+									<jsec:isLoggedIn>
+	                                	<label for="user"><jsec:principal/></label>
+									</jsec:isLoggedIn>
+									<jsec:isNotLoggedIn>
 	                                	<label for="user">~anonim</label>
-									</td>                                
-								</g:else>                                    
+									</jsec:isNotLoggedIn>                           
+								</td>      
 								<input type="hidden" id="folderid" name="folderid" value="${params.folderid}"/>                                    
                             </tr>                         
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><input class="save" type="submit" value="Create" /></span>
+                    <span class="button"><input class="save" type="submit" action="Create" value="Dodaj" /></span>
                 </div>
             </g:form>
             <g:render template="/shared/footer" />
