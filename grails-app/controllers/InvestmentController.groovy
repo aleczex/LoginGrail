@@ -4,21 +4,20 @@ import org.jsecurity.SecurityUtils
 
 class InvestmentController {
 	def investmentService
-	def scaffold = true
+	
+    // the delete, save and update actions only accept POST requests
+    static allowedMethods = [delete:'POST', save:'POST', update:'POST']
+	
 	def index = { redirect(action:list,params:params)
 	}
 	
-	def test = {
-		def investmentInstance = Investment.get( params.id )
-		investmentService.remInvestment(investmentInstance)
-	}
-	
+	// ok
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-		[ investmentInstanceList: Investment.list( params ), investmentInstanceTotal: Investment.count() ]
+		[ investmentInstanceList: Investment.list( max: params.max, sort: "dateCreated" ), investmentInstanceTotal: Investment.count() ]
 	}
 	
-	
+	// ok
 	def show = {
 		def investmentInstance = Investment.get( params.id )
 		
@@ -29,8 +28,9 @@ class InvestmentController {
 		else { return [ investmentInstance : investmentInstance ]
 		}
 	}
-	
+	// ok
 	def delete = {
+		println "in delete"
 		def investmentInstance = Investment.get( params.id )
 		if(investmentService.hasRightToInvestment(investmentInstance, "delete")) {
 			if(investmentService.remInvestment(investmentInstance)) {
@@ -47,65 +47,65 @@ class InvestmentController {
 		}
 	}
 	
+	// ok
 	def save = {
-		def userInstance = investmentService.getLoggedUser()
-		if(userInstance) {
-			def investmentInstance = investmentService.addInvestmentForUser(params.name, userInstance)
-			if(investmentInstance) {
-				flash.message = "Inwestycja '${investmentInstance.name}' utworzona"
-				redirect(action:show,id:investmentInstance.id)
-			} else {
-				flash.message = "Nie udalo sie dodać inwestycji"
-				redirect(action:list)
-			}
+		println "in save"
+		def investmentInstance = investmentService.addInvestmentForUser(params.name)
+		if(investmentInstance) {
+			flash.message = "Inwestycja '${investmentInstance.name}' utworzona"
+			redirect(action:show,id:investmentInstance.id)
 		} else {
-            flash.message = "Nie masz praw do zapisu inwestycji"
-            redirect(action:list)
+			flash.message = "Nie udalo sie dodać inwestycji"
+			redirect(action:list)
 		}
 	}
 	
+	// ok
 	def create = {
-		println "w create"
+		println "in create"
 		def investmentInstance = new Investment()
 		investmentInstance.properties = params
 		def subject = org.jsecurity.SecurityUtils.getSubject()
 		def userInstance = Users.findByUsername(subject.principal)
 		return [investmentInstance: investmentInstance, userInstance: userInstance]
 	}
-    
-	def update = {
-	        def investmentInstance = Investment.get( params.id )
-	        if(investmentService.hasRightToInvestment(investmentInstance, "update")) {
-	            if(params.version) {
-	                def version = params.version.toLong()
-	                if(investmentInstance.version > version) {
-	                    investmentInstance.errors.rejectValue("version", "${lowerCaseName}.optimistic.locking.failure", "Another user has updated this Investment while you were editing.")
-	                    render(view:'edit',model:[investmentInstance:investmentInstance])
-	                    return
-	                }
-	            }
-	            investmentInstance.properties = params
-	            if(!investmentInstance.hasErrors() && investmentInstance.save()) {
-	                flash.message = "Inwestycja uaktualniona"
-	                redirect(action:show,id:investmentInstance.id)
-	            }
-	            else {
-	                render(view:'edit',model:[investmentInstance:investmentInstance])
-	            }
-	        }
-	        else {
-	            flash.message = "Nie możesz zmieniać tej inwestycji"
-	            redirect(action:list)
-	        }
-	    }
 	
-    def edit = {
-	        def investmentInstance = Investment.get( params.id )
-	        if(investmentService.hasRightToInvestment(investmentInstance, "edit")) {
-	            return [ investmentInstance : investmentInstance ]
-	        } else { 
-	            flash.message = "Nie możesz edytować tej inwestycji"
-	            redirect(action:list)
-	        }
-	    }
+	// ok
+	def update = {
+		println "in update"
+		def investmentInstance = Investment.get( params.id )
+		if(investmentService.hasRightToInvestment(investmentInstance, "update")) {
+			if(params.version) {
+				def version = params.version.toLong()
+				if(investmentInstance.version > version) {
+					investmentInstance.errors.rejectValue("version", "${lowerCaseName}.optimistic.locking.failure", "Another user has updated this Investment while you were editing.")
+					render(view:'edit',model:[investmentInstance:investmentInstance])
+					return
+				}
+			}
+			investmentInstance.properties = params
+			if(!investmentInstance.hasErrors() && investmentInstance.save()) {
+				flash.message = "Inwestycja uaktualniona"
+				redirect(action:list)
+			}
+			else {
+				render(view:'edit',model:[investmentInstance:investmentInstance])
+			}
+		}
+		else {
+			flash.message = "Nie możesz zmieniać tej inwestycji"
+			redirect(action:list)
+		}
+	}
+	
+	// ok
+	def edit = {
+		def investmentInstance = Investment.get( params.id )
+		if(investmentService.hasRightToInvestment(investmentInstance, "edit")) {
+			return [ investmentInstance : investmentInstance ]
+		} else { 
+			flash.message = "Nie możesz edytować tej inwestycji"
+			redirect(action:list)
+		}
+	}
 }

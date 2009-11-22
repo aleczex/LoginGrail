@@ -71,6 +71,11 @@ class PictureController {
 	}
 	
 	def create = {
+		def subject = org.jsecurity.SecurityUtils.getSubject()
+		def userInstance
+		if(subject && subject.principal) {
+			userInstance = Users.findByUsername(subject.principal)
+		}
 		def folderInstance = Folder.get( params.id )
 		def investmentInstance = Investment.find( "from Investment as i where i.id=?", folderInstance.investment.id )
 		def pictureInstance = new Picture()
@@ -87,15 +92,18 @@ class PictureController {
 			redirect(action:'list')
 		}
 		else {
-			return [folderInstance: folderInstance, 'pictureInstance':pictureInstance]
+			return [folderInstance: folderInstance, 'pictureInstance':pictureInstance, userInstance: userInstance]
 		}
 		
 	}
 	
 	def update = {
+		println "in update"
 		def pictureInstance = Picture.get( params.id )
+		println "pictureInstance: " + pictureInstance
 		if(pictureInstance) {
 			if(params.version) {
+				println "in params.version: " + params.version
 				def version = params.version.toLong()
 				if(pictureInstance.version > version) {
 					
@@ -104,6 +112,7 @@ class PictureController {
 					return
 				}
 			}
+			println "params: " + params
 			pictureInstance.properties = params
 			if(!pictureInstance.hasErrors() && pictureInstance.save()) {
 				flash.message = "Picture ${params.id} updated"
@@ -121,6 +130,9 @@ class PictureController {
 	
 	def edit = {
 		def pictureInstance = Picture.get( params.id )
+		def subject = org.jsecurity.SecurityUtils.getSubject()
+		if(!subject) return null
+		def userInstance = Users.findByUsername(subject.principal)
 		
 		if(!pictureInstance) {
 			flash.message = "Picture not found with id ${params.id}"
@@ -131,7 +143,8 @@ class PictureController {
 			return [ folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id = ? order by f.dateCreated asc)", folderInstance.investment.id), 
 			         pictureInstance : pictureInstance,
 			         folderInstance: folderInstance,
-			         investmentInstance: folderInstance.investment]
+			         investmentInstance: folderInstance.investment,
+			         userInstance: userInstance]
 		}
 	}
 	
