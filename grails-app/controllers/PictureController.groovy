@@ -3,6 +3,7 @@ import java.math.*;
 
 class PictureController {
 	def scaffold = true 
+	ImageProcessing imageProcessing
 	
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
