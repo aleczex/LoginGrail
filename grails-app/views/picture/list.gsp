@@ -38,11 +38,12 @@
                                         </div>
                                     </g:form>                                   
 	                            </jsec:hasPermission>
-								<g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
+                                <g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')+'.jpg'}" />
+								<g:set var="path_320" value="${fieldValue(bean:pictureInstance, field:'filename')+'_320.jpg'}" />
 								<g:set var="res" value="${resource(dir:'/images/upload')}" />
 								<a href="${res}/${path}" class="highslide" onclick="return hs.expand(this)"
 								 title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px" name="${fieldValue(bean:pictureInstance, field:'id')}">
-									<img src="${res}/${path}" alt="" width="320" />
+									<img src="${res}/${path_320}" alt="" />
 								</a>
 								<p>${pictureInstance.caption} (dodano ${pictureInstance.dateCreated} [${pictureInstance.user.username}])</p>
 							</div>

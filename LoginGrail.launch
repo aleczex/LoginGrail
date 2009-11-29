@@ -25,5 +25,5 @@
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="grails.util.GrailsMain"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="LoginGrail"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dbase.dir=&quot;${project_loc:LoginGrail}&quot; -Dserver.port=8080 -Dgrails.env=development"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dbase.dir=&quot;${project_loc:LoginGrail}&quot; -Dserver.port=8080 -Dgrails.env=development -Xms128m -Xmx128m"/>
 </launchConfiguration>

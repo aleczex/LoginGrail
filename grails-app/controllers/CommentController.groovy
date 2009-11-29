@@ -29,7 +29,7 @@ class CommentController {
 			commentInstance.user = Users.findByUsername(subject.principal)
 		}
 		if(!commentInstance.hasErrors() && commentInstance.save()) {
-			flash.message = "Comment ${commentInstance.id} created"
+			flash.message = "Komentarz '${commentInstance.description}' dodany"
 			redirect(controller:'picture', action:'list', id:params.folderid)
 		} else {
 			render(view:'create',model:[commentInstance:commentInstance])

@@ -23,7 +23,7 @@ public class ImageProcessing {
 				Graphics g2 = bi2.getGraphics();
 				g2.drawImage(bi, 0, 0, null);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("Image could not be read");
 			return null;
 		}
@@ -78,9 +78,30 @@ public class ImageProcessing {
 	public static void main(String [] s) {
 		BufferedImage bi;
 		ImageProcessing si = new ImageProcessing();
+//		File f = new File(".\\upload");
+//		System.err.println(f.listFiles());
+//		for(File file: f.listFiles()) {
+//			String filename = ".\\upload\\"+file.getName();
+//			System.err.println(filename);
+//			bi = si.loadImage(filename);
+//			bi = si.scale(bi, 100, 100);
+//			si.saveImage(filename.replace(".jpg","")+"_100", bi);
+//			
+//			bi = si.loadImage(filename);
+//			bi = si.scale(bi, 320, 320);
+//			si.saveImage(filename.replace(".jpg","")+"_320",bi);
+//
+//			bi = si.loadImage(filename);
+//			bi = si.scale(bi, 640, 640);
+//			si.saveImage(filename.replace(".jpg",""), bi);
+//		}
+		bi = si.loadImage("logo.jpg");
+		bi = si.scale(bi, 200, 200);
+		si.saveImage("logo_200", bi);
 
-		bi = si.loadImage("image.jpg");
-		bi = si.scale(bi, 640, 640);
+		/*
+		bi = si.loadImage("logo.jpg");
+		bi = si.scale(bi, 200, 200);
 		si.saveImage("image_new", bi);
 
 		bi = si.loadImage("image.jpg");
@@ -94,5 +115,6 @@ public class ImageProcessing {
 		bi = si.loadImage("wysoki.jpg");
 		bi = si.scale(bi, 300, 300);
 		si.saveImage("wysoki_new", bi);
+	*/
 	}
 }

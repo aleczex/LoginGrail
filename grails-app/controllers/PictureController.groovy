@@ -1,10 +1,10 @@
 import java.security.*;
 import java.math.*;
 
+
 class PictureController {
 	def scaffold = true 
-	ImageProcessing imageProcessing
-	
+	def pictureService
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		
@@ -47,9 +47,18 @@ class PictureController {
 					println it
 				}
 			}
-			p.filename = hashIt(userInstance.email + "_"  + p.id) + p.id + ".jpg"
+			p.filename = hashIt(userInstance.email + "_"  + p.id) + p.id
 			p.save()
 			f.transferTo( new File(basePath+'/'+p.filename) )
+			if(!pictureService.uploadPicture(basePath+'/'+p.filename)) {
+				flash.message = 'nie udało się dodać obrazka'
+				return false
+			}
+			def file = new File(basePath +'/'+ p.filename)
+			if(file) {
+				file.delete()
+			}
+	    
 			def link="/picture/list/"+params.folder.id.encodeAsHTML() + "#" + p.id.encodeAsHTML()
 			redirect(uri: link)
 		} else {
@@ -63,9 +72,7 @@ class PictureController {
 		def basePath = grailsAttributes.getApplicationContext().getResource("/images/upload/").getFile().toString()
 		def p = Picture.get(params.id)	
 		def folderid = p.folder.id
-		def f = new File(basePath +'/'+ p.filename)
-		if(f) {
-			f.delete()
+		if(pictureService.deletePicture(basePath+'/'+p.filename)) {
 			p.delete()
 			redirect(action:'list', id: folderid)
 		}
