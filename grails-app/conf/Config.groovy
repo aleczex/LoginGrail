@@ -1,3 +1,17 @@
+import java.awt.Font
+import java.awt.Color
+
+import com.octo.captcha.service.multitype.GenericManageableCaptchaService
+import com.octo.captcha.engine.GenericCaptchaEngine
+import com.octo.captcha.image.gimpy.GimpyFactory
+import com.octo.captcha.component.word.wordgenerator.RandomWordGenerator
+import com.octo.captcha.component.image.wordtoimage.ComposedWordToImage
+import com.octo.captcha.component.image.fontgenerator.RandomFontGenerator
+import com.octo.captcha.component.image.backgroundgenerator.GradientBackgroundGenerator
+import com.octo.captcha.component.image.color.SingleColorGenerator
+import com.octo.captcha.component.image.textpaster.NonLinearTextPaster
+
+import com.octo.captcha.service.sound.DefaultManageableSoundCaptchaService
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -69,6 +83,42 @@ log4j = {
 
     warn   'org.mortbay.log'
 }
+
+jcaptchas {
+    image = new GenericManageableCaptchaService(
+        new GenericCaptchaEngine(
+            new GimpyFactory(
+                new RandomWordGenerator(
+                    "abcdefghijkmnpqrstuwxyz123456789"
+                ),
+                new ComposedWordToImage(
+                    new RandomFontGenerator(
+                        20, // min font size
+                        30, // max font size
+                        [new Font("Arial", 0, 10)] as Font[]
+                    ),
+                    new GradientBackgroundGenerator(
+                        100, // width
+                        35, // height
+                        new SingleColorGenerator(new Color(120, 60, 70)),
+                        new SingleColorGenerator(new Color(120, 220, 20))
+                    ),
+                    new NonLinearTextPaster(
+                        4, // minimal length of text
+                        4, // maximal length of text
+                        new Color(255, 255, 255)
+                    )
+                )
+            )
+        ),
+        180, // minGuarantedStorageDelayInSeconds
+        180000 // maxCaptchaStoreSize
+    )
+    
+    // Uncomment this to enable the sound captcha, you must install FreeTTS for it to work though.
+/*  sound = new DefaultManageableSoundCaptchaService()*/
+}
+
 
 
      

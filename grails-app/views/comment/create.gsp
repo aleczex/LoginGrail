@@ -42,7 +42,7 @@
                                     <label for="description">Treść komentarza:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'description','errors')}">
-                                    <input type="text" id="description" name="description" value="${fieldValue(bean:commentInstance,field:'description')}"/>
+                                    <input type="text" id="description" maxlength="100" size="80" name="description" value="${fieldValue(bean:commentInstance,field:'description')}"/>
                                 </td>
                             </tr> 
                             <tr class="prop">
@@ -71,6 +71,10 @@
                         </tbody>
                     </table>
                 </div>
+                <br/>
+                <jcaptcha:jpeg name="image" height="50" width="60"/><br> 
+                <label for="response">Przepisz literki z obrazka</label>
+                <g:textField name="response" value="" /><br>
                 <div class="buttons">
                     <span class="button"><input class="save" type="submit" action="Create" value="Dodaj" /></span>
                 </div>

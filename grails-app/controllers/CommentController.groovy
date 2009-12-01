@@ -1,5 +1,6 @@
 class CommentController {
 	def scaffold = true
+	def jcaptchaService
 	
 	def create = {
 		def pictureInstance = Picture.get( params.id )
@@ -28,12 +29,15 @@ class CommentController {
 		if(subject && subject.principal) {
 			commentInstance.user = Users.findByUsername(subject.principal)
 		}
-		if(!commentInstance.hasErrors() && commentInstance.save()) {
+		
+		if (commentInstance.description && 
+		jcaptchaService.validateResponse("image", session.id, params.response)
+		&& !commentInstance.hasErrors() && commentInstance.save()) {
 			flash.message = "Komentarz '${commentInstance.description}' dodany"
 			redirect(controller:'picture', action:'list', id:params.folderid)
 		} else {
-			render(view:'create',model:[commentInstance:commentInstance])
+			flash.message = "Nie udało się dodać komentarza, spróbuj jeszcze raz"
+			render(view:'create',model:[pictureInstance:pictureInstance, commentInstance:commentInstance])
 		}
 	}
-	
 }

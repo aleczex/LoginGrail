@@ -87,5 +87,6 @@
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-8.4-701.jdbc3.jar"/>
 	<classpathentry kind="lib" path="lib/jsecurity-jdk14.jar"/>
+	<classpathentry kind="lib" path="lib/jcaptcha-all-1.0-RC6.jar"/>
 	<classpathentry kind="output" path="bin-groovy"/>
 </classpath>

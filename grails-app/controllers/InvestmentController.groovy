@@ -8,7 +8,8 @@ class InvestmentController {
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 	
-	def index = { redirect(action:list,params:params)
+	def index = { 
+		redirect(action:list,params:params)
 	}
 	
 	// ok
