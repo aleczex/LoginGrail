@@ -9,17 +9,20 @@ class InvestmentController {
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 	
 	def index = { 
+        log.info "index"
 		redirect(action:list,params:params)
 	}
 	
 	// ok
 	def list = {
+        log.info "list"
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		[ investmentInstanceList: Investment.list( max: params.max, sort: "dateCreated" ), investmentInstanceTotal: Investment.count() ]
 	}
 	
 	// ok
 	def show = {
+        log.info "show"
 		def investmentInstance = Investment.get( params.id )
 		
 		if(!investmentInstance) {
@@ -31,7 +34,7 @@ class InvestmentController {
 	}
 	// ok
 	def delete = {
-		println "in delete"
+        log.info "delete"
 		def investmentInstance = Investment.get( params.id )
 		if(investmentService.hasRightToInvestment(investmentInstance, "delete")) {
 			if(investmentService.remInvestment(investmentInstance)) {
@@ -50,7 +53,7 @@ class InvestmentController {
 	
 	// ok
 	def save = {
-		println "in save"
+        log.info "save"
 		def investmentInstance = investmentService.addInvestmentForUser(params.name)
 		if(investmentInstance) {
 			flash.message = "Inwestycja '${investmentInstance.name}' utworzona"
@@ -63,7 +66,7 @@ class InvestmentController {
 	
 	// ok
 	def create = {
-		println "in create"
+        log.info "create"
 		def investmentInstance = new Investment()
 		investmentInstance.properties = params
 		def subject = org.jsecurity.SecurityUtils.getSubject()
@@ -73,7 +76,7 @@ class InvestmentController {
 	
 	// ok
 	def update = {
-		println "in update"
+        log.info "update"
 		def investmentInstance = Investment.get( params.id )
 		if(investmentService.hasRightToInvestment(investmentInstance, "update")) {
 			if(params.version) {
@@ -101,6 +104,7 @@ class InvestmentController {
 	
 	// ok
 	def edit = {
+        log.info "edit"
 		def investmentInstance = Investment.get( params.id )
 		if(investmentService.hasRightToInvestment(investmentInstance, "edit")) {
 			return [ investmentInstance : investmentInstance ]

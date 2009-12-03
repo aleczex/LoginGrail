@@ -3,6 +3,7 @@ import org.jsecurity.authz.permission.WildcardPermission
 class InvestmentService { 
 	
 	def getUserPermission(investmentInstance, userInstance) {
+		log.info "getUserPermisssion"
 		def userRole = UsersRoles.findByUser(userInstance)
 		println "rola dla uzytkownika: " + userInstance.name + " = " + userRole
 		if(userRole == "User") {
@@ -16,6 +17,7 @@ class InvestmentService {
 	
 	// ok
 	def hasRightToInvestment(investmentInstance, action) {
+        log.info "hasRightToInvestment"
 		if(!action || !investmentInstance) return false
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
         def subject = org.jsecurity.SecurityUtils.getSubject()
@@ -35,6 +37,7 @@ class InvestmentService {
 
 	// ok
 	def remInvestment(investmentInstance) {
+        log.info "remInvestment"
 		if(!investmentInstance) {
 			println "investmentInstance = null"
 			return false
@@ -60,6 +63,7 @@ class InvestmentService {
 	
 	// ok
 	def addInvestmentForUser(investmentName) {
+        log.info "addInvestmentForUser"
 		println "add investment: " + investmentName
 		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
 		def subject = org.jsecurity.SecurityUtils.getSubject()
