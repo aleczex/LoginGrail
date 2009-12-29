@@ -32,7 +32,11 @@ class PictureService {
     				if(!imageProcessing.saveImage(filename, bi)) {
     					return false
     				}    
+    			} else {
+    				return false
     			}
+    		} else {
+    			return false
     		}
     		bi = imageProcessing.loadImage(filename);
             if(bi) {
@@ -41,7 +45,11 @@ class PictureService {
                     if(!imageProcessing.saveImage(filename+'_100', bi)) {
                         return false
                     }    
+                } else {
+                	return false
                 }
+            } else {
+            	return false
             }
             bi = imageProcessing.loadImage(filename);
             if(bi) {
@@ -50,7 +58,11 @@ class PictureService {
                     if(!imageProcessing.saveImage(filename+'_320', bi)) {
                         return false
                     }    
+                } else {
+                	return false
                 }
+            } else {
+            	return false
             }
     	}
     	return true

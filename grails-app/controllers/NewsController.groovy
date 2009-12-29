@@ -1,7 +1,5 @@
 class NewsController {
 	
-	def scaffold = true
-	
 	def list = {
 		def investmentInstance = Investment.get( params.id )
 		if(!investmentInstance) {

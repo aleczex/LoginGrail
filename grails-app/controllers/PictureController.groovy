@@ -3,7 +3,6 @@ import java.math.*;
 
 
 class PictureController {
-	def scaffold = true 
 	def pictureService
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
@@ -50,16 +49,17 @@ class PictureController {
 			p.filename = hashIt(userInstance.email + "_"  + p.id) + p.id
 			p.save()
 			f.transferTo( new File(basePath+'/'+p.filename) )
+			def link="/picture/list/"+params.folder.id.encodeAsHTML() + "#" + p.id.encodeAsHTML()
 			if(!pictureService.uploadPicture(basePath+'/'+p.filename)) {
-				flash.message = 'nie udało się dodać obrazka'
-				return false
+				p.delete(flush:true)
+				flash.message = 'Nie udało się dodać obrazka'
+				redirect(uri: link)
 			}
 			def file = new File(basePath +'/'+ p.filename)
 			if(file) {
 				file.delete()
 			}
 	    
-			def link="/picture/list/"+params.folder.id.encodeAsHTML() + "#" + p.id.encodeAsHTML()
 			redirect(uri: link)
 		} else {
 			flash.message = 'file cannot be empty'
