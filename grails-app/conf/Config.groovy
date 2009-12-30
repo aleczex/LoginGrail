@@ -68,11 +68,11 @@ log4j = {
 	}
 
 	root {
-	    debug 'stdout', 'file'
+	    info 'stdout', 'file'
 	    additivity = true
 	}    
 	
-	debug  'grails.app'
+	info  'grails.app'
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
 	       'org.codehaus.groovy.grails.web.pages' //  GSP
 	error  'org.codehaus.groovy.grails.web.sitemesh', //  layouts

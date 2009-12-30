@@ -15,7 +15,7 @@ class FolderController {
         }
 
     	params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        [ investmentInstance: investmentInstance, folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id =? order by f.dateCreated asc", investmentInstance.id) ]
+        [ investmentInstance: investmentInstance, folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id =:investmentid order by f.dateCreated asc", [investmentid: investmentInstance.id]) ]
     }
     
     def show = {

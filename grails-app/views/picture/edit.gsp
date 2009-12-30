@@ -26,7 +26,7 @@
 			                <g:renderErrors bean="${pictureInstance}" as="list" />
 			            </div>
 		            </g:hasErrors>
-		            <g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')}" />
+		            <g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')+'.jpg'}" />
 					<g:set var="res" value="${resource(dir:'/images/upload')}" />
 					<a href="${res}/${path}" class="highslide" onclick="return hs.expand(this)"
 						title="${fieldValue(bean:pictureInstance, field:'caption')}" style="margin: 0 0 10px 15px">

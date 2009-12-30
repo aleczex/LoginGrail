@@ -14,14 +14,14 @@ class PictureController {
 			redirect(controller:'folder')
 		}
 		else {
-			def investmentInstance = Investment.find( "from Investment as i where i.id=?", folderInstance.investment.id )
+			def investmentInstance = Investment.find( "from Investment as i where i.id=:folderid", [folderid: folderInstance.investment.id] )
 			if(!investmentInstance) {
 				flash.message = "Investment not found with id ${params.id}"
 				redirect(action:list)
 			}           
 			
-			[investmentInstance: investmentInstance, folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=? order by p.dateCreated asc", folderInstance.id), pictureInstanceTotal: Picture.count(),
-			commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=?) order by c.dateCreated asc", folderInstance.id)]
+			[investmentInstance: investmentInstance, folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=:folderid order by p.dateCreated asc", [folderid: folderInstance.id]), pictureInstanceTotal: Picture.count(),
+			commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=:folderid) order by c.dateCreated asc", [folderid: folderInstance.id])]
 		}
 	}
 	
@@ -85,7 +85,7 @@ class PictureController {
 			userInstance = Users.findByUsername(subject.principal)
 		}
 		def folderInstance = Folder.get( params.id )
-		def investmentInstance = Investment.find( "from Investment as i where i.id=?", folderInstance.investment.id )
+		def investmentInstance = Investment.find( "from Investment as i where i.id=:investmentid", [investmentid: folderInstance.investment.id] )
 		def pictureInstance = new Picture()
 		pictureInstance.properties = params
 		pictureInstance.caption = 'opis zdjęcia';
@@ -147,8 +147,8 @@ class PictureController {
 			redirect(action:list)
 		}
 		else {
-			def folderInstance = Folder.find("from Folder as f where exists (from Picture as p where f.id = p.folder.id and p.id=?)", pictureInstance.id);
-			return [ folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id = ? order by f.dateCreated asc)", folderInstance.investment.id), 
+			def folderInstance = Folder.find("from Folder as f where exists (from Picture as p where f.id = p.folder.id and p.id=:pictureid)", [pictureid: pictureInstance.id]);
+			return [ folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id =:investmentid order by f.dateCreated asc)", [investmentid: folderInstance.investment.id]), 
 			         pictureInstance : pictureInstance,
 			         folderInstance: folderInstance,
 			         investmentInstance: folderInstance.investment,

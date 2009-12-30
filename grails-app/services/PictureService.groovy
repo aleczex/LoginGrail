@@ -8,7 +8,7 @@ import java.io.IOException;
 class PictureService { 
 
     def getLatestPicturesList(max) {
-        def picturesList = Picture.findAll( "from Picture as n order by n.dateCreated desc",[max:max])
+        def picturesList = Picture.findAll( "from Picture as n order by n.dateCreated desc", [max: max] )
         def list = []
 
 		for(Picture p: picturesList) {
