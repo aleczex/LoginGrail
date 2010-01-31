@@ -1,25 +1,27 @@
-
-
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Create Users</title>         
+        <title>Utwórz użytkownika</title>         
     </head>
     <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list">Users List</g:link></span>
-        </div>
+    <div id="main">
+        <div id="wrapper">
+            <g:render template="/shared/menu" />
         <div class="body">
-            <h1>Create Users</h1>
+            <h1>Utwórz użytkownika</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
             <g:hasErrors bean="${usersInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${usersInstance}" as="list" />
-            </div>
+	            <div class="errors">
+	                <g:renderErrors bean="${usersInstance}" as="list" />
+	            </div>
+            </g:hasErrors>
+            <g:hasErrors bean="${investmentInstance}">
+                <div class="errors">
+                    <g:renderErrors bean="${investmentInstance}" as="list" />
+                </div>
             </g:hasErrors>
             <g:form action="reguser" method="post" >
                 <div class="dialog">
@@ -55,20 +57,24 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="investmentname">Nazwa mojej inwestycji:</label>
+                                    <label for="name">Nazwa mojej inwestycji:</label>
                                 </td>
-                                <td valign="top">
-                                    <input type="text" id="investmentname" name="investmentname" value=""/>
+                                <td valign="top" class="value ${hasErrors(bean:investmentInstance,field:'name','errors')}">
+                                    <input type="text" id="name" name="name" value="${fieldValue(bean:investmentInstance, field:'name')}"/>
+                                </td>
                                 </td>
                             </tr> 
 
                         </tbody>
                     </table>
                 </div>
+                <g:render template="/shared/captcha" />
                 <div class="buttons">
                     <span class="button"><input class="save" type="submit" value="Create" /></span>
                 </div>
             </g:form>
+            <g:render template="/shared/footer" />
         </div>
+    </div>
     </body>
 </html>

@@ -4,6 +4,7 @@ import java.math.*;
 
 class PictureController {
 	def pictureService
+	def authorizationService
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		
@@ -19,8 +20,11 @@ class PictureController {
 				flash.message = "Investment not found with id ${params.id}"
 				redirect(action:list)
 			}           
-			
-			[investmentInstance: investmentInstance, folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=:folderid order by p.dateCreated asc", [folderid: folderInstance.id]), pictureInstanceTotal: Picture.count(),
+			def userPictureList = authorizationService.getLoggedUserPictureListForInvestmentAndFolder(investmentInstance, folderInstance)
+			def investmentOwner = authorizationService.isLoggedUserInvestmentOwner(investmentInstance)
+
+			[investmentOwner: investmentOwner, userPictureList: userPictureList, investmentInstance: investmentInstance, folderInstance: folderInstance, pictureInstanceList: Picture.findAll( "from Picture as p where p.folder.id=:folderid order by p.dateCreated asc", 
+			 [folderid: folderInstance.id]), pictureInstanceTotal: Picture.count(),
 			commentInstanceList: Comment.findAll( "from Comment as c where exists (from Picture as p where p.id=c.picture.id and p.folder.id=:folderid) order by c.dateCreated asc", [folderid: folderInstance.id])]
 		}
 	}

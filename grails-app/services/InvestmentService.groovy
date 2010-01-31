@@ -39,22 +39,10 @@ class InvestmentService {
 	def remInvestment(investmentInstance) {
         log.info "remInvestment"
 		if(!investmentInstance) {
-			println "investmentInstance = null"
 			return false
 		}
-		println "usuwamy inwestycje: " + investmentInstance.name
-		def ownerInstance = investmentInstance.user
-		println "wlasciciel inwestycji: " + ownerInstance.username
-		def permission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
 		try {
-			def ownerPermissionRel = UsersPermissionsRel.findByTargetAndUser("investment:*:"+investmentInstance.id, ownerInstance)
-			println "userpermrel " + ownerPermissionRel
 			investmentInstance.delete(flush:true)
-			println "deleted: " + investmentInstance.name
-			if(ownerPermissionRel) {
-				ownerPermissionRel.delete(flush:true)
-				println "deleted: " + ownerPermissionRel
-			}
 			return true
 		} catch(org.springframework.dao.DataIntegrityViolationException e) {
 			return false

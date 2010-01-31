@@ -72,9 +72,7 @@
                     </table>
                 </div>
                 <br/>
-                <jcaptcha:jpeg name="image" height="50" width="60"/><br> 
-                <label for="response">Przepisz literki z obrazka</label>
-                <g:textField name="response" value="" /><br>
+                <g:render template="/shared/captcha" />
                 <div class="buttons">
                     <span class="button"><input class="save" type="submit" action="Create" value="Dodaj" /></span>
                 </div>

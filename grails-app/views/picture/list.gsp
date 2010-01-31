@@ -10,25 +10,25 @@
 		<![endif]-->          
 		<title>Galeria</title>
 	</head>
-    <g:set var="permission" value='${new org.jsecurity.authz.permission.WildcardPermission("investment:edit:${investmentInstance.id}")}'/>
 	<body>
 		<div id="main">
 			<div id="wrapper">
 				<g:render template="/shared/menu" />
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->
                 <g:link controller="folder" action="list" id="${investmentInstance.id}">Galeria</g:link>->${folderInstance.name}
-                    <jsec:hasPermission permission="${permission}">
+                    <g:if test="${investmentOwner}">
                         <g:link class="create" action="create" id="${folderInstance.id}"> (Dodaj nowe zdjęcie)</g:link>
-					</jsec:hasPermission>
+					</g:if>
                 </h1>
 				<div id="imagelist">
                 <g:if test="${flash.message}">
                     <div class="message">${flash.message}</div>
                 </g:if>
+${userPictureList}
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
 						<div>
 							<div id="imageframe">
-	                            <jsec:hasPermission permission="${permission}">
+                                <g:grep in="${userPictureList}" filter="pictureInstance">
                                     <g:form method="post" >
                                         <input type="hidden" name="id" value="${pictureInstance?.id}" />
                                         <input type="hidden" name="version" value="${pictureInstance?.version}" />
@@ -37,7 +37,7 @@
                                             <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien? Zostaną usunięte wszystkie komentarze dodane do tego zdjęcia.');" value="Usuń" /></span>
                                         </div>
                                     </g:form>                                   
-	                            </jsec:hasPermission>
+	                            </g:grep>
                                 <g:set var="path" value="${fieldValue(bean:pictureInstance, field:'filename')+'.jpg'}" />
 								<g:set var="path_320" value="${fieldValue(bean:pictureInstance, field:'filename')+'_320.jpg'}" />
 								<g:set var="res" value="${resource(dir:'/images/upload')}" />

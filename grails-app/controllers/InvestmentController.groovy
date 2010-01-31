@@ -4,6 +4,7 @@ import org.jsecurity.SecurityUtils
 
 class InvestmentController {
 	def investmentService
+	def authorizationService
 	
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
@@ -16,8 +17,10 @@ class InvestmentController {
 	// ok
 	def list = {
         log.info "list"
+        
+        def userInvestmentList = authorizationService.getLoggedUserInvestmentList()
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-		[ investmentInstanceList: Investment.list( max: params.max, sort: "dateCreated" ), investmentInstanceTotal: Investment.count() ]
+		[ userInvestmentList: userInvestmentList, investmentInstanceList: Investment.list( max: params.max, sort: "dateCreated" ), investmentInstanceTotal: Investment.count() ]
 	}
 	
 	// ok
@@ -36,7 +39,7 @@ class InvestmentController {
 	def delete = {
         log.info "delete"
 		def investmentInstance = Investment.get( params.id )
-		if(investmentService.hasRightToInvestment(investmentInstance, "delete")) {
+		if(authorizationService.isLoggedUserInvestmentOwner(investmentInstance)) {
 			if(investmentService.remInvestment(investmentInstance)) {
 				flash.message = "Inwestycja '${investmentInstance?.name}' usunięta"
 				redirect(action:list)

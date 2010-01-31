@@ -1,21 +1,22 @@
-
-
 class FolderController {
-    
+	def authorizationService
+	
     def index = { redirect(action:list,params:params) }
 
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
     def list = {
-        def investmentInstance = Investment.get( params.id )
+    	log.info "list"
+    	def investmentInstance = Investment.get( params.id )
         if(!investmentInstance) {
             flash.message = "Investment not found with id ${params.id}"
             redirect(controller:'investment',action:'list')
         }
-
+    	def userFolderList = authorizationService.getLoggedUserFolderListForInvestment(investmentInstance)
+    	def investmentOwner = authorizationService.isLoggedUserInvestmentOwner(investmentInstance)
     	params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        [ investmentInstance: investmentInstance, folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id =:investmentid order by f.dateCreated asc", [investmentid: investmentInstance.id]) ]
+        [ investmentOwner: investmentOwner, userFolderList: userFolderList, investmentInstance: investmentInstance, folderInstanceList: Folder.findAll( "from Folder as f where f.investment.id =:investmentid order by f.dateCreated asc", [investmentid: investmentInstance.id]) ]
     }
     
     def show = {

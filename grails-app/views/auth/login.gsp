@@ -44,9 +44,9 @@
                     <span class="button"> <g:actionSubmit action="forgotPassword" onclick="return confirm('Jesteś pewien? Na twój adres email podany podczas rejestracji zostanie wysłany mail z przypomnieniem hasła');" value="Przypomnij hasło"/></input> </span>
                 </div>
             </g:form>
-            <!--div>
+            <div>
             Nie masz jeszcze konta? <g:link controller="users" action="register">Zarejestruj się!</g:link>
-            </div-->
+            </div>
         </div>
     </body>
 </html>

@@ -1,7 +1,8 @@
 import org.jsecurity.crypto.hash.Sha1Hash
 
 class UsersController {
-    
+	def jcaptchaService
+	
     def index = { redirect(action:list,params:params) }
 
     // the delete, save and update actions only accept POST requests
@@ -96,23 +97,27 @@ class UsersController {
     def reguser = {
         def usersInstance = new Users()
         usersInstance.properties = params
+        def origPass = usersInstance.passwordHash
         usersInstance.passwordHash = new Sha1Hash(usersInstance.passwordHash).toHex()
-        if(!usersInstance.hasErrors() && usersInstance.save()) {
-            println "Users ${usersInstance.id} created"
-            def investmentInstance = new Investment()
-            investmentInstance.name = params.investmentname
-            investmentInstance.user = usersInstance
-            def subject = org.jsecurity.SecurityUtils.getSubject()
+        
+        def investmentInstance = new Investment()
+        investmentInstance.properties = params
+        investmentInstance.user = usersInstance
+        
+        if(jcaptchaService.validateResponse("image", session.id, params.response) 
+        	&& !usersInstance.hasErrors() && usersInstance.save()) {
             if(!investmentInstance.hasErrors() && investmentInstance.save()) {
-            	def wildcardPermission = Permissions.findByType("org.jsecurity.authz.permission.WildcardPermission")
-            	new UsersPermissionsRel(user: usersInstance, permission: wildcardPermission, target: "investment:show,list,edit:"+investmentInstance.id, actions: "*").save()
-                println "Users ${usersInstance.id} and Investment ${investmentInstance.id} created"
-            	flash.message = "Users ${usersInstance.id} and Investment ${investmentInstance.id} created"
+            	//nie dodaje sie rola do tabeli ponizej 
+            	new UsersRolesRel(user: usersInstance, roles: "User").save()
+            	flash.message = "Użytkownik: ${usersInstance.username} oraz inwestycja: ${investmentInstance.name} utworzone"
 	            redirect(controller:'auth',action:'login',id:usersInstance.id)
+            } else {
+                usersInstance.passwordHash=origPass
+                render(view:'register',model:[usersInstance:usersInstance, investmentInstance:investmentInstance])
             }
-        }
-        else {
-            render(view:'create',model:[usersInstance:usersInstance])
+        } else {
+        	usersInstance.passwordHash=origPass
+        	render(view:'register',model:[usersInstance:usersInstance, investmentInstance:investmentInstance])
         }    	
     }
     

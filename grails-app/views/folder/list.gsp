@@ -10,17 +10,18 @@
 			<g:render template="/shared/menu" />
             <h1><g:link controller="investment">Inwestycja</g:link>->
 				<g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Galeria
-				<jsec:isLoggedIn>
+                <g:if test="${investmentOwner}">				
 				    <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy folder)</g:link>
-				</jsec:isLoggedIn>
+				</g:if>
 			</h1>
 
 			<div id="folder">
 				<g:if test="${flash.message}">
 					<div class="message">${flash.message}</div>
 				</g:if>
+${userFolderList}
 				<g:each in="${folderInstanceList}" status="i" var="folderInstance">
-                    <jsec:isLoggedIn>
+                    <g:grep in="${userFolderList}" filter="folderInstance">
 						<g:form method="post" >
 	                        <input type="hidden" name="id" value="${folderInstance?.id}" />
 	                        <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
@@ -30,7 +31,7 @@
 				                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien? Możesz usunąć tylko taki folder, w którym nie ma zdjęć');" value="Usuń" /></span>
 				            </div>
                         </g:form>
-					</jsec:isLoggedIn>
+					</g:grep>
 					<g:link controller="picture" action="list" id="${folderInstance.id}"><h1>${fieldValue(bean:folderInstance, field:'name')}</h1></g:link>
 				</g:each>
             </div>

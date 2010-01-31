@@ -13,7 +13,9 @@
         <div class="body">
             <h1>Inwestycje
                 <jsec:isLoggedIn>
-				    <g:link class="create" action="create">(Dodaj nową inwestycję)</g:link>
+                    <jsec:hasRole name="Administrator">
+				        <g:link class="create" action="create">(Dodaj nową inwestycję)</g:link>
+                    </jsec:hasRole>
 				</jsec:isLoggedIn>
             </h1>    
             <g:if test="${flash.message}">
@@ -29,23 +31,20 @@
                         </tr>
                     </thead>
                     <tbody>
+${userInvestmentList}
                     <g:each in="${investmentInstanceList}" status="i" var="investmentInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                             <td>		                    
-                            <g:set var="permissionEdit" value='${new org.jsecurity.authz.permission.WildcardPermission("investment:edit:${investmentInstance.id}")}'/>
-                            <g:set var="permissionDelete" value='${new org.jsecurity.authz.permission.WildcardPermission("investment:delete:${investmentInstance.id}")}'/>
-	                        <g:form method="post" >
-	                            <input type="hidden" name="id" value="${investmentInstance?.id}" />
-	                            <div class="buttons">
-                                <jsec:hasPermission permission="${permissionEdit}">
-	                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-			                    </jsec:hasPermission>
-                                <jsec:hasPermission permission="${permissionDelete}">
-	                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien? Możesz usunąć tylko taki folder, w którym nie ma zdjęć');" value="Usuń" /></span>
-                                </jsec:hasPermission>
-	                            </div>
-	                        </g:form>
-                            <g:link action="show" id="${investmentInstance.id}">${fieldValue(bean:investmentInstance, field:'name')}<br/> 
+                           <g:grep in="${userInvestmentList}" filter="investmentInstance">
+                               <g:form method="post" >
+	                               <input type="hidden" name="id" value="${investmentInstance?.id}" />
+	                               <div class="buttons">
+	                                   <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+                                       <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien? Możesz usunąć tylko taki folder, w którym nie ma zdjęć');" value="Usuń" /></span>
+    	                            </div>
+    	                        </g:form>
+                            </g:grep>
+	                        <g:link action="show" id="${investmentInstance.id}">${fieldValue(bean:investmentInstance, field:'name')}<br/> 
 (<g:formatDate format="yyyy-MM-dd" date="${investmentInstance.dateCreated}"/> - ${fieldValue(bean:investmentInstance, field:'user.username')})</g:link></td>
                             <td><ul>
                             <g:each in="${investmentInstance.folders}" status="j" var="folderInstance">

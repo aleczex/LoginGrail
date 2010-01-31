@@ -8,11 +8,10 @@
         <div id="main">
             <div id="wrapper">
                 <g:render template="/shared/menu" />
-                <g:set var="permission" value='${new org.jsecurity.authz.permission.WildcardPermission("investment:edit:${investmentInstance.id}")}'/>
                 <h1><g:link controller="investment">Inwestycja</g:link>-><g:link controller="investment" action="show" id="${investmentInstance.id}">${investmentInstance.name}</g:link>->Dziennik budowy
-                    <jsec:hasPermission permission="${permission}">
+                    <g:if test="${investmentOwner}">
 	                    <g:link class="create" action="create" id="${investmentInstance.id}"> (Dodaj nowy wpis)</g:link>
-	                </jsec:hasPermission>
+	                </g:if>
                 </h1>
 		        <div id="folder">
 					<g:if test="${flash.message}">
@@ -20,29 +19,30 @@
 					</g:if>
 	                <table>
 	                    <tbody>
-		                    <g:each in="${newsInstanceList}" status="i" var="newsInstance">
-		                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-									<td>
-		                                <jsec:hasPermission permission="${permission}">
+${userNewsList}
+	                        <g:each in="${newsInstanceList}" status="i" var="newsInstance">
+	                            <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+	                                <td>
+	                                    <g:grep in="${userNewsList}" filter="newsInstance">
 		                                    <g:form method="post" >
-		                                            <input type="hidden" name="id" value="${newsInstance?.id}" />
-		                                            <input type="hidden" name="version" value="${newsInstance?.version}" />
-		                                            <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
-		                                            <div class="buttons">
-		                                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-		                                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
-		                                            </div>
+	                                            <input type="hidden" name="id" value="${newsInstance?.id}" />
+	                                            <input type="hidden" name="version" value="${newsInstance?.version}" />
+	                                            <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
+	                                            <div class="buttons">
+	                                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+	                                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
+	                                            </div>
 		                                    </g:form>
-		                                </jsec:hasPermission>
-						           	</td>
-		                            <td><g:formatDate format="yyyy-MM-dd" date="${newsInstance.dateCreated}"/></td>
-		                            <td>${fieldValue(bean:newsInstance, field:'description')}</td>
-		                        </tr>
-		                        <tr/>
-		                        <tr/>
-							</g:each>
-	                    </tbody>
-	                </table>
+			                            </g:grep>
+	                                </td>
+	                                <td><g:formatDate format="yyyy-MM-dd" date="${newsInstance.dateCreated}"/></td>
+	                                <td>${fieldValue(bean:newsInstance, field:'description')}</td>
+	                            </tr>
+	                            <tr/>
+	                            <tr/>
+	                        </g:each>
+                        </tbody>
+                    </table>
 	            </div>
 	            <div class="clear"></div>
 	            <div class="paginateButtons">

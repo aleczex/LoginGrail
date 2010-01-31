@@ -1,5 +1,5 @@
 class NewsController {
-	
+	def authorizationService
 	def list = {
 		def investmentInstance = Investment.get( params.id )
 		if(!investmentInstance) {
@@ -8,9 +8,15 @@ class NewsController {
 		}
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
 		def offset = params.offset ? params.offset.toInteger(): 0
+
+		def userNewsList = authorizationService.getLoggedUserNewsList(investmentInstance)
+        def investmentOwner = authorizationService.isLoggedUserInvestmentOwner(investmentInstance)
+				
 		def newsInstanceList = News.findAll( "from News as n where n.investment.id =? order by n.dateCreated desc", [investmentInstance.id], [max: params.max, offset: offset])
 		def len = News.findAll( "from News as n where n.investment.id =? order by n.dateCreated asc", [investmentInstance.id])
-		[ investmentInstance: investmentInstance, newsInstanceList: newsInstanceList, newsInstanceTotal: len.size()]
+		[ userNewsList: userNewsList, investmentOwner: investmentOwner, 
+		  investmentInstance: investmentInstance, 
+		  newsInstanceList: newsInstanceList, newsInstanceTotal: len.size()]
 	}
 	
 	def save = {
