@@ -108,7 +108,8 @@ class UsersController {
         	&& !usersInstance.hasErrors() && usersInstance.save()) {
             if(!investmentInstance.hasErrors() && investmentInstance.save()) {
             	//nie dodaje sie rola do tabeli ponizej 
-            	new UsersRolesRel(user: usersInstance, roles: "User").save()
+            	def role = Roles.findByName("User")
+            	new UsersRolesRel(user: usersInstance, role: role).save()
             	flash.message = "Użytkownik: ${usersInstance.username} oraz inwestycja: ${investmentInstance.name} utworzone"
 	            redirect(controller:'auth',action:'login',id:usersInstance.id)
             } else {
