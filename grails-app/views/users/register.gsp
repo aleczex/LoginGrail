@@ -70,7 +70,7 @@
                 </div>
                 <g:render template="/shared/captcha" />
                 <div class="buttons">
-                    <span class="button"><input class="save" type="submit" value="Create" /></span>
+                    <span class="button"><input class="save" type="submit" value="Zarejestruj mnie" /></span>
                 </div>
             </g:form>
             <g:render template="/shared/footer" />

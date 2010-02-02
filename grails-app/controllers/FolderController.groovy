@@ -34,12 +34,12 @@ class FolderController {
         if(folderInstance) {
             try {
                 folderInstance.delete(flush:true)
-                flash.message = "Folder ${params.id} deleted"
+                flash.message = "Folder " + folderInstance.name + " usunięty."
                 redirect(action:list, id:params.investmentid)
             }
             catch(org.springframework.dao.DataIntegrityViolationException e) {
                 println("error: " + e)
-            	flash.message = "Folder ${params.id} could not be deleted"
+            	flash.message = "Folder " + folderInstance.name + " nie może być usunięty ponieważ zawiera zdjęcia. Usuń zdjęcia i spróbuj jeszcze raz."
                 redirect(action:list,id:params.investmentid)
             }
         }
@@ -69,7 +69,6 @@ class FolderController {
             if(params.version) {
                 def version = params.version.toLong()
                 if(folderInstance.version > version) {
-                    
                     folderInstance.errors.rejectValue("version", "folder.optimistic.locking.failure", "Another user has updated this Folder while you were editing.")
                     render(view:'edit',model:[folderInstance:folderInstance])
                     return
@@ -77,7 +76,7 @@ class FolderController {
             }
             folderInstance.properties = params
             if(!folderInstance.hasErrors() && folderInstance.save()) {
-                flash.message = "Folder ${params.id} updated"
+                flash.message = "Folder " + folderInstance.name + " zmieniony"
                 redirect(action:list,id:params.investmentid)
             }
             else {

@@ -19,7 +19,6 @@
 					</g:if>
 	                <table>
 	                    <tbody>
-${userNewsList}
 	                        <g:each in="${newsInstanceList}" status="i" var="newsInstance">
 	                            <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 	                                <td>

@@ -24,7 +24,6 @@
                 <g:if test="${flash.message}">
                     <div class="message">${flash.message}</div>
                 </g:if>
-${userPictureList}
 					<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
 						<div>
 							<div id="imageframe">

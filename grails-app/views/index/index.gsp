@@ -17,9 +17,8 @@
 				<div id="banner">
 					<h1>Nowości na stronie</h1>
 					<div class="leftcontent">
-						<g:set var="res" value="${resource(dir:'/images/choinka.jpg')}" />
-                  		<img hspace="80" vspace="6" src="${res}" alt="" width="100" border="0"/>
-						<br/><b>Wesołych Świąt oraz Szczęśliwego Nowego 2010 Roku!</b>
+						<br/><b>Już teraz możesz dodać swoją inwestycję i podzielić się zdjęciami z innymi!</b><br/><a href="users/register" title="Zarejestruj się" style="margin: 0 0 10px 15px">Kliknij tutaj.</b></a>
+
                		</div>
 					<div class="rightcontent">
                         <a href="${resource(dir:'images', file:'logo.jpg')}" class="image" onclick="return hs.expand(this)"

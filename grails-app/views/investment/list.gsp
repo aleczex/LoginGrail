@@ -31,7 +31,6 @@
                         </tr>
                     </thead>
                     <tbody>
-${userInvestmentList}
                     <g:each in="${investmentInstanceList}" status="i" var="investmentInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                             <td>		                    
@@ -66,8 +65,9 @@ ${userInvestmentList}
                     </tbody>
                 </table>
             </div>
+            <div class="clear"></div>
             <div class="paginateButtons">
-                <g:paginate total="${investmentInstanceTotal}" />
+                <g:paginate next="Następny" previous="Poprzedni" total="${investmentInstanceTotal}" />
             </div>
             <g:render template="/shared/footer" />
         </div>

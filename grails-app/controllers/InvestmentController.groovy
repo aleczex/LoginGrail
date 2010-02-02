@@ -19,8 +19,9 @@ class InvestmentController {
         log.info "list"
         
         def userInvestmentList = authorizationService.getLoggedUserInvestmentList()
+        def offset = params.offset ? params.offset.toInteger(): 1
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-		[ userInvestmentList: userInvestmentList, investmentInstanceList: Investment.list( max: params.max, sort: "dateCreated" ), investmentInstanceTotal: Investment.count() ]
+		[ userInvestmentList: userInvestmentList, investmentInstanceList: Investment.list( max: params.max, offset: offset, sort: "dateCreated" ), investmentInstanceTotal: Investment.count() ]
 	}
 	
 	// ok

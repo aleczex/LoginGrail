@@ -12,4 +12,9 @@ class Picture implements Comparable {
 	int compareTo(obj) {
 		obj.id.compareTo(id)
 	}
+	
+    // temporary workaround
+    static mapping = {
+        version false
+    } 
 }

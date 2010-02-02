@@ -100,6 +100,12 @@ class UsersController {
         def origPass = usersInstance.passwordHash
         usersInstance.passwordHash = new Sha1Hash(usersInstance.passwordHash).toHex()
         
+        if(Users.findByUsername(usersInstance.username)) {
+            flash.message = "Użytkownik o podanej nazwie jest już zarejestrowany w systemie. Wybierz inną nazwę użytkownika."
+            usersInstance.passwordHash=origPass
+            render(view:'register',model:[usersInstance:usersInstance, investmentInstance:investmentInstance])
+        }
+        
         def investmentInstance = new Investment()
         investmentInstance.properties = params
         investmentInstance.user = usersInstance
@@ -113,10 +119,12 @@ class UsersController {
             	flash.message = "Użytkownik: ${usersInstance.username} oraz inwestycja: ${investmentInstance.name} utworzone"
 	            redirect(controller:'auth',action:'login',id:usersInstance.id)
             } else {
+            	flash.message = "Wszystkie pola są wymagane. Musisz je wypełnić."
                 usersInstance.passwordHash=origPass
                 render(view:'register',model:[usersInstance:usersInstance, investmentInstance:investmentInstance])
             }
         } else {
+            flash.message = "Wszystkie pola są wymagane. Musisz je wypełnić."
         	usersInstance.passwordHash=origPass
         	render(view:'register',model:[usersInstance:usersInstance, investmentInstance:investmentInstance])
         }    	

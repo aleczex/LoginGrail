@@ -19,7 +19,6 @@
 				<g:if test="${flash.message}">
 					<div class="message">${flash.message}</div>
 				</g:if>
-${userFolderList}
 				<g:each in="${folderInstanceList}" status="i" var="folderInstance">
                     <g:grep in="${userFolderList}" filter="folderInstance">
 						<g:form method="post" >
