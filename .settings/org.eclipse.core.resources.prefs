@@ -1,4 +1,4 @@
-#Wed Feb 03 19:06:04 CET 2010
+#Wed Feb 03 21:52:28 CET 2010
 eclipse.preferences.version=1
 encoding//grails-app/i18n/messages_pl.properties=UTF-8
 encoding//grails-app/views=UTF-8
@@ -23,6 +23,7 @@ encoding//grails-app/views/news/list.gsp=UTF-8
 encoding//grails-app/views/picture/edit.gsp=UTF-8
 encoding//grails-app/views/picture/list.gsp=UTF-8
 encoding//grails-app/views/shared/_menu.gsp=UTF-8
+encoding//grails-app/views/users/edit.gsp=UTF-8
 encoding//grails-app/views/users/list.gsp=UTF-8
 encoding//grails-app/views/users/register.gsp=UTF-8
 encoding//web-app/js/highslide/highslide.config.js=UTF-8

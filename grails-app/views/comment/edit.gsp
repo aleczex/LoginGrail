@@ -25,8 +25,6 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="description">Treść komentarza:</label>
@@ -46,9 +44,8 @@
                     </table>
                 </div>
                 <div class="buttons">
-                </div>
-                    <span class="button"><g:actionSubmit class="save" action="update" value="Zmień"/></span>
-                    <span class="button"><g:link controller="comment" action="list" id="${commentInstance.id}">Powrót</g:link></span>
+                    <span class="button"><g:actionSubmit class="edit" action="update" value="Zmień"/></span>
+                    <span class="button"><g:link class="edit" controller="comment" action="list" id="${commentInstance.id}">Powrót</g:link></span>
                 </div>
             </g:form>
         </div>

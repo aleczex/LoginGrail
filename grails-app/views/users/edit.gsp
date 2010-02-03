@@ -1,19 +1,15 @@
-
-
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Edit Users</title>
+        <title>Edycja użytkownika</title>
     </head>
     <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list">Users List</g:link></span>
-            <span class="menuButton"><g:link class="create" action="create">New Users</g:link></span>
-        </div>
+    <div id="main">
+        <div id="wrapper">
+            <g:render template="/shared/menu" />
         <div class="body">
-            <h1>Edit Users</h1>
+            <h1>Edycja użytkownika</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -28,53 +24,46 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="username">Username:</label>
+                                    <label for="username">Nazwa użytkownika:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:usersInstance,field:'username','errors')}">
                                     <input type="text" id="username" name="username" value="${fieldValue(bean:usersInstance,field:'username')}"/>
                                 </td>
                             </tr> 
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="email">Email:</label>
+                                    <label for="email">Adres email:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:usersInstance,field:'email','errors')}">
                                     <input type="text" id="email" name="email" value="${fieldValue(bean:usersInstance,field:'email')}"/>
                                 </td>
                             </tr> 
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="dateCreated">Date Created:</label>
+                                    <label for="dateCreated">Data utworzenia:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:usersInstance,field:'dateCreated','errors')}">
                                     <g:datePicker name="dateCreated" value="${usersInstance?.dateCreated}" precision="minute" ></g:datePicker>
                                 </td>
                             </tr> 
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="investments">Investments:</label>
+                                    <label for="investments">Inwestycje:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:usersInstance,field:'investments','errors')}">
-                                    
-<ul>
-<g:each var="i" in="${usersInstance?.investments?}">
-    <li><g:link controller="investment" action="show" id="${i.id}">${i?.encodeAsHTML()}</g:link></li>
-</g:each>
-</ul>
-<g:link controller="investment" params="['users.id':usersInstance?.id]" action="create">Add Investment</g:link>
-
+									<ul>
+									<g:each var="i" in="${usersInstance?.investments?}">
+									    <li>${i.name}</li>
+									</g:each>
+									</ul>
                                 </td>
                             </tr> 
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="passwordHash">Password Hash:</label>
+                                    <label for="passwordHash">Hasło:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:usersInstance,field:'passwordHash','errors')}">
                                     <input type="text" id="passwordHash" name="passwordHash" value="${fieldValue(bean:usersInstance,field:'passwordHash')}"/>
@@ -85,10 +74,12 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" value="Update" /></span>
-                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
+                    <span class="button"><g:actionSubmit class="save" action="Update" value="Zmień"/></span>
+                    <span class="button"><g:link controller="users" action="list" id="${usersInstance.id}">Powrót</g:link></span>
                 </div>
             </g:form>
+            <g:render template="/shared/footer" />
         </div>
+    </div>
     </body>
 </html>

@@ -137,3 +137,7 @@ psql domek -U grails <db_backup.sql
 backup:
 
  pg_dump -U grails domek >db_bakup.sql
+ 
+Zmiana kolumny w bazie (http://www.postgresql.org/docs/8.0/static/sql-altertable.html):
+ 
+ alter table users alter column version DROP NOT NULL;

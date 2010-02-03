@@ -26,8 +26,8 @@
 	                        <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
 				            <input type="hidden" name="version" value="${folderInstance?.version}" />
                             <div class="buttons">
-                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-				                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien? Możesz usunąć tylko taki folder, w którym nie ma zdjęć');" value="Usuń" /></span>
+                                <span class="button"><g:actionSubmit class="edit" action="edit" value="Edytuj" /></span>
+				                <span class="button"><g:actionSubmit class="delete" action="delete" onclick="return confirm('Jesteś pewien? Możesz usunąć tylko taki folder, w którym nie ma zdjęć');" value="Usuń" /></span>
 				            </div>
                         </g:form>
 					</g:grep>

@@ -69,7 +69,7 @@
 		                    </table>
 		                </div>
 		                <div class="buttons">
-		                    <span class="button"><g:actionSubmit action="update" value="Zmień" /></span>
+		                    <span class="button"><g:actionSubmit class="save" action="update" value="Zmień" /></span>
 		                    <span class="button"><g:link controller="picture" action="list" id="${folderInstance.id}">Powrót</g:link></span>
 		                </div>
 		            </g:form>

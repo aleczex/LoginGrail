@@ -32,8 +32,8 @@
                                         <input type="hidden" name="id" value="${pictureInstance?.id}" />
                                         <input type="hidden" name="version" value="${pictureInstance?.version}" />
                                         <div class="buttons">
-                                            <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-                                            <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien? Zostaną usunięte wszystkie komentarze dodane do tego zdjęcia.');" value="Usuń" /></span>
+                                            <span class="button"><g:actionSubmit class="edit" action="edit" value="Edytuj" /></span>
+                                            <span class="button"><g:actionSubmit class="delete" action="delete" onclick="return confirm('Czy jesteś pewien? Zostaną usunięte wszystkie komentarze dodane do tego zdjęcia.');" value="Usuń" /></span>
                                         </div>
                                     </g:form>                                   
 	                            </g:grep>

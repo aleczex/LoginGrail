@@ -17,7 +17,7 @@ class UsersController {
         def usersInstance = Users.get( params.id )
 
         if(!usersInstance) {
-            flash.message = "Users not found with id ${params.id}"
+            flash.message = "Użytkownik o id: ${params.id} nie został znaleziony"
             redirect(action:list)
         }
         else { return [ usersInstance : usersInstance ] }
@@ -27,17 +27,21 @@ class UsersController {
         def usersInstance = Users.get( params.id )
         if(usersInstance) {
             try {
+            	def userRole = UsersRolesRel.findByUser(usersInstance);
+            	if(userRole) {
+            		userRole.delete(flush:true);
+            	}
                 usersInstance.delete(flush:true)
-                flash.message = "Users ${params.id} deleted"
+                flash.message = "Użytkownik '${usersInstance.username}' został usunięty"
                 redirect(action:list)
             }
             catch(org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "Users ${params.id} could not be deleted"
-                redirect(action:show,id:params.id)
+                flash.message = "Użytkownik '${usersInstance.username}' nie może być usunięty."
+                redirect(action:list,id:params.id)
             }
         }
         else {
-            flash.message = "Users not found with id ${params.id}"
+            flash.message = "Użytkownik o id: ${params.id} nie został znaleziony"
             redirect(action:list)
         }
     }
@@ -46,7 +50,7 @@ class UsersController {
         def usersInstance = Users.get( params.id )
 
         if(!usersInstance) {
-            flash.message = "Users not found with id ${params.id}"
+            flash.message = "Użytkownik o id: ${params.id} nie został znaleziony"
             redirect(action:list)
         }
         else {
@@ -69,15 +73,15 @@ class UsersController {
             usersInstance.properties = params
             usersInstance.passwordHash = new Sha1Hash(usersInstance.passwordHash).toHex()
             if(!usersInstance.hasErrors() && usersInstance.save()) {
-                flash.message = "Users ${params.id} updated"
-                redirect(action:show,id:usersInstance.id)
+                flash.message = "Użytkownik ${usersInstance.username} został uaktualniony"
+                redirect(action:list,id:usersInstance.id)
             }
             else {
                 render(view:'edit',model:[usersInstance:usersInstance])
             }
         }
         else {
-            flash.message = "Users not found with id ${params.id}"
+            flash.message = "Użytkownik o id: ${params.id} nie został znaleziony"
             redirect(action:list)
         }
     }
@@ -136,10 +140,9 @@ class UsersController {
     def save = {
         def usersInstance = new Users(params)
         if(!usersInstance.hasErrors() && usersInstance.save()) {
-            flash.message = "Users ${usersInstance.id} created"
-            redirect(action:show,id:usersInstance.id)
-        }
-        else {
+            flash.message = "Użytkownik ${usersInstance.username} został utworzony"
+            redirect(action:list, id:usersInstance.id)
+        } else {
             render(view:'create',model:[usersInstance:usersInstance])
         }
     }

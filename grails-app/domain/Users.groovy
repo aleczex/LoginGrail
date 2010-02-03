@@ -11,4 +11,9 @@ class Users {
         username(nullable: false, blank: false)
         email(nullable: false, blank: false, email:true)
     }
+    
+    // temporary workaround
+    static mapping = {
+        version false
+    } 
 }

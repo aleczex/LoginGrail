@@ -32,8 +32,8 @@
 				                <input type="hidden" name="id" value="${commentInstance?.id}" />
 				                <input type="hidden" name="version" value="${commentInstance?.version}" />
 				                <div class="buttons">
-				                	<span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-				                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
+				                	<span class="button"><g:actionSubmit class="edit" action="edit" value="Edytuj" /></span>
+				                    <span class="button"><g:actionSubmit class="delete" action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
 				                </div>
 				            </g:form>
 				            </td>                            

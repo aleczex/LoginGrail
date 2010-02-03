@@ -28,8 +28,8 @@
 	                                            <input type="hidden" name="version" value="${newsInstance?.version}" />
 	                                            <input type="hidden" name="investmentid" value="${investmentInstance.id}" />
 	                                            <div class="buttons">
-	                                                <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
-	                                                <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
+	                                                <span class="button"><g:actionSubmit class="edit" action="edit" value="Edytuj" /></span>
+	                                                <span class="button"><g:actionSubmit class="delete" action="delete" onclick="return confirm('Czy jesteś pewien?');" value="Usuń" /></span>
 	                                            </div>
 		                                    </g:form>
 			                            </g:grep>
