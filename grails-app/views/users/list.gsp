@@ -9,7 +9,7 @@
         <div id="wrapper">
             <g:render template="/shared/menu" />
         <div class="body">
-            <h1>Users List</h1>
+            <h1>Lista użytkowników</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -17,37 +17,28 @@
                 <table>
                     <thead>
                         <tr>
-                        
-                   	        <g:sortableColumn property="id" title="Id" />
-                        
-                   	        <g:sortableColumn property="username" title="Username" />
-                        
+                   	        <th/>
+                   	        <g:sortableColumn property="username" title="Użytkownik" />
                    	        <g:sortableColumn property="email" title="Email" />
-                        
-                   	        <g:sortableColumn property="dateCreated" title="Date Created" />
-                        
-                   	        <th>Investments</th>
-                   	    
-                   	        <g:sortableColumn property="passwordHash" title="Password Hash" />
-                        
+                   	        <g:sortableColumn property="dateCreated" title="Data utworzenia" />
+                   	        <th>Inwestycje</th>
                         </tr>
                     </thead>
                     <tbody>
                     <g:each in="${usersInstanceList}" status="i" var="usersInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="show" id="${usersInstance.id}">${fieldValue(bean:usersInstance, field:'id')}</g:link></td>
-                        
+                            <td><g:form method="post" >
+                                <input type="hidden" name="id" value="${usersInstance?.id}" />
+                                <input type="hidden" name="version" value="${usersInstance?.version}" />
+                                <div class="buttons">
+                                    <span class="button"><g:actionSubmit action="edit" value="Edytuj" /></span>
+                                    <span class="button"><g:actionSubmit action="delete" onclick="return confirm('Jesteś pewien?');" value="Usuń" /></span>
+                                </div>
+                            </g:form>
                             <td>${fieldValue(bean:usersInstance, field:'username')}</td>
-                        
                             <td>${fieldValue(bean:usersInstance, field:'email')}</td>
-                        
                             <td>${fieldValue(bean:usersInstance, field:'dateCreated')}</td>
-                        
-                            <td>${fieldValue(bean:usersInstance, field:'investments')}</td>
-                        
-                            <td>${fieldValue(bean:usersInstance, field:'passwordHash')}</td>
-                        
+                            <td>${fieldValue(bean:usersInstance, field:'investments.name')}</td>
                         </tr>
                     </g:each>
                     </tbody>

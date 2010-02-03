@@ -3,14 +3,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Edit Comment</title>
+        <title>Edycja komentarzy</title>
     </head>
     <body>
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
         <div class="body">
-            <h1>Edit Comment</h1>
+            <h1>Edycja komentarzy</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -26,48 +26,29 @@
                     <table>
                         <tbody>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="dateCreated">Date Created:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'dateCreated','errors')}">
-                                    <g:datePicker name="dateCreated" value="${commentInstance?.dateCreated}" precision="minute" ></g:datePicker>
-                                </td>
-                            </tr> 
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="description">Description:</label>
+                                    <label for="description">Treść komentarza:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'description','errors')}">
-                                    <input type="text" id="description" name="description" value="${fieldValue(bean:commentInstance,field:'description')}"/>
+                                    <input type="text" size="100" id="description" name="description" value="${fieldValue(bean:commentInstance,field:'description')}"/>
                                 </td>
                             </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="picture">Picture:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'picture','errors')}">
-                                    <g:select optionKey="id" from="${Picture.list()}" name="picture.id" value="${commentInstance?.picture?.id}" ></g:select>
-                                </td>
-                            </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="user">User:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:commentInstance,field:'user','errors')}">
-                                    <g:select optionKey="id" from="${User.list()}" name="user.id" value="${commentInstance?.user?.id}" ></g:select>
-                                </td>
-                            </tr> 
+
+                            <g:set var="path_320" value="${fieldValue(bean:commentInstance.picture, field:'filename')+'_320.jpg'}" />
+                            <g:set var="res" value="${resource(dir:'/images/upload')}" />
+                            <img src="${res}/${path_320}" alt="" />
+
+                            <input type="hidden" id="user.id" name="user.id" value="${commentInstance?.user?.id}"/> 
                         
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" value="Update" /></span>
-                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
+                </div>
+                    <span class="button"><g:actionSubmit class="save" action="update" value="Zmień"/></span>
+                    <span class="button"><g:link controller="comment" action="list" id="${commentInstance.id}">Powrót</g:link></span>
                 </div>
             </g:form>
         </div>

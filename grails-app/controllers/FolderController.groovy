@@ -10,7 +10,7 @@ class FolderController {
     	log.info "list"
     	def investmentInstance = Investment.get( params.id )
         if(!investmentInstance) {
-            flash.message = "Investment not found with id ${params.id}"
+            flash.message = "Nie ma inwestycji o podanym id: ${params.id}"
             redirect(controller:'investment',action:'list')
         }
     	def userFolderList = authorizationService.getLoggedUserFolderListForInvestment(investmentInstance)
@@ -23,7 +23,7 @@ class FolderController {
         def folderInstance = Folder.get( params.id )
 
         if(!folderInstance) {
-            flash.message = "Folder not found with id ${params.id}"
+            flash.message = "Nie ma folderu o podanym id: ${params.id}"
             redirect(action:list)
         }
         else { return [ folderInstance : folderInstance ] }
@@ -44,7 +44,7 @@ class FolderController {
             }
         }
         else {
-            flash.message = "Folder not found with id ${params.id}"
+            flash.message = "Nie ma folderu o podanym id: ${params.id}"
             redirect(action:list, id:params.investmentid)
         }
     }
@@ -55,7 +55,7 @@ class FolderController {
         def folderInstance = Folder.get( params.id )
 
         if(!folderInstance) {
-            flash.message = "Folder not found with id ${params.id}"
+            flash.message = "Nie ma folderu o podanym id: ${params.id}"
             redirect(action:list)
         }
         else {
@@ -84,7 +84,7 @@ class FolderController {
             }
         }
         else {
-            flash.message = "Folder not found with id ${params.id}"
+            flash.message = "Nie ma folderu o podanym id: ${params.id}"
             redirect(action:list)
         }
     }
@@ -92,7 +92,7 @@ class FolderController {
     def create = {
         def investmentInstance = Investment.get( params.id )
         if(!investmentInstance) {
-            flash.message = "Investment not found with id ${params.id}"
+            flash.message = "Nie ma inwestycji o podanym id: ${params.id}"
             redirect(action:list)
         }
         
@@ -104,13 +104,13 @@ class FolderController {
     def save = {
         def investmentInstance = Investment.get( params.investmentInstance.id )
         if(!investmentInstance) {
-            flash.message = "Investment not found with id ${params.id}"
+            flash.message = "Nie ma inwestycji o podanym id: ${params.id}"
             redirect(action:list)
         }
         def folderInstance = new Folder(params)
         folderInstance.investment = investmentInstance;
         if(!folderInstance.hasErrors() && folderInstance.save()) {
-            flash.message = "Folder ${folderInstance.id} created"
+            flash.message = "Folder " + folderInstance.name + " został utworzony"
             redirect(action:list, id:investmentInstance.id)
         }
         else {

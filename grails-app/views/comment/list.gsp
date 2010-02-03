@@ -3,14 +3,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Comment List</title>
+        <title>Lista komentarzy</title>
     </head>
     <body>
     <div id="main">
         <div id="wrapper">
             <g:render template="/shared/menu" />
         <div class="body">
-            <h1>Comment List</h1>
+            <h1>Lista komentarzy</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -18,11 +18,11 @@
                 <table>
                     <thead>
                         <tr>
-                   	        <g:sortableColumn property="id" title="Id" />
-                   	        <g:sortableColumn property="dateCreated" title="Date Created" />
-                   	        <g:sortableColumn property="description" title="Description" />
-                   	        <th>Picture</th>
-                   	        <th>User</th>
+                   	        <th/>
+                   	        <g:sortableColumn property="dateCreated" title="Data utworzenia" />
+                   	        <g:sortableColumn property="description" title="Opis" />
+                   	        <th>Autor komentarza</th>
+                   	        <th>Zdjęcie</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,8 +39,14 @@
 				            </td>                            
                             <td>${fieldValue(bean:commentInstance, field:'dateCreated')}</td>
                             <td>${fieldValue(bean:commentInstance, field:'description')}</td>
-                            <td>${fieldValue(bean:commentInstance, field:'picture')}</td>
-                            <td>${fieldValue(bean:commentInstance, field:'user')}</td>
+                            <td>${fieldValue(bean:commentInstance, field:'user.username')}</td>
+                            <td>
+
+
+                                <g:set var="path_320" value="${fieldValue(bean:commentInstance.picture, field:'filename')+'_100.jpg'}" />
+                                <g:set var="res" value="${resource(dir:'/images/upload')}" />
+                                <img src="${res}/${path_320}" alt="" style="margin: 0 0 10px 15px"/>
+                            </td>
                         </tr>
                     </g:each>
                     </tbody>

@@ -100,7 +100,7 @@ class NewsController {
 	            }
 	            newsInstance.properties = params
 	            if(!newsInstance.hasErrors() && newsInstance.save()) {
-	                flash.message = "Wpis ${params.id} poprawiony"
+	                flash.message = "Wpis " + newsInstance.description+ " został zmieniony"
 	                redirect(action:list,id: params.investmentid)
 	            }
 	            else {

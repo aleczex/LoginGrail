@@ -1,10 +1,11 @@
-#Sun Jan 31 19:50:11 CET 2010
+#Wed Feb 03 19:06:04 CET 2010
 eclipse.preferences.version=1
 encoding//grails-app/i18n/messages_pl.properties=UTF-8
 encoding//grails-app/views=UTF-8
 encoding//grails-app/views/auth/login.gsp=UTF-8
 encoding//grails-app/views/comment=UTF-8
 encoding//grails-app/views/comment/create.gsp=UTF-8
+encoding//grails-app/views/comment/edit.gsp=UTF-8
 encoding//grails-app/views/comment/list.gsp=UTF-8
 encoding//grails-app/views/folder=UTF-8
 encoding//grails-app/views/folder/edit.gsp=UTF-8

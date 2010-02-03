@@ -26,8 +26,8 @@
                     <thead>
                         <tr>
                    	        <th></th>
-                   	        <th>Ostatnio dodane zdjęcia:</th>
-                   	        <th>Ostatnie wpisy do dziennika:</th>
+                   	        <th align="center">Ostatnio dodane zdjęcia:</th>
+                   	        <th align="center">Ostatnie wpisy do dziennika:</th>
                         </tr>
                     </thead>
                     <tbody>

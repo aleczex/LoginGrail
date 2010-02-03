@@ -16,7 +16,11 @@ class CommentController {
 	
 	def list = {
 		params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+		println "par max: " + params.max
 		def offset = params.offset ? params.offset.toInteger(): 1
+        println "offset: " + offset
+        def commentInstanceList = Comment.findAll( "from Comment as c order by c.dateCreated asc", [max: params.max, offset: offset])
+        println "list: " + commentInstanceList
 		[ commentInstanceList: Comment.findAll( "from Comment as c order by c.dateCreated asc", [max: params.max, offset: offset]), commentInstanceTotal: Comment.count() ]
 	}
 	
@@ -45,25 +49,26 @@ class CommentController {
 		if(commentInstance) {
 			try {
 				commentInstance.delete(flush:true)
-				flash.message = "Comment \${params.id} deleted"
+				flash.message = "Komentarz '"+ commentInstance.description +"' został usunięty"
 				redirect(action:list)
 			}
 			catch(org.springframework.dao.DataIntegrityViolationException e) {
-				flash.message = "Comment \${params.id} could not be deleted"
+				flash.message = "Komentarz '"+ commentInstance.description +"' nie może być usunięty"
 				redirect(action:show,id:params.id)
 			}
 		}
 		else {
-			flash.message = "Comment not found with id \${params.id}"
+			flash.message = "Komentarz '"+ commentInstance.description +"' nie został znaleziony"
 			redirect(action:list)
 		}
 	}
 	
 	def edit = {
 		def commentInstance = Comment.get( params.id )
-		
+		println "inst: " + commentInstance
 		if(!commentInstance) {
 			flash.message = "Comment not found with id \${params.id}"
+			println "go to list"
 			redirect(action:list)
 		}
 		else {
@@ -84,8 +89,8 @@ class CommentController {
 			}
 			commentInstance.properties = params
 			if(!commentInstance.hasErrors() && commentInstance.save()) {
-				flash.message = "Comment \${params.id} updated"
-				redirect(action:show,id:commentInstance.id)
+				flash.message = "Komentarz '" + commentInstance.description + "' został zmieniony"
+				redirect(action:edit,id:commentInstance.id)
 			}
 			else {
 				render(view:'edit',model:[commentInstance:commentInstance])

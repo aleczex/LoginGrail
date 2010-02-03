@@ -11,13 +11,13 @@ class PictureController {
 		def folderInstance = Folder.get( params.id )
 		
 		if(!folderInstance) {
-			flash.message = "Folder not found with id ${params.id}"
+			flash.message = "Nie ma folderu o podanym id ${params.id}"
 			redirect(controller:'folder')
 		}
 		else {
 			def investmentInstance = Investment.find( "from Investment as i where i.id=:folderid", [folderid: folderInstance.investment.id] )
 			if(!investmentInstance) {
-				flash.message = "Investment not found with id ${params.id}"
+				flash.message = "Nie ma inwestycji o podanym id ${params.id}"
 				redirect(action:list)
 			}           
 			def userPictureList = authorizationService.getLoggedUserPictureListForInvestmentAndFolder(investmentInstance, folderInstance)
@@ -35,7 +35,7 @@ class PictureController {
 		
 		if(!f.empty) {
 			if(params.caption.empty) {
-				flash.message = 'caption cannot be empty'
+				flash.message = 'opis zdjęcia nie może być pusty'
 				render(view:'create')
 				return false
 			}
@@ -56,7 +56,7 @@ class PictureController {
 			def link="/picture/list/"+params.folder.id.encodeAsHTML() + "#" + p.id.encodeAsHTML()
 			if(!pictureService.uploadPicture(basePath+'/'+p.filename)) {
 				p.delete(flush:true)
-				flash.message = 'Nie udało się dodać obrazka'
+				flash.message = 'Nie udało się dodać zdjęcia'
 				redirect(uri: link)
 			}
 			def file = new File(basePath +'/'+ p.filename)
@@ -66,7 +66,7 @@ class PictureController {
 	    
 			redirect(uri: link)
 		} else {
-			flash.message = 'file cannot be empty'
+			flash.message = 'plik ze zdjęciem nie może być pusty'
 			render(view:'create')
 			return false
 		}
@@ -76,10 +76,9 @@ class PictureController {
 		def basePath = grailsAttributes.getApplicationContext().getResource("/images/upload/").getFile().toString()
 		def p = Picture.get(params.id)	
 		def folderid = p.folder.id
-		if(pictureService.deletePicture(basePath+'/'+p.filename)) {
-			p.delete()
-			redirect(action:'list', id: folderid)
-		}
+		pictureService.deletePicture(basePath+File.separator+p.filename)
+		p.delete()
+		redirect(action:'list', id: folderid)
 	}
 	
 	def create = {
@@ -100,7 +99,7 @@ class PictureController {
 //        }
         println params;
 		if(!folderInstance) {
-			flash.message = "Folder not found with id ${params.id}"
+			flash.message = "Nie ma folderu o podanym id ${params.id}"
 			redirect(action:'list')
 		}
 		else {
@@ -127,7 +126,7 @@ class PictureController {
 			println "params: " + params
 			pictureInstance.properties = params
 			if(!pictureInstance.hasErrors() && pictureInstance.save()) {
-				flash.message = "Picture ${params.id} updated"
+				flash.message = "Zdjęcie " + pictureInstance.caption + " zostało zmienione"
 				redirect(action:list,id:pictureInstance.folder.id)
 			}
 			else {
@@ -135,7 +134,7 @@ class PictureController {
 			}
 		}
 		else {
-			flash.message = "Picture not found with id ${params.id}"
+			flash.message = "Nie ma zdjęcia o podanym id ${params.id}"
 			redirect(action:list)
 		}
 	}	
@@ -147,7 +146,7 @@ class PictureController {
 		def userInstance = Users.findByUsername(subject.principal)
 		
 		if(!pictureInstance) {
-			flash.message = "Picture not found with id ${params.id}"
+			flash.message = "Nie ma zdjęcia o podanym id ${params.id}"
 			redirect(action:list)
 		}
 		else {

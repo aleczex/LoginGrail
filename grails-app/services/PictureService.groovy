@@ -21,6 +21,12 @@ class PictureService {
         return list
     }
     
+    def getLatestPicturesForInvestment(max, investmentInstance) {
+        def picturesList = Picture.findAll( "from Picture as n order by n.dateCreated desc", [max: max] )
+
+        return picturesList
+    }
+    
     def uploadPicture(filename) {
     	def BufferedImage bi
     	def imageProcessing = new ImageProcessing()
@@ -69,17 +75,22 @@ class PictureService {
     }
     
     def deletePicture(filename) {
-        def f = new File(filename+'.jpg')
-        if(f) {
-        	f.delete()
-        }
-        f = new File(filename+'_100.jpg')
-        if(f) {
-            f.delete()
-        }
-        f = new File(filename+'_320.jpg')
-        if(f) {
-            f.delete()
-        }
+    	println "delete Picture: " + filename
+    	try {
+	    	def f = new File(filename+'.jpg')
+	        if(f) {
+	        	f.delete()
+	        }
+	        f = new File(filename+'_100.jpg')
+	        if(f) {
+	            f.delete()
+	        }
+	        f = new File(filename+'_320.jpg')
+	        if(f) {
+	            f.delete()
+	        }
+    	} catch (Exception e) {
+    		println "exception bylo"
+    	}
     }
 }
