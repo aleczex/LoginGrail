@@ -22,7 +22,7 @@ environments {
    dbCreate = "update" 
                         url="jdbc:postgresql://localhost:5432/domek"
                         username = "grails"
-                        password = "grails123"
+                        password = "grails"
   }
  }
  test {
